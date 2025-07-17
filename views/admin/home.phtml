@@ -37,9 +37,9 @@ $str_dashboard_js = "";
 if ($is_admin){
     //
     if ($app_id == APP_ID_DENTABLIX){
-        $str_dashboard_js = "<script src='/app/dashboards/dashboard-dental.js?v=$js_files_version'></script>";
+        $str_dashboard_js = "";
     } else if ($app_id == APP_ID_BARBERDESK){
-        $str_dashboard_js = "<script src='/app/dashboards/dashboard-barbers.js?v=$js_files_version'></script>";
+        $str_dashboard_js = "";
     }
 }
 
@@ -47,7 +47,7 @@ if ($is_admin){
 
 //
 $App::$footer_section_scripts = <<<EOF
-    {$str_dashboard_js}
+    <script src='/app/dashboards/dashboard-scbs.js?v=$js_files_version'></script>
 EOF;
 
 //
@@ -63,13 +63,17 @@ include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml';
 if ($is_admin){
     //
     if ($app_id == APP_ID_DENTABLIX){
-        include PATH_VIEWS_ADMIN.DS.'dashboard-dental.phtml'; 
+        
     } else if ($app_id == APP_ID_BARBERDESK){
-        include PATH_VIEWS_ADMIN.DS.'dashboard-barbers.phtml'; 
+        
     }
 } else {
-    include PATH_VIEWS_ADMIN.DS.'dashboard-simple.phtml'; 
+    
 }
+
+
+include PATH_VIEWS_ADMIN.DS.'dashboard-scbs.phtml'; 
+
 
 //
 include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml';

@@ -1,0 +1,317 @@
+<div class="container-fluid">
+    
+    <!-- Page Header -->
+    <div class="row my-4">
+        <div class="col">
+            <h2>
+                <i class="fas fa-bus me-2 text-primary"></i>
+                Sun City Bus Sales Dashboard
+            </h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-auto">
+            <div class="text-muted small mt-4">
+                <i class="fas fa-calendar me-1"></i>
+                Today <?= date('l j \o\f M \o\f Y') ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="mb-1">45</h3>
+                            <p class="mb-0">Total Inventory</p>
+                            <small class="opacity-75">Available buses</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-bus" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="/admin/buses/index" class="text-white text-decoration-none">
+                        View inventory <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="mb-1">12</h3>
+                            <p class="mb-0">Sold This Month</p>
+                            <small class="opacity-75">+8% vs last month</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-handshake" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="#" class="text-white text-decoration-none">
+                        View sales <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="mb-1">8</h3>
+                            <p class="mb-0">Active Quotes</p>
+                            <small class="opacity-75">Pending response</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-file-invoice-dollar" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="#" class="text-white text-decoration-none">
+                        View quotes <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="mb-1">6</h3>
+                            <p class="mb-0">Active Brands</p>
+                            <small class="opacity-75">In catalog</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-tags" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="#" class="text-white text-decoration-none">
+                        View brands <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Action Area -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-6 col-md-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body text-center py-5">
+                    <div class="mb-4">
+                        <i class="fas fa-cogs text-primary" style="font-size: 4rem;"></i>
+                    </div>
+                    <h3 class="card-title mb-3">Inventory Management</h3>
+                    <p class="card-text text-muted mb-4 lead">
+                        Manage your bus inventory: add, edit and manage all vehicle information.
+                    </p>
+                    <a href="/admin/buses/index" class="btn btn-primary btn-lg px-5 py-3">
+                        <i class="fas fa-bus me-2"></i>
+                        Manage Buses
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-lg-8">
+            <!-- Sales Chart -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Sales and Quotes - Last 7 days
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="sales-chart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+
+            <!-- Popular Brands -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-star me-2"></i>
+                        Most Popular Brands
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="mb-3">
+                                    <i class="fas fa-bus text-primary" style="font-size: 3rem;"></i>
+                                </div>
+                                <h6>Mercedes-Benz</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                                </div>
+                                <p class="text-muted small">15 buses</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="mb-3">
+                                    <i class="fas fa-bus text-success" style="font-size: 3rem;"></i>
+                                </div>
+                                <h6>Volvo</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%"></div>
+                                </div>
+                                <p class="text-muted small">12 buses</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <div class="mb-3">
+                                    <i class="fas fa-bus text-warning" style="font-size: 3rem;"></i>
+                                </div>
+                                <h6>Scania</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 45%"></div>
+                                </div>
+                                <p class="text-muted small">8 buses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-4">
+            <!-- Recent Activity -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-clock me-2"></i>
+                        Recent Activity
+                    </h5>
+                </div>
+                <div class="card-body p-0" style="max-height: 400px; overflow-y: auto;">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item border-start border-success border-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">New Bus Added</h6>
+                                <small class="text-success">2h ago</small>
+                            </div>
+                            <p class="mb-1">Mercedes-Benz Sprinter 2019</p>
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>Administrator
+                            </small>
+                        </div>
+                        <div class="list-group-item border-start border-primary border-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Quote Sent</h6>
+                                <small class="text-primary">4h ago</small>
+                            </div>
+                            <p class="mb-1">Volvo B12M - ABC Corp Client</p>
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>Sales Rep
+                            </small>
+                        </div>
+                        <div class="list-group-item border-start border-warning border-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Bus Sold</h6>
+                                <small class="text-warning">Yesterday</small>
+                            </div>
+                            <p class="mb-1">Scania K-Series 2018</p>
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>Lead Sales Rep
+                            </small>
+                        </div>
+                        <div class="list-group-item border-start border-info border-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Price Updated</h6>
+                                <small class="text-info">1 day ago</small>
+                            </div>
+                            <p class="mb-1">MAN Lion's Coach 2020</p>
+                            <small class="text-muted">
+                                <i class="fas fa-user me-1"></i>Administrator
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        Quick Summary
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-bus me-2 text-primary"></i>
+                                <span class="fw-medium">New Buses</span>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted">28 units</small>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 62%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-bus me-2 text-success"></i>
+                                <span class="fw-medium">Used Buses</span>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted">17 units</small>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 38%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3 pt-3 border-top">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="text-primary mb-0">45</h5>
+                                <small class="text-muted">Total Buses</small>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="text-success mb-0">$2.8M</h5>
+                                <small class="text-muted">Total Value</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

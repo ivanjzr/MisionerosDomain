@@ -62,7 +62,7 @@ class Buses
         //
         $str_where_tags_ids = "";
         if ($str_tags_ids){
-            $str_where_tags_ids = "And t.id In ( Select product_id from products_tags Where account_id = $account_id And tag_id In ($str_tags_ids) )";
+            $str_where_tags_ids = "And t.id In ( Select bus_id from products_tags Where account_id = $account_id And tag_id In ($str_tags_ids) )";
         }
         //echo $str_where_tags_ids; exit;
 
@@ -148,6 +148,7 @@ class Buses
 
     //
     public static function getImage(&$row){
+        //dd($row);
         //
         $files_path = Paths::$path_buses . DS . $row['id'];
         $main_files_path = $files_path .DS . "main";
@@ -267,7 +268,7 @@ class Buses
         //
         $str_where_tags_ids = "";
         if ($str_tags_ids){
-            $str_where_tags_ids = "And t.id In ( Select product_id from products_tags Where account_id = $account_id And tag_id In ($str_tags_ids) )";
+            $str_where_tags_ids = "And t.id In ( Select bus_id from products_tags Where account_id = $account_id And tag_id In ($str_tags_ids) )";
         }
         //echo $str_where_tags_ids; exit;
         //
@@ -381,7 +382,7 @@ class Buses
             $tag_id_lean_protein = 5;
             //
             $where_is_lean = " And t.id In (select 
-                                                product_id 
+                                                bus_id 
                                                 from products_tags 
                                                     where tag_id In({$tag_id_lean_protein}) 
                                                     and account_id = {$account_id})";
@@ -439,15 +440,15 @@ class Buses
 
 
 
-    public static function updateImgExt($file_extension, $app_id, $product_id){
-        //echo $file_extension . " - " . $product_id; exit;
+    public static function updateImgExt($file_extension, $app_id, $bus_id){
+        //echo $file_extension . " - " . $bus_id; exit;
         //
         $update_results = Query::DoTaskV2([
             "task" => "update",
             "stmt" => function(){
                 return "
                 Update 
-                    products
+                    buses
                   
                   Set
                     img_ext = ?
@@ -457,17 +458,17 @@ class Buses
                   ;SELECT @@ROWCOUNT
                 ";
             },
-            "params" => function() use($file_extension, $app_id, $product_id){
+            "params" => function() use($file_extension, $app_id, $bus_id){
                 //
                 return [
                     $file_extension,
                     $app_id,
-                    $product_id
+                    $bus_id
                 ];
             },
-            "parse" => function($updated_rows, &$query_results) use($product_id){
+            "parse" => function($updated_rows, &$query_results) use($bus_id){
                 $query_results['affected_rows'] = $updated_rows;
-                $query_results['id'] = (int)$product_id;
+                $query_results['id'] = (int)$bus_id;
             }
         ]);
         //var_dump($update_results); exit;
@@ -536,7 +537,7 @@ class Buses
 
 
     //
-    public static function GetRecordById($account_id, $product_id){
+    public static function GetRecordById($account_id, $bus_id){
         //
         return Query::Get([
             "stmt" => function(){
@@ -551,7 +552,7 @@ class Buses
             },
             "params" => [
                 $account_id,
-                $product_id
+                $bus_id
             ],
             "parse" => function(&$row) use($account_id){
                 //
@@ -565,7 +566,7 @@ class Buses
 
 
     //
-    public static function GetDetails($account_id, $product_id, $city_id){
+    public static function GetDetails($account_id, $bus_id, $city_id){
         //
         return Query::Get([
             "stmt" => function(){
@@ -580,7 +581,7 @@ class Buses
             },
             "params" => [
                 $account_id,
-                $product_id
+                $bus_id
             ],
             "parse" => function(&$row) use($account_id, $city_id){
                 //Helper::printFull($row); exit;

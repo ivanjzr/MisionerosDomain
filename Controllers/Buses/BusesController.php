@@ -167,11 +167,7 @@ class BusesController extends BaseController
 
                 //
                 "parseRows" => function(&$row) use($app_id){
-                    //dd($row); exit;
-
-
-                    //
-                    //dd($row); exit;
+                    //dd($row);
 
                     //
                     $row['features'] = BusesFeatures::GetAll($app_id, $row['id']);
@@ -1132,7 +1128,7 @@ class BusesController extends BaseController
             $file_extension = pathinfo($img_section->getClientFilename(), PATHINFO_EXTENSION);
             $file_extension = strtolower($file_extension);
         }
-        //var_dump($img_section); exit;
+        //dd($img_section);
         //
         $precio = ( is_numeric($precio) ) ? $precio : 0;
         //echo $precio; exit;
@@ -1240,6 +1236,7 @@ class BusesController extends BaseController
             $results['id'] = $add_edit_record_id;
             //
             if ( $img_section && $file_extension ){
+                //echo $file_extension; dd($img_section);
                 //
                 if ( $record_id ){
                     $results['update_img_results'] = self::updateBusImage($app_id, $img_section, $file_extension, $add_edit_record_id);
