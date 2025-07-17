@@ -228,23 +228,18 @@ class CatModelsController extends BaseController
     //
     public function GetAllForSite($request, $response, $args) {
         //
-        $ses_data = $request->getAttribute("ses_data");
         $app_ses = $request->getAttribute("app");
-        //var_dump($ses_data); exit;
+        //dd($app_ses);
 
         //
-        if ($ses_data){
-            $account_id = $ses_data['account_id'];
-            $user_id = $ses_data['id'];
-        }
-        else if ($app_ses){
-            $account_id = $app_ses['account_id'];
-        }
+        $account_id = $app_ses['account_id'];
         //echo $account_id; exit;
+        
+        $make_id = trim($request->getQueryParam("mkid"));
 
         //
-        $results = CatModels::GetAllForSite($account_id);
-        //var_dump($results); exit;
+        $results = CatModels::GetAllForSite($account_id, $make_id);
+        //dd($results);
 
         //
         return $response->withJson($results, 200);

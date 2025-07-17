@@ -36,9 +36,9 @@ class BusesFeatures
                     
                     t.*
 				
-                        FROM buses_tags t
+                        FROM buses_features t
 				
-				            Left Join cat_tags tags On tags.id = t.feature_id
+				            Left Join cat_features feats On feats.id = t.feature_id
                   
                            Where t.app_id = ?
                            And t.bus_id = ?
@@ -51,13 +51,6 @@ class BusesFeatures
                 $bus_id
             ],
             "parse" => function(&$row){
-
-            //
-            if ( count(explode(" ", $row['tag_name'])) > 1 ){
-                $row['fixed_height'] = true;
-            }
-
-
             }
         ]);
     }
@@ -158,7 +151,7 @@ class BusesFeatures
 
 
             //
-            $stmt = "Delete FROM buses_tags
+            $stmt = "Delete FROM buses_features
                         Where bus_id = ?
                         And id = ?
                      ;SELECT @@ROWCOUNT

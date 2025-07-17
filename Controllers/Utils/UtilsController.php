@@ -42,6 +42,26 @@ class UtilsController extends BaseController
 
 
 
+    //
+    public function GetGroupedBusesYears($request, $response, $args) {
+        //
+        $app_data = $request->getAttribute("app");
+        //dd($app_data);
+        $app_id = $app_data['id'];
+        
+
+        //
+        $results = Query::Multiple("Select year from v_buses Where app_id = ? Group By year", [$app_id]);
+        //dd($results);
+
+
+        //
+        return $response->withJson($results, 200);
+    }
+
+
+
+
 
     //
     public function GetDestinosList($request, $response, $args) {

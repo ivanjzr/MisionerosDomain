@@ -63,7 +63,7 @@ class CatModels
 
 
     //
-    public static function GetAllForSite(){
+    public static function GetAllForSite($account_id, $make_id){
         //
         return Query::All([
             "stmt" => function(){
@@ -74,14 +74,16 @@ class CatModels
                         
                         FROM v_cat_models t
                         
-                           Where t.active = 1
-				           And t.allow_meal_plan = 1
+                           Where t.account_id = ?
+                           And t.make_id = ?
+                           And t.active = 1
 				
                     Order By t.id Asc
 			";
             },
             "params" => [
-
+                $account_id,
+                $make_id
             ],
             "parse" => function(){
 

@@ -1,0 +1,320 @@
+<?php 
+
+//
+$js = "<script src='/sites/scbs/index.js'></script>";
+
+//
+include PATH_ABS_VIEWS . DS . 'common' .DS . 'header.phtml';
+?>
+
+<!-- Hero Section -->
+<section style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-bottom: 1px solid #e9ecef;">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4" style="color: var(--dark-gray); letter-spacing: -1px;">Contact Us</h1>
+                <p class="lead mb-4" style="color: var(--medium-gray); line-height: 1.6;">Get in touch with our sales team. We have a good selection of used buses in various conditions and years - perfect for your transportation needs.</p>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="p-2 rounded-3 me-3" style="background: rgba(59, 76, 184, 0.1);">
+                                <i class="fas fa-clock" style="color: var(--primary-blue);"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold" style="color: var(--dark-gray);">Quick Response</div>
+                                <small style="color: var(--medium-gray);">Usually same day</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <div class="p-2 rounded-3 me-3" style="background: rgba(243, 156, 18, 0.1);">
+                                <i class="fas fa-handshake" style="color: var(--accent-orange);"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold" style="color: var(--dark-gray);">Fair Prices</div>
+                                <small style="color: var(--medium-gray);">Competitive rates</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img id="contactHeroImage" src="" alt="Contact Us" class="img-fluid rounded-4 shadow-lg" style="border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm h-100 text-center" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <div class="p-3 rounded-4 d-inline-block mb-3" style="background: rgba(59, 76, 184, 0.1);">
+                            <i class="fas fa-phone fs-2" style="color: var(--primary-blue);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3" style="color: var(--dark-gray);">Phone</h5>
+                        <a href="tel:915-613-9899" class="text-decoration-none" style="color: var(--accent-orange); font-weight: 500;">(915) 613-9899</a>
+                        <p class="mt-2 mb-0" style="color: var(--medium-gray); font-size: 0.9rem;">Mon-Fri: 8AM-6PM<br>Sat: 9AM-4PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm h-100 text-center" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <div class="p-3 rounded-4 d-inline-block mb-3" style="background: rgba(243, 156, 18, 0.1);">
+                            <i class="fas fa-envelope fs-2" style="color: var(--accent-orange);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3" style="color: var(--dark-gray);">Email</h5>
+                        <a href="mailto:info@SunCityBusSales.com" class="text-decoration-none" style="color: var(--accent-orange); font-weight: 500;">info@SunCityBusSales.com</a>
+                        <p class="mt-2 mb-0" style="color: var(--medium-gray); font-size: 0.9rem;">We respond within<br>24 hours</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm h-100 text-center" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <div class="p-3 rounded-4 d-inline-block mb-3" style="background: rgba(44, 62, 80, 0.1);">
+                            <i class="fas fa-map-marker-alt fs-2" style="color: var(--dark-gray);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3" style="color: var(--dark-gray);">Visit Us</h5>
+                        <p style="color: var(--medium-gray); font-weight: 500; margin-bottom: 8px;">8015 Alameda<br>El Paso, TX 79915</p>
+                        <a href="#" class="text-decoration-none" style="color: var(--accent-orange); font-size: 0.9rem;">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm h-100 text-center" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <div class="p-3 rounded-4 d-inline-block mb-3" style="background: rgba(39, 174, 96, 0.1);">
+                            <i class="fas fa-calendar fs-2" style="color: #27ae60;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3" style="color: var(--dark-gray);">Schedule</h5>
+                        <p style="color: var(--medium-gray); font-weight: 500; margin-bottom: 8px;">Test Drive<br>Available</p>
+                        <span style="color: var(--accent-orange); font-size: 0.9rem;">By Appointment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="py-5" style="background: var(--light-gray);">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+                    <div class="card-body p-5">
+                        <h3 class="fw-bold mb-4" style="color: var(--dark-gray);">Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label fw-semibold" style="color: var(--dark-gray);">First Name *</label>
+                                    <input type="text" class="form-control py-3" id="firstName" required style="border: 1px solid var(--border-light); border-radius: 12px;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label fw-semibold" style="color: var(--dark-gray);">Last Name *</label>
+                                    <input type="text" class="form-control py-3" id="lastName" required style="border: 1px solid var(--border-light); border-radius: 12px;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-semibold" style="color: var(--dark-gray);">Email *</label>
+                                    <input type="email" class="form-control py-3" id="email" required style="border: 1px solid var(--border-light); border-radius: 12px;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label fw-semibold" style="color: var(--dark-gray);">Phone</label>
+                                    <input type="tel" class="form-control py-3" id="phone" style="border: 1px solid var(--border-light); border-radius: 12px;">
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label fw-semibold" style="color: var(--dark-gray);">Subject *</label>
+                                    <select class="form-select py-3" id="subject" required style="border: 1px solid var(--border-light); border-radius: 12px;">
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="purchase">Bus Purchase</option>
+                                        <option value="financing">Financing Options</option>
+                                        <option value="inspection">Bus Inspection</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-semibold" style="color: var(--dark-gray);">Message *</label>
+                                    <textarea class="form-control" id="message" rows="5" required style="border: 1px solid var(--border-light); border-radius: 12px;" placeholder="Tell us about your transportation needs..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="newsletter" style="border: 1px solid var(--border-light);">
+                                        <label class="form-check-label" for="newsletter" style="color: var(--medium-gray);">
+                                            Subscribe to our newsletter for updates on new inventory
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-lg px-5 py-3 fw-semibold" style="background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange)); border: none; border-radius: 12px; color: white;">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm" style="border-radius: 16px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange)); color: white;">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Why Contact Us?</h4>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-check-circle me-3 mt-1" style="color: rgba(255,255,255,0.8);"></i>
+                            <div>
+                                <h6 class="fw-semibold mb-1">Good Selection</h6>
+                                <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">We have various used buses from different years in good condition.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-check-circle me-3 mt-1" style="color: rgba(255,255,255,0.8);"></i>
+                            <div>
+                                <h6 class="fw-semibold mb-1">Fair Pricing</h6>
+                                <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Competitive prices for quality used buses. No hidden fees.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-check-circle me-3 mt-1" style="color: rgba(255,255,255,0.8);"></i>
+                            <div>
+                                <h6 class="fw-semibold mb-1">Test Drives</h6>
+                                <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Schedule a test drive to see how the bus performs before buying.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-check-circle me-3 mt-1" style="color: rgba(255,255,255,0.8);"></i>
+                            <div>
+                                <h6 class="fw-semibold mb-1">Local Business</h6>
+                                <p class="mb-0" style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">We're located in El Paso and understand local transportation needs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card border-0 shadow-sm mt-4" style="border-radius: 16px;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3" style="color: var(--dark-gray);">Visit Our Lot</h5>
+                        <p class="mb-3" style="color: var(--medium-gray); font-size: 0.9rem;">Come see our bus inventory in person during these hours:</p>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Monday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">8AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Tuesday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">8AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Wednesday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">8AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Thursday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">8AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Friday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">8AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Saturday</span>
+                                    <span style="color: var(--dark-gray); font-weight: 500;">9AM-4PM</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <span style="color: var(--medium-gray);">Sunday</span>
+                                    <span style="color: var(--accent-orange); font-weight: 500;">Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--dark-gray) 0%, var(--primary-blue) 100%);">
+    <div class="container text-center text-white">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-3 fw-bold">Ready to Find Your Bus?</h2>
+                <p class="lead mb-4 opacity-90">Contact us today to see our current inventory and schedule a test drive.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="tel:915-613-9899" class="btn btn-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; color: var(--dark-gray);">
+                        <i class="fas fa-phone me-2"></i>Call Now
+                    </a>
+                    <a href="mailto:info@SunCityBusSales.com" class="btn btn-outline-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; border: 2px solid white;">
+                        <i class="fas fa-envelope me-2"></i>Email Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+$(document).ready(function() {
+    // Variables optimizadas
+    const DOM = 'https://placehold.co';
+    const s2 = '650x450';
+    const c1 = 'ffffff';
+    
+    // Set hero image
+    $('#contactHeroImage').attr('src', `/images/img-bus-1.png`);
+    
+    // Form submission
+    $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const firstName = $('#firstName').val();
+        const lastName = $('#lastName').val();
+        const email = $('#email').val();
+        const phone = $('#phone').val();
+        const subject = $('#subject').val();
+        const message = $('#message').val();
+        
+        // Simple validation
+        if (!firstName || !lastName || !email || !subject || !message) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
+        // Show success message
+        alert(`Thank you ${firstName}! Your message has been sent successfully. We'll get back to you within 24 hours.`);
+        
+        // Reset form
+        this.reset();
+    });
+    
+    // Form field focus effects
+    $('.form-control, .form-select').on('focus', function() {
+        $(this).css('border-color', 'var(--primary-blue)');
+        $(this).css('box-shadow', '0 0 0 0.2rem rgba(59, 76, 184, 0.25)');
+    }).on('blur', function() {
+        $(this).css('border-color', 'var(--border-light)');
+        $(this).css('box-shadow', 'none');
+    });
+});
+</script>
+
+<?php include PATH_ABS_VIEWS . DS . 'common' .DS . 'footer.phtml' ?>

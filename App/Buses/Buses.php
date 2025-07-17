@@ -57,6 +57,29 @@ class Buses
 
 
 
+
+    //
+    public static function GetAllForWebsite($account_id, $app_id){
+
+        //
+        return Query::Multiple("
+				SELECT t.* FROM v_buses t
+                           Where t.app_id = ?
+                           And t.active = 1
+                        order by newid()
+			", [
+			    $app_id
+        ], function(&$row) use ($app_id){
+
+            //
+            $row['features'] = BusesFeatures::GetAll($app_id, $row['id']);
+            $row['images'] = BusesGallery::GetAll($app_id, $row['id']);
+            Buses::getImage($row);
+
+        });
+    }
+
+
     //
     public static function GetAllV2($account_id, $city_id, $str_tags_ids, $exclude_a_la_carte = true, $lang_code = "en-us"){
         //

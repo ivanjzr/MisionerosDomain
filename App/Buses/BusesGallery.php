@@ -25,7 +25,7 @@ class BusesGallery
 
 
     //
-    public static function GetAll($account_id, $bus_id){
+    public static function GetAll($app_id, $bus_id){
         //
         return Query::All([
             "stmt" => function(){
@@ -36,12 +36,12 @@ class BusesGallery
                   
                     from buses_images t
                 
-                        Where t.account_id = ?
+                        Where t.app_id = ?
                         And t.bus_id = ?
 			";
             },
             "params" => [
-                $account_id,
+                $app_id,
                 $bus_id
             ],
             "parse" => function(&$row){

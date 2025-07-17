@@ -224,6 +224,29 @@ class BusesController extends BaseController
 
 
 
+
+    //
+    public function GetAllForWebsite($request, $response, $args) {
+
+        //
+        $app_data = $request->getAttribute("app");
+        //dd($app_data);
+        $app_id = $app_data['id'];
+        $account_id = $app_data['account_id'];
+
+        
+        //
+        $results = Buses::GetAllForWebsite($account_id, $app_id);
+        //dd($results);
+
+        //
+        return $response->withJson($results, 200);
+    }
+
+
+
+
+
    
     //
     public function GetAllAvailableServices($request, $response, $args) {

@@ -1,0 +1,216 @@
+<?php 
+
+
+//
+$js = "<script src='/sites/scbs/index.js'></script>";
+
+//
+include PATH_ABS_VIEWS . DS . 'common' .DS . 'header.phtml';
+?>
+
+<!-- Hero Section -->
+<section style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-bottom: 1px solid #e9ecef;">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="pe-lg-4">
+                    <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-gray); letter-spacing: -1px;">Quality Buses for Sale</h2>
+                    <p class="lead mb-4" style="color: var(--medium-gray); font-weight: 400; line-height: 1.6;">Browse our selection of quality used buses in El Paso, Texas. From school buses to tour coaches, we have the perfect vehicle for your business.</p>
+                    <div class="row text-center g-4">
+                        <div class="col-4">
+                            <div class="p-3 rounded-3" style="background: rgba(59, 76, 184, 0.05);">
+                                <i class="fas fa-bus fs-1 mb-2" style="color: var(--primary-blue);"></i>
+                                <div class="fw-bold fs-3" style="color: var(--dark-gray);">50+</div>
+                                <small style="color: var(--medium-gray); font-weight: 500;">Buses Available</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3" style="background: rgba(243, 156, 18, 0.05);">
+                                <i class="fas fa-tools fs-1 mb-2" style="color: var(--accent-orange);"></i>
+                                <div class="fw-bold fs-3" style="color: var(--dark-gray);">15+</div>
+                                <small style="color: var(--medium-gray); font-weight: 500;">Years Experience</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3" style="background: rgba(44, 62, 80, 0.05);">
+                                <i class="fas fa-handshake fs-1 mb-2" style="color: var(--dark-gray);"></i>
+                                <div class="fw-bold fs-3" style="color: var(--dark-gray);">500+</div>
+                                <small style="color: var(--medium-gray); font-weight: 500;">Happy Customers</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="" alt="Bus Fleet" class="img-fluid rounded-4 shadow-lg" id="heroImage" style="border: 1px solid var(--border-light);">
+                    <div class="position-absolute top-0 end-0 m-3">
+                        <span class="badge fs-6 fw-normal px-3 py-2" style="background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange)); border-radius: 20px;">Pretty Good Condition</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="card border-0 shadow-sm" style="border-radius: 16px; border: 1px solid var(--border-light);">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="p-2 rounded-3 me-3" style="background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));">
+                        <i class="fas fa-filter text-white"></i>
+                    </div>
+                    <h3 class="card-title m-0 fw-semibold" style="color: var(--dark-gray);">Find Your Bus</h3>
+                </div>
+				
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="brandFilter" class="form-label fw-semibold mb-2" style="color: var(--dark-gray);">Brand</label>
+                        <select id="brandFilter" class="form-select py-3" style="border: 1px solid var(--border-light); border-radius: 12px; background: var(--light-gray);">
+                            <option value="">All Brands</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="modelFilter" class="form-label fw-semibold mb-2" style="color: var(--dark-gray);">Model</label>
+                        <select id="modelFilter" class="form-select py-3" style="border: 1px solid var(--border-light); border-radius: 12px; background: var(--light-gray);">
+                            <option value="">All Models</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="yearFilter" class="form-label fw-semibold mb-2" style="color: var(--dark-gray);">Year</label>
+                        <select id="yearFilter" class="form-select py-3" style="border: 1px solid var(--border-light); border-radius: 12px; background: var(--light-gray);">
+                            <option value="">All Years</option>
+                        </select>
+                    </div>
+					<div class="col-md-1">
+						<label class="form-label fw-semibold mb-2" style="color: transparent;">Reset</label>
+						<button id="resetFilters" class="btn btn-outline-secondary px-4 py-3 w-100">
+							<i class="fas fa-refresh me-2"></i>
+						</button>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Buses Grid -->
+<section class="py-5" style="background: var(--light-gray);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3" style="color: var(--dark-gray); letter-spacing: -0.5px;">Used Buses For Sale</h2>
+            <p class="lead" style="color: var(--medium-gray);">Browse our inventory of buses for sale</p>
+            <div class="mx-auto mt-3" style="width: 80px; height: 3px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange)); border-radius: 2px;"></div>
+        </div>
+        <div class="row g-4" id="busesGrid">
+            <!-- Buses will be loaded here via JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--dark-gray) 0%, var(--primary-blue) 100%);">
+    <div class="container text-center text-white">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="mb-3 fw-bold">Ready to Find Your Bus?</h2>
+                <p class="lead mb-4 opacity-90">Contact us today for personalized assistance and financing options.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="tel:915-613-9899" class="btn btn-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; color: var(--dark-gray);">
+                        <i class="fas fa-phone me-2"></i>Call Now
+                    </a>
+                    <a href="contact.php" class="btn btn-outline-light btn-lg px-5 py-3 fw-semibold" style="border-radius: 12px; border: 2px solid white;">
+                        <i class="fas fa-envelope me-2"></i>Get Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Styles -->
+<style>
+    .bus-card {
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        background: white;
+        overflow: hidden;
+    }
+    
+    .bus-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(59, 76, 184, 0.15) !important;
+        border-color: rgba(59, 76, 184, 0.2);
+    }
+    
+    .bus-main-image {
+        border-radius: 0;
+        transition: transform 0.3s ease;
+    }
+    
+    .bus-card:hover .bus-main-image {
+        transform: scale(1.02);
+    }
+    
+    .thumbnail-container {
+        background: var(--light-gray);
+        border-top: 1px solid var(--border-light);
+    }
+    
+    .thumbnail-img {
+        border: 2px solid transparent;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        opacity: 0.7;
+        cursor: pointer;
+    }
+    
+    .thumbnail-img:hover,
+    .thumbnail-img.border-primary {
+        opacity: 1;
+        border-color: var(--primary-blue);
+        transform: translateY(-2px);
+    }
+    
+    .feature-badge {
+        background: var(--light-gray) !important;
+        color: var(--medium-gray) !important;
+        border: 1px solid var(--border-light);
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 8px;
+    }
+    
+    .btn-contact {
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-contact:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 76, 184, 0.3);
+    }
+    
+    .btn-details {
+        border: 2px solid var(--primary-blue);
+        color: var(--primary-blue);
+        background: transparent;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-details:hover {
+        background: var(--primary-blue);
+        color: white;
+        transform: translateY(-2px);
+    }
+</style>
+
+<?php include PATH_ABS_VIEWS . DS . 'common' .DS . 'footer.phtml' ?>
