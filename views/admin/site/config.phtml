@@ -1,0 +1,270 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+
+
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="/adm/plugins/summernote/summernote-bs4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script src="/adm/plugins/summernote/summernote-bs4.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/site/config/index.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Site Config", "config", "website");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                        </ol>
+
+
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 text-right">
+
+                        <a href="/admin/products/accesorios/index" class="btn btn-flat btn-warning"><i class="fas fa-reply"></i> Back </a>
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-config" data-toggle="pill" href="#config" role="tab" aria-controls="config" aria-selected="true">Config</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-layouts" data-toggle="pill" href="#layouts" role="tab" aria-controls="layouts" aria-selected="false">Layouts</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-three-tabContent">
+                                    <div class="tab-pane fade show active" id="config" role="tabpanel" aria-labelledby="tab-config">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+
+                                            <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12">
+                                                        <h4>Site Config</h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12 text-right">
+                                                        <br />
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fa fa-save"></i> Save
+                                                        </button>
+                                                        <button type="button" class="btn btn-flat btn-default" id="btnReloadConfig"><i class="fas fa-sync"></i> </button>
+                                                    </div>
+                                                </div>
+
+                                                <hr />
+
+                                                <div class="row">
+                                                    <div class="col-sm-8 col-lg-8 col-md-8 col-12" style="">
+                                                            <label for="site_title">Site Title:</label>
+                                                            <input data-rule-required="true" type="text" class="form-control" name="site_title" id="site_title" placeholder="Site Title...">
+                                                    </div>
+                                                    <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+
+                                                        <div id="img_section_container" class="text-center" style="display:none">
+                                                            <img id="img_section_url">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="img_section">Logotipo (max 886px x 960px)</label>
+                                                            <input type="file" class="form-control" name="img_section" id="img_section">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-lg-4 col-md-4 col-12" style="">
+                                                        <label for="email">Email:</label>
+                                                        <input type="text" data-rule-email="true" class="form-control" name="email" id="email" placeholder="Email...">
+                                                    </div>
+                                                    <div class="col-sm-8 col-lg-8 col-md-8 col-12" style="">
+                                                        <label for="address">Address:</label>
+                                                        <textarea data-rule-address="true" class="form-control" name="address" id="address" placeholder="Address..."></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="phone_number">Phone Number:</label>
+                                                        <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="...">
+                                                    </div>
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="phone_number_2">Phone Number 2:</label>
+                                                        <input type="text" class="form-control" name="phone_number_2" id="phone_number_2" placeholder="...">
+                                                    </div>
+                                                </div>
+
+
+                                                <br />
+                                                <h2> Social Networks </h2>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="facebook_url">Facebook:</label>
+                                                        <input type="text" class="form-control" name="facebook_url" id="facebook_url" placeholder="...">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="twitter_url">Twitter:</label>
+                                                        <input type="text" class="form-control" name="twitter_url" id="twitter_url" placeholder="...">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="youtube_url">Youtube:</label>
+                                                        <input type="text" class="form-control" name="youtube_url" id="youtube_url" placeholder="...">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="linkedin_url">LinkedIn:</label>
+                                                        <input type="text" class="form-control" name="linkedin_url" id="linkedin_url" placeholder="...">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12" style="">
+                                                        <label for="instagram_url">Instagram:</label>
+                                                        <input type="text" class="form-control" name="instagram_url" id="instagram_url" placeholder="...">
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="layouts" role="tabpanel" aria-labelledby="tab-layouts">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+
+                                            <div class="row">
+                                                <div class="col-sm-8 col-lg-8 col-md-8 col-12">
+                                                    <h4>Layouts</h4>
+                                                </div>
+                                                <div class="col-sm-4 col-lg-4 col-md-4 col-12 text-right">
+                                                    <br />
+                                                    <button type="button" id="btnAddLayout" class="btn btn-success"><span class="fa fa-plus"></span> Add </button>
+                                                    <button type="button" class="btn btn-flat btn-default" id="btnReloadLayouts"><i class="fas fa-sync"></i> </button>
+                                                </div>
+                                            </div>
+
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <table id="grid_layouts" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Folio:</th>
+                                                                    <th>Nombre:</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                            </div>
+                                            <!-- /.row -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </div><!-- /.container-fluid -->
+
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

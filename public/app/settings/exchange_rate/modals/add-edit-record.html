@@ -1,0 +1,76 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Department Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6 col-12">
+            <label for="tipo_cambio" class="form-label fw-medium">
+                <i class="fas fa-sitemap me-2 text-muted"></i>
+                Tipo de cambio:
+            </label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="tipo_cambio" 
+                   id="tipo_cambio" 
+                   placeholder="0">
+        </div>
+        <div class="col-md-6 col-12">
+
+            <label for="sys_pais_id" class="form-label fw-medium">
+                <i class="fas fa-flag me-2 text-muted"></i>
+                Pais/Moneda:
+            </label>
+
+            <select data-rule-required="true" 
+                    data-rule-number="true" 
+                    class="form-select" 
+                    id="sys_pais_id" 
+                    name="sys_pais_id" 
+                    disabled
+                    style="display:none;">
+            </select>
+
+            <div id="moneda_info" style="display:none;"></div>
+
+        </div>        
+    </div>
+
+
+    <!-- Edit Mode Footer Info -->
+    <div class="row edit-mode-only" style="display:none;">
+        <div class="col-12 text-end">
+            <hr />
+            <small class="text-muted">
+                Folio: <strong id="registro_folio"></strong> | 
+                Fecha creación: <strong id="registro_fecha_creacion"></strong>
+            </small>
+        </div>
+    </div>
+
+</form>

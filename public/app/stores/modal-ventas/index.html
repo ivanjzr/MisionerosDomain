@@ -1,0 +1,93 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_add_sale" name="form_add_sale" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-5">
+            <label for="suscripcion_id">Suscripciones:</label>
+            <select data-rule-required="true" class="form-control" name="suscripcion_id" id="suscripcion_id" disabled></select>
+            <div style="color:dodgerblue;" id="subs_info"></div>
+        </div>
+        <div class="col-5 text-center">
+            <label>Pago:</label><br />
+            <label><input type="radio" class="styled-checkbox required" name="pmtn_method" id="pmtn_method_cash" value="cash"> Efectivo </label>
+            <label><input type="radio" class="styled-checkbox" name="pmtn_method" id="pmtn_method_transf" value="transf"> Transf. </label>
+        </div>
+        <div class="col-2 text-right">
+            <br />
+            <button type="submit" class="btn btn-success"><span class="fa fa-plus"></span> Agregar </button>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12">
+
+
+            <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="grid_stores_sales" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id:</th>
+                            <th>Items:</th>
+                            <th>Total</th>
+                            <th>Payments</th>
+                            <th>Date</th>
+                            <th>Status:</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <br />
+
+
+
+    <div class="row hidden edit-mode-only">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

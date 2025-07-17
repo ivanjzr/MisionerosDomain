@@ -1,0 +1,324 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+//echo "test: ". $app_id . " - " . APP_ID_MISSIONEXPRESS; exit;
+
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>    
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="/adm/plugins/jquery.fileDownload.js"></script>
+    
+    
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+//var_dump($config); exit;
+$str_square = "";
+if ( $config && isset($config['app_id']) && $config['app_id'] === APP_ID_MISSIONEXPRESS ){
+    //
+    $str_square = "
+        <script>
+            var square_app_id = '{$config['app_id']}';
+            var square_loc_id = '{$config['loc_id']}';
+            var square_mode = '{$config['mode']}';
+        </script>
+        <script type='text/javascript' src='{$config['js_url']}'></script>
+    ";
+}
+//echo $str_square; exit;
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var app_id = $app_id;
+    </script>    
+    $str_square
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/vent.js?v=$js_files_version"></script>
+    <script src="/app/seats_helper.js?v=$js_files_version"></script>
+    <script src="/app/sales/index.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Ventas", "sales", "sales");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-4">
+
+                        <a href="#!" class="btn btn-flat btn-primary btnAddSale"><i class="fas fa-plus"></i> Nuevo Boleto </a>
+                        <a href="#!" class="btn btn-flat btn-success btnShowSale" style="display:none;"><i class="fas fa-shopping-cart"></i> Mi Venta </a>
+                        <a href="#!" class="btn btn-flat btn-warning btnRemoveSale" style="display:none;"><i class="fas fa-trash"></i> </a>
+
+                    </div>
+                    <div class="col-sm-4 text-right">                        
+                        
+<!--                        <button type="button" class="btn btn-flat btn-primary btnDownloadReport"><i class="fas fa-file-excel"></i> Download Report </button>-->
+                        <button type="button" class="btn btn-flat btn-info btnClear"><i class="fas fa-filter"></i> clear filter </button>
+                        <button type="button" class="btn btn-flat btn-default btnReload"><i class="fas fa-sync"></i> </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+
+
+                <div class="row">
+                    <div class="col-12">
+
+                        
+                    
+                    
+                        <div class="row mb-3">
+
+                            <div class="col-sm-3 col-12">
+                                <div class="form-group">
+                                    <div class="text-primary">Month</div>
+                                    <div class="input-group date" id="month_date" data-target-input="nearest">
+                                        <input type="text" class="form-control form-control-sm datetimepicker-input" data-target="#month_date" readonly />
+                                        <div class="input-group-append" data-target="#month_date" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-sm-3 col-12">
+                                <div class="text-primary">Dominio</div>
+                                <select class="form-control form-control-sm" id="filter_dominio_id">
+                                    <option value="">--Todos</option>
+                                    <option value="11">MissionExpress</option>
+                                    <option value="16">Tickets4Buses</option>
+                                    <option value="13">Plabuz</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col-sm-3 col-12">
+                            <div class="text-primary">Buscar Cliente/Vendedor</div>
+                                <select class="form-control inpt-search" data-rule-required="true" data-msg-required="has tu busqueda aqui" data-rule-number="true" id="filter_customer_id"></select>
+                            </div>
+
+                            <div class="col-sm-3 col-12">
+                                <div class="text-primary">Estatus Venta</div>
+                                <select class="form-control form-control-sm" id="filter_status_venta">
+                                    <option value="">--Todas</option>
+                                    <option value="1">Pagadas (tarjeta, efectivo)</option>
+                                    <option value="2">A Credito</option>
+                                </select>
+                            </div>
+                            
+
+                        </div>
+
+
+                      
+                        
+                        <div class="row mb-3">
+                            <div class="col-6">
+
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="aplica_comisiones" value="1">
+                                    <label for="aplica_comisiones">
+                                        Aplica Comisiones
+                                    </label>
+                                </div>
+
+                                <div id="comisiones_container" style="padding:0 5px 1px 5px;">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6 col-12">
+                                            
+                                            <div class="text-primary">Comisiones por cobrar</div>
+                                                <select class="form-control form-control-sm" id="filter_comision_venta">
+                                                    <option value="">--Todas</option>
+                                                    <option value="1">Cobradas</option>
+                                                    <option value="2">Por Cobrar</option>                                            
+                                                </select>
+                                            </div>
+
+                                            <div class="col-sm-6 col-12">
+                                                <div class="text-primary">Ventas por pagar</div>
+                                                <select class="form-control form-control-sm" id="filter_venta">
+                                                    <option value="">--Todas</option>
+                                                    <option value="1">Pagadas</option>
+                                                    <option value="2">Por Pagar</option>                                            
+                                                </select>
+                                            </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="aplica_comisiones_cbx" value="1">
+                                    <label for="aplica_comisiones_cbx">
+                                        Aplica Comisiones CBX
+                                    </label>
+                                </div>
+
+                                <div id="comisiones_cbx_container" style="padding:0 5px 1px 5px;">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6 col-12">
+                                            <div class="text-primary">Comisiones CBX por cobrar</div>
+                                            <select class="form-control form-control-sm" id="filter_comision_cbx">
+                                                <option value="">--Todas</option>
+                                                <option value="1">Cobradas</option>
+                                                <option value="2">Por Cobrar</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                            <div class="text-primary">Ventas (sin CBX) por pagar</div>
+                                            <select class="form-control form-control-sm" id="filter_venta_sin_cbx">
+                                                <option value="">--Todas</option>
+                                                <option value="1">Pagadas</option>
+                                                <option value="2">Por Pagar</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                     
+                        
+                        
+
+                        <div class="row mb-3">
+                            <div class="offset-sm-4 col-8 text-end text-right">
+
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <td><span>Total Registros: <br /><strong id="total_records">0</strong></span></td>
+                                        <td><span>Total Venta: <br /><strong id="total_venta">$0</strong></span></td>
+                                        <td><span>Total Comisiones: <br /><strong id="total_comisiones">$0</strong></span></td>
+                                        <td><span>Total Venta (sin comisiones): <br /><strong id="total_venta_sin_comisiones">$0</strong></span></td>
+                                        <td><span>Total Comisiones CBX: <br /><strong id="total_comisiones_cbx">$0</strong></span></td>
+                                        <td><span>Total Venta (sin comisiones CBX): <br /><strong id="total_venta_sin_comisiones_cbx">$0</strong></span></td>
+
+                                        <?php if ( (int)$app_id === APP_ID_MISSIONEXPRESS || (int)$app_id === APP_ID_T4B ){ ?>
+                                        <?php } ?>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+
+                        
+
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="grid_section" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id:</th>
+                                        <th>Venta <br /> Tipo:</th>
+                                        <th>Customer:</th>
+                                        <th>Items:</th>
+                                        <th>Total/Payments</th>
+                                        <th>Estatus Venta</th>
+                                        <th>Comision</th>
+                                        <th>Venta (sin comisiones)</th>
+                                        <th>Comision CBX</th>
+                                        <th>Total (sin CBX)</th>
+                                        <th>Inv#</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

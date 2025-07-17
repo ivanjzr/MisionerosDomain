@@ -1,0 +1,122 @@
+<?php
+include PATH_BASE.DS.'js_versioning.phtml';
+//var_dump($app); exit;
+
+//
+$App::$header_scrits = <<<EOF
+
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/app/login.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Login", "login");
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header-login.phtml'; ?>
+
+<div class="login-container">
+    <div class="login-card">
+        <!-- Header con Logo -->
+        <div class="login-header">
+            <div class="mb-3">
+                <?php
+                $str_size = "width:180px;";
+                if ($app['account_id'] === 6) {
+                    $str_size = "width:250px;";
+                }
+                ?>
+                <img src="/logos<?=$app['login_logo_path'];?>" alt="<?=$app['app_name'];?>" style="<?=$str_size;?>" class="img-fluid">
+            </div>
+            <h4 class="mb-0 card-title"><?=$GLOBALS['admin_title'];?></h4>
+            <p class="mb-0 text-muted">Platform</p>
+        </div>
+
+        <!-- Body del Login -->
+        <div class="login-body">
+            <div class="text-center mb-4">
+                <h5 class="text-muted">Inicia sesión con tus credenciales</h5>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="form_login_auth" name="form_login_auth" class="smart-form client-form">
+                
+                <!-- Email Input -->
+                <div class="mb-3">
+                    <label for="username" class="form-label text-muted">
+                        <i class="fas fa-envelope me-2"></i>Correo Electrónico
+                    </label>
+                    <div class="input-group">
+                        <input type="email" 
+                               class="form-control" 
+                               data-rule-required="true" 
+                               data-rule-email="true" 
+                               id="username" 
+                               name="username" 
+                               placeholder="tu@email.com">
+                        <span class="input-group-text">
+                            <i class="fas fa-envelope text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-3">
+                    <label for="password" class="form-label text-muted">
+                        <i class="fas fa-lock me-2"></i>Contraseña
+                    </label>
+                    <div class="input-group">
+                        <input type="password" 
+                               data-rule-required="true" 
+                               id="password" 
+                               name="password" 
+                               data-rule-minlength="3" 
+                               data-rule-maxlength="26" 
+                               class="form-control" 
+                               placeholder="Tu contraseña">
+                        <span class="input-group-text">
+                            <i class="fas fa-lock text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                        <label class="form-check-label text-muted" for="remember">
+                            Recordar mi sesión
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Login Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-login text-white">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        Iniciar Sesión
+                    </button>
+                </div>
+
+                <!-- Additional Links -->
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        ¿Olvidaste tu contraseña? 
+                        <a href="#" class="text-decoration-none">Recupérala aquí</a>
+                    </small>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer-login.phtml'; ?>

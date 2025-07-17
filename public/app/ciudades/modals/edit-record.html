@@ -1,0 +1,110 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                    Salir
+                </button>
+            </div>
+        </div>
+        <hr class="mt-2 mb-0" />
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Location Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-auto">
+            <label class="form-label">&nbsp;</label>
+            <div>
+                <button type="button" class="btn btn-primary btnSelectLocation" title="Seleccionar ubicación">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col">
+            <label for="ciudad_address" class="form-label fw-medium">
+                <i class="fas fa-home me-2 text-muted"></i>
+                Dirección:
+            </label>
+            <textarea data-rule-required="true" 
+                      class="form-control" 
+                      name="ciudad_address" 
+                      id="ciudad_address" 
+                      rows="3"
+                      placeholder="Dirección completa de la ciudad..."></textarea>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <label for="loc_identifier" class="form-label fw-medium">
+                <i class="fas fa-tag me-2 text-muted"></i>
+                Identificador de Ubicación:
+            </label>
+            <input type="text" 
+                   class="form-control" 
+                   name="loc_identifier" 
+                   id="loc_identifier"
+                   placeholder="Código o identificador...">
+        </div>
+        <div class="col-md-6">
+            <label for="loc_notes" class="form-label fw-medium">
+                <i class="fas fa-sticky-note me-2 text-muted"></i>
+                Notas:
+            </label>
+            <textarea data-rule-required="true" 
+                      class="form-control" 
+                      name="loc_notes" 
+                      id="loc_notes" 
+                      rows="3"
+                      placeholder="Notas adicionales..."></textarea>
+        </div>
+    </div>
+
+    <!-- Coordinates -->
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="ciudad_lat" class="form-label fw-medium text-muted small">
+                <i class="fas fa-crosshairs me-2"></i>
+                Latitud:
+            </label>
+            <input type="text" 
+                   class="form-control form-control-sm" 
+                   name="ciudad_lat" 
+                   id="ciudad_lat" 
+                   readonly
+                   placeholder="Se completa automáticamente">
+        </div>
+        <div class="col-md-6">
+            <label for="ciudad_lng" class="form-label fw-medium text-muted small">
+                <i class="fas fa-crosshairs me-2"></i>
+                Longitud:
+            </label>
+            <input type="text" 
+                   class="form-control form-control-sm" 
+                   name="ciudad_lng" 
+                   id="ciudad_lng" 
+                   readonly
+                   placeholder="Se completa automáticamente">
+        </div>
+    </div>
+
+</form>

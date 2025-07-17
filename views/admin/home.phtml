@@ -1,0 +1,76 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//dd($user_info);
+
+
+$app_id = $user_info['app_id'];
+$is_admin = $user_info['is_admin'];
+
+
+//
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/adm/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/adm/plugins/summernote/summernote-bs4.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/chart.js/Chart.min.js"></script>
+    <script src="/adm/plugins/sparklines/sparkline.js"></script>
+    <script src="/adm/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/adm/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="/adm/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="/adm/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/adm/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+EOF;
+
+//
+$str_dashboard_js = "";
+//
+if ($is_admin){
+    //
+    if ($app_id == APP_ID_DENTABLIX){
+        $str_dashboard_js = "<script src='/app/dashboards/dashboard-dental.js?v=$js_files_version'></script>";
+    } else if ($app_id == APP_ID_BARBERDESK){
+        $str_dashboard_js = "<script src='/app/dashboards/dashboard-barbers.js?v=$js_files_version'></script>";
+    }
+}
+
+
+
+//
+$App::$footer_section_scripts = <<<EOF
+    {$str_dashboard_js}
+EOF;
+
+//
+$App::setSectionInfo("Dashboard", "home");
+
+
+//
+include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; 
+include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml';
+
+
+//
+if ($is_admin){
+    //
+    if ($app_id == APP_ID_DENTABLIX){
+        include PATH_VIEWS_ADMIN.DS.'dashboard-dental.phtml'; 
+    } else if ($app_id == APP_ID_BARBERDESK){
+        include PATH_VIEWS_ADMIN.DS.'dashboard-barbers.phtml'; 
+    }
+} else {
+    include PATH_VIEWS_ADMIN.DS.'dashboard-simple.phtml'; 
+}
+
+//
+include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml';
+

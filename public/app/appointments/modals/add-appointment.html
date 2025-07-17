@@ -1,0 +1,146 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_add_reservar" name="form_add_reservar" enctype="multipart/form-data">
+
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Appointment Info Section -->
+    <div class="alert alert-info border-0 mb-4">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-calendar-alt text-primary me-3 fa-lg"></i>
+            <div>
+                <h6 class="mb-1 fw-bold" id="modal-appmt-title"></h6>
+                <div id="reservar_info" class="mb-0"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Search Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-muted">
+                <i class="fas fa-user me-2"></i>
+                Información del Paciente
+            </h6>
+            
+            <div class="row g-3">
+                <div class="col-sm-10 col-12">
+                    <label for="customer_id" class="form-label fw-medium">Buscar Paciente</label>
+                    <select class="form-select" 
+                            data-rule-required="true" 
+                            data-msg-required="selecciona al cliente" 
+                            data-rule-number="true" 
+                            id="customer_id" 
+                            name="customer_id">
+                    </select>
+                </div>
+                <div class="col-sm-2 col-12">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="button" class="btn btn-primary w-100 btnAddCustomer">
+                        <i class="fas fa-plus me-1"></i>Nuevo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Customer People Selection -->
+            <div class="row g-3 mt-2" id="sel_customer_people_container" style="display:none;">
+                <div class="col-12">
+                    <div class="p-3 bg-light rounded">
+
+                        <div class="row g-3 align-items-end">
+                            <div class="col-sm-8 col-12">
+                                <label for="customer_person_id" class="form-label fw-medium">Agendar Cita Para:</label>
+                                <select class="form-select" 
+                                        id="customer_person_id" 
+                                        name="customer_person_id" 
+                                        disabled>
+                                </select>                                
+                            </div>
+                            <div class="col-sm-4 col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btnReloadCustomerPeople" title="Recargar">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btnAddCustomerPeople">
+                                        <i class="fas fa-plus me-1"></i>Agregar Familiar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-primary">* Selecciona si la cita es para el cliente o un familiar suyo </small>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Selection Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-muted">
+                <i class="fas fa-stethoscope me-2"></i>
+                Servicio y Detalles
+            </h6>
+
+            <div class="row g-3 mb-3">
+                <div class="col-12">
+                    <label for="resource_service_id" class="form-label fw-medium">
+                        Seleccionar Servicio
+                        <span class="text-danger">*</span>
+                    </label>
+                    <select data-rule-required="true" 
+                            data-rule-number="true" 
+                            class="form-select" 
+                            id="resource_service_id" 
+                            name="resource_service_id" 
+                            disabled>
+                        <option value="">-- Seleccionar servicio --</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Service Duration Info -->
+            <div class="alert alert-info border-0 mb-3" id="service_duration_container" style="display:none;">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-info-circle text-primary me-2"></i>
+                    <div>
+                        <strong>Duración:</strong> <span id="service_duration_info"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="notes" class="form-label fw-medium">Notas adicionales</label>
+                    <textarea class="form-control" 
+                              id="notes" 
+                              name="notes" 
+                              rows="3" 
+                              placeholder="Agregar comentarios adicionales..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" name="start_datetime" id="start_datetime" />
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2 justify-content-end mt-4">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times me-1"></i>
+            Cancelar
+        </button>
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-calendar-plus me-1"></i>
+            Agendar Cita
+        </button>
+    </div>
+
+</form>

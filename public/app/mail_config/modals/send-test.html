@@ -1,0 +1,57 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_send_test" name="form_send_test" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h3 id="modal-title" style="margin:0;padding:0;">Enviar Email de Prueba</h3>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin"> 
+                <i class="fas fa-paper-plane me-1"></i>
+                Enviar 
+            </button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-6">
+            <label for="to_email">Email Destino:</label>
+            <input type="email" class="form-control" data-rule-required="true" data-rule-email="true" name="to_email" id="to_email" placeholder="correo@ejemplo.com">
+        </div>
+        <div class="col-6">
+            <label for="subject">Asunto:</label>
+            <input type="text" class="form-control" data-rule-required="true" name="subject" id="subject" placeholder="Asunto del email...">
+        </div>
+    </div>
+
+
+    <br />
+
+    <div class="row">
+        <div class="col-12">
+            <label for="message">Mensaje:</label>
+            <textarea class="form-control" name="message" id="message" data-rule-required="true" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

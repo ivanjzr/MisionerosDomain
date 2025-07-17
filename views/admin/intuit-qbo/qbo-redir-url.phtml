@@ -1,0 +1,25 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+
+
+
+?>
+<html>
+<head>
+<script>
+
+    //
+    var token_id = "<?=$token_id;?>";
+
+    //
+    localStorage.setItem("token_id", token_id);
+    console.log(token_id);
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

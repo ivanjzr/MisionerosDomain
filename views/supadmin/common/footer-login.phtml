@@ -1,0 +1,49 @@
+<?php
+
+//
+$jsversion = (isset($js_files_version) && $js_files_version) ? $js_files_version : "";
+
+?>
+
+
+<!-- jQuery -->
+<script src="/adm/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/adm/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/adm/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="/adm/plugins/toastr/toastr.min.js"></script>
+<script src="/adm/plugins/sweetalert2/sweetalert2.min.js"></script>
+
+
+
+<!-- SECTION PLUGINS -->
+<?=$App::$footer_scripts;?>
+
+
+<!-- AdminLTE App -->
+<script src="/adm/js/adminlte.js"></script>
+<script src="/utils.js"></script>
+<script src="/app.js"></script>
+
+
+<script src="/adm/plugins/require.js"></script>
+<script>
+    require.config({
+        urlArgs: "bust=" + (new Date()).getTime(),
+        waitSeconds: 200
+    });
+</script>
+
+<!-- SECTION SCRIPTS -->
+<?=$App::$footer_section_scripts;?>
+
+
+</body>
+</html>

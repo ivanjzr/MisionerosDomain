@@ -1,0 +1,56 @@
+
+.accordion-button:focus {
+    box-shadow: none !important;;
+}
+.accordion-button:not(.collapsed) {
+    color: #484848;
+    background-color: #eaf3ff !important;
+}
+
+label.error{
+    color: orangered;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+/*--------------------------*/
+/*------------------------------------------------------xxxxx-------------------------------------------------------*/
+#map {
+    height: 500px;
+    /*background-color: red;*/
+}
+
+
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+}
+.pac-container{
+    z-index: 1051 !important;
+}

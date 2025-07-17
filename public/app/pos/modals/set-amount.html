@@ -1,0 +1,56 @@
+<form method="post" id="form_set_amount" name="form_set_amount" enctype="multipart/form-data" autocomplete="off">
+
+
+    
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-10 col-12">
+                <strong id="set-amount-title" class="mb-0"></strong>
+            </div>
+            <div class="col-sm-2 col-12 text-end">                
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>                
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row g-3 my-4">
+        <div class="col-12">
+            <label for="new_amount" class="form-label fw-medium">
+                <i class="fas fa-dollar-sign me-2 text-muted"></i>
+                Capturar Monto
+            </label>
+            <input type="number"
+                data-rule-required="true"
+                data-msg-required="El monto es obligatorio"
+                data-rule-number="true"
+                data-msg-number="Debe ser un número válido"
+                data-rule-min="0.01"
+                data-msg-min="El monto mínimo es $0.01"
+                data-rule-max="99999.99"
+                data-msg-max="El monto máximo es $99,999.99"
+                step="0.01"
+                min="0.01"
+                max="99999.99"
+                class="form-control" 
+                id="new_amount" 
+                name="new_amount"
+                placeholder="$" />
+        </div>
+    </div>
+
+
+    <div class="row g-3 my-4">
+        <div class="col-12">
+            
+            <button type="submit" class="btn btn-success btn-block me-2">
+                <i class='fa fa-plus'></i> Continuar
+            </button>
+
+        </div>
+    </div>
+
+</form>

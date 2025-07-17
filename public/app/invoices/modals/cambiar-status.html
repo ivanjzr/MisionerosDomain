@@ -1,0 +1,59 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="mt-4">
+        <div class="row">
+            <div class="col-12">
+                <label for="valor">Estatus:</label>
+                <select data-rule-required="true" data-rule-number="true" class="form-control" name="status_id" id="status_id">
+                    <option value="">--select</option>
+                    <option value="1">Abierto</option>
+                    <option value="2">Por Cobrar</option>
+                    <option value="3">Pagado</option>
+                    <option value="4">Cancelado</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-sm-4 col-12 text-center">
+            <br />
+            </label><label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="send_email" name="send_email" value="1"> <strong> Enviar Correo </strong>
+            </label>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+
+</form>
+

@@ -1,0 +1,161 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    fa-save
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Basic Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-5 col-12">
+            <label for="nombre" class="form-label fw-medium">Bus Sales Title:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="nombre" 
+                   id="nombre" 
+                   placeholder="title...">
+        </div>
+        <div class="col-sm-7 col-12">
+            <label for="url" class="form-label fw-medium">url address:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="url" 
+                   id="url" 
+                   placeholder="url..." 
+                   readonly>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <label for="description" class="form-label fw-medium">description:</label>
+            <textarea class="form-control" 
+                      name="description" 
+                      id="description" 
+                      rows="3"
+                      placeholder="description..."></textarea>
+        </div>
+    </div>
+
+    <!-- Type and Category -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4 col-12">
+            <label for="tipo_bus" class="form-label fw-medium">Bus Type:</label>
+            <select class="form-select" data-rule-required="true" id="tipo_bus" name="tipo_bus" disabled></select>
+        </div>
+        <div class="col-md-4 col-12">
+            <label for="make_id" class="form-label fw-medium">Make:</label>
+            <select class="form-select" data-rule-required="true" id="make_id" name="make_id" disabled></select>
+        </div>
+        <div class="col-md-4 col-12">
+            <label for="model_id" class="form-label fw-medium">Model:</label>
+            <select class="form-select" data-rule-required="true" id="model_id" name="model_id" disabled></select>
+        </div>
+    </div>
+
+    <!-- Code and Price -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-12">
+            <label for="year" class="form-label fw-medium">Bus year:</label>
+            <input type="text" 
+                class="form-control" 
+                data-rule-digits="true"
+                data-rule-min="2000"
+                data-rule-max="2026"
+                data-rule-minlength="4"
+                data-rule-maxlength="4"
+                data-msg-digits="Please enter a valid year (numbers only)"
+                data-msg-min="Bus year must be 2000 or later"
+                data-msg-max="Bus year cannot be later than 2026"
+                data-msg-minlength="Year must be 4 digits"
+                data-msg-maxlength="Year must be 4 digits"
+                id="year" 
+                name="year"
+                placeholder="2019">
+        </div>
+        <div class="col-sm-6 col-12">
+            <label for="bus_code" class="form-label fw-medium">Bus Code:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="bus_code" 
+                   id="bus_code" 
+                   placeholder="Code...">
+        </div>        
+    </div>
+
+    <!-- Service Duration and Image -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6 col-12">
+            <label for="precio" class="form-label fw-medium">Price:</label>
+            <input type="text" 
+                   class="form-control" 
+                   data-rule-number="true" 
+                   id="precio" 
+                   name="precio"
+                   placeholder="0.00">
+        </div>
+        <div class="col-md-6 col-12">
+            <!-- Image Preview -->
+            <div id="img_section_container" style="display:none;" class="mb-3">
+                <label class="form-label fw-medium">Main Image:</label>
+                <div class="border rounded p-2 bg-light text-center">
+                    <img id="img_section_url" 
+                         class="img-fluid rounded" 
+                         style="max-height: 150px; max-width: 100%;">
+                </div>
+            </div>
+            
+            <!-- Image Upload -->
+            <div>
+                <label for="img_section" class="form-label fw-medium">Image (máx. 784px x 545px):</label>
+                <input type="file" 
+                       class="form-control" 
+                       name="img_section" 
+                       id="img_section"
+                       accept="image/*">
+                <small class="form-text text-muted">Allowed formats: JPG, PNG, GIF</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="row my-4 g-3">
+        <div class="col-12">
+            <div class="form-check">
+                <input type="checkbox" 
+                       class="form-check-input form-check-input-lg" 
+                       id="active" 
+                       name="active">
+                <label class="form-check-label fw-medium" for="active">
+                    Enabled
+                </label>
+            </div>
+        </div>
+    </div>
+
+</form>

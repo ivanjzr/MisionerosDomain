@@ -1,0 +1,81 @@
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-4">
+                    <label for="phone_country_id">Pais;</label>
+                    <select data-rule-required="true" data-rule-number="true" class="form-control" id="phone_country_id" name="phone_country_id"  disabled></select>
+                </div>
+                <div class="col-8">
+                    <label for="phone_number">Telefono:</label>
+                    <input type="text" data-rule-required="true" class="form-control" name="phone_number" id="phone_number">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <label for="email">Email:</label>
+            <input data-rule-email="true" type="text" class="form-control" name="email" id="email" placeholder="">
+        </div>
+    </div>
+
+    <br />
+
+
+
+    <div class="row">
+        <div class="col-sm-5 col-lg-5 col-md-5 col-12 text-center">
+            <br />
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+            </label>
+        </div>
+        <div class="col-sm-7 col-lg-7 col-md-7 col-12">
+
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+
+
+    <div class="row controls-row hidden edit-mode-only" style="display:none;">
+        <div class="col-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

@@ -1,0 +1,106 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_add_passanger" name="form_add_passanger" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title-2" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+
+
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-6 col-12">
+            <label for="passanger_name">Nombre:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="passanger_name" name="passanger_name">
+        </div>
+        <div class="col-md-6 col-12">
+
+
+            <label>Fecha de nacimiento</label>
+
+            <div class="row">
+                <div class="col-4">
+                    <select data-rule-required="true" data-rule-number="true" class="form-control" id="dob_anio"></select>
+                </div>
+                <div class="col-4">
+                    <select data-rule-required="true" data-rule-number="true" class="form-control" id="dob_mes">
+                        <option value="1">Ene</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Abr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Ago</option>
+                        <option value="9">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select data-rule-required="true" data-rule-number="true" class="form-control" id="dob_dia"></select>
+                </div>
+            </div>
+
+
+        </div>
+        <!--
+        <div class="col-md-6 col-12">
+            <label for="passanger_email">Email:</label>
+            <input type="text" class="form-control" data-rule-email="true" data-rule-required="true" id="passanger_email" name="passanger_email">
+        </div>
+        -->
+    </div>
+
+
+    <div class="row mt-4 mb-4">
+        <div class="col-10">
+
+
+            <div class="row">
+                <div class="col-md-2 col-12">
+                    <label>Edad:</label>
+                    <input type="text" class="form-control" id="passanger_age" readonly />
+                </div>
+                <div class="col-md-4 col-12">
+                    <label>Clasific:</label>
+                    <input type="text" class="form-control" id="clasificacion_info" name="clasificacion_info" readonly />
+                </div>
+                <div class="col-md-6 col-12">
+                    
+                    <input type="hidden" id="precio_base" />
+                    <input type="hidden" id="precio_total" />
+                    <input type="hidden" class="calc_info" />
+                    <br /><div class="calc_info"></div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-2 text-right">
+            <br />
+            <button type="submit" class="btn btn-success btn-right-margin btnAddEditPasajero"></button>
+        </div>
+    </div>
+    
+
+
+</form>

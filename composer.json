@@ -1,0 +1,33 @@
+{
+    "config": {
+        "platform": {
+            "php": "7.4.13"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App",
+            "Controllers\\": "Controllers",
+            "Helpers\\": "Helpers",
+            "Middleware\\": "Middleware",
+            "App\\Databases\\": "Databases"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.4",
+        "slim/php-view": "^2.2",
+        "twilio/sdk": "^5.12",
+        "phpmailer/phpmailer": "^6.0",
+        "endroid/qr-code": "^2.5",
+        "mikehaertl/phpwkhtmltopdf": "^2.3",
+        "phpoffice/phpspreadsheet": "^1.6",
+        "paypal/paypal-checkout-sdk": "^1.0",
+        "stripe/stripe-php": "^8.0",
+        "authorizenet/authorizenet": "^2.0",
+        "square/square": "14.0.0.20210915",
+        "ipinfo/ipinfo": "^2.3",
+        "aws/aws-sdk-php": "^3.283",
+        "quickbooks/v3-php-sdk": "^6.1"
+    }
+}

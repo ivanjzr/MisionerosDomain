@@ -1,0 +1,31 @@
+﻿# Dependencias de Composer
+/vendor/
+
+# Archivos de configuración
+.env
+.env.local
+
+# Logs
+/logs/
+*.log
+
+# Cache
+/cache/
+/tmp/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+/.vscode/
+/.idea/
+*.swp
+*.swo
+
+# Archivo de settings
+settings.php
+
+# Archivo de update en real time 
+# git rm --cached js_versioning.phtml
+js_versioning.phtml

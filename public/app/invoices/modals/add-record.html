@@ -1,0 +1,102 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title-2" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+
+
+    <div class="row mt-0 mb-4">
+        <div class="col-sm-5 col-12">
+            <div id="search_customer_container">
+                <label for="customer_id" id="search_type_title">Buscar Vendedor</label>
+                <select class="form-control inpt-search" data-rule-required="true" data-msg-required="has tu busqueda aqui" data-rule-number="true" id="customer_id" name="customer_id"></select>
+            </div>
+        </div>
+        <div class="col-sm-7 col-12">
+            <label for="company_name">Negocio:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="company_name" name="company_name">
+        </div>
+    </div>
+
+
+    <hr />
+
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-7 col-12">
+            <label for="customer_name">Nombre:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="customer_name" name="customer_name">
+            <input type="hidden" class="customer_id" name="customer_id">
+            <small class="uc-first customer_id"></small>
+        </div>
+        <div class="col-md-5 col-12">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="email" name="email">
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-4 col-12">
+            <label for="phone_country_id">Tel Pais:</label>
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="phone_country_id" name="phone_country_id"  disabled></select>
+        </div>
+        <div class="col-md-8 col-12">
+            <label for="phone_number">Telefono:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="phone_number" name="phone_number">
+        </div>
+    </div>
+
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-4 col-12">
+            <div id="por_cobrar_container" style="display:none;">
+                <label>Ventas Por Cobrar:</label>
+                <div id="por_cobrar_info"></div>
+            </div>
+        </div>
+        <div class="col-md-8 col-12">
+            <label>Notas: </label>
+            <textarea id="notes" name="notes" class="form-control"></textarea>            
+        </div>
+    </div>
+    
+
+    <div class="row">
+        <div class="col-12 text-right">
+            <input type="hidden" name="test">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn_submit" id="card-button"><span class="fa fa-check"></span> Crear </button>
+        </div>
+    </div>
+
+
+</form>
+<div id="payment-status-container"></div>
+
+
+
+
+
+
+   
+    
+
+

@@ -1,0 +1,323 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_add_exception" name="form_add_exception" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Basic Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-12">
+            <label for="motivo" class="form-label fw-medium">Motivo:</label>
+            <input type="text" 
+                   data-rule-required="true" 
+                   class="form-control" 
+                   id="motivo" 
+                   name="motivo"
+                   placeholder="Motivo de la excepción...">            
+        </div>
+        <div class="col-sm-6 col-12">
+            <label for="excepcion_tipo" class="form-label fw-medium">Tipo de Excepción:</label>
+            <select data-rule-required="true" 
+                    class="form-select" 
+                    id="excepcion_tipo" 
+                    name="excepcion_tipo">
+                <option value="solo_dia">Día Completo</option>
+                <option value="solo_dia_con_horario">Por Horario</option>
+                <option value="rango_dias">Rango de Días Completos</option>
+                <option value="rango_dias_con_horario">Horario en Rango de Días</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Description and Priority -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <label for="description" class="form-label fw-medium">Descripción:</label>
+            <textarea class="form-control" 
+                      id="description" 
+                      name="description"
+                      rows="3"
+                      placeholder="Descripción detallada de la excepción..."></textarea>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-12">
+            <label for="prioridad" class="form-label fw-medium">Prioridad de la excepción:</label>
+            <select class="form-select" id="prioridad" name="prioridad">
+                <option value="10">Máxima prioridad - Cierre de emergencia</option>
+                <option value="20">Alta prioridad - Evento especial</option>
+                <option value="30">Media-alta - Días festivos/feriados</option>
+                <option value="40">Media - Temporada especial</option>
+                <option value="50">Media-baja - Cambio en día específico</option>
+                <option value="100" selected>Baja - Excepción regular</option>
+                <option value="999">Mínima - Solo aplica si no hay otra excepción</option>
+            </select>
+            <small class="form-text text-muted">La prioridad determina qué excepción aplica cuando hay conflictos. Valores más bajos tienen mayor prioridad.</small>
+        </div>
+    </div>
+
+    <!-- Dates Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <h6 class="card-title mb-0">
+                <i class="fas fa-calendar me-2 text-muted"></i>
+                Fechas
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6 col-12">
+                    <label for="fecha" class="form-label fw-medium">Fecha:</label>
+                    <input type="text" 
+                           data-rule-required="true" 
+                           class="form-control datetimepicker-input" 
+                           id="fecha" 
+                           name="fecha"  
+                           data-toggle="datetimepicker" 
+                           data-target="#fecha" 
+                           readonly 
+                           placeholder="Seleccionar fecha...">
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="fecha_fin_container" style="display:none;">
+                        <label for="fecha_fin" class="form-label fw-medium">Fecha Fin:</label>
+                        <input type="text" 
+                               data-rule-required="true" 
+                               class="form-control datetimepicker-input" 
+                               id="fecha_fin" 
+                               name="fecha_fin" 
+                               data-toggle="datetimepicker" 
+                               data-target="#fecha_fin" 
+                               readonly 
+                               placeholder="Seleccionar fecha fin...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hours Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <h6 class="card-title mb-0">
+                <i class="fas fa-clock me-2 text-muted"></i>
+                Horarios
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6 col-12">
+                    <div class="hora_container" style="display:none;">
+                        <label for="hora_inicio" class="form-label fw-medium">Hora de Inicio:</label>
+                        <input type="text" 
+                               class="form-control datetimepicker-input" 
+                               id="hora_inicio" 
+                               name="hora_inicio" 
+                               data-toggle="datetimepicker" 
+                               data-target="#hora_inicio" 
+                               readonly 
+                               placeholder="Seleccionar hora...">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="hora_fin_container" style="display:none;">
+                        <label for="hora_fin" class="form-label fw-medium">Hora de Fin:</label>
+                        <input type="text" 
+                               class="form-control datetimepicker-input" 
+                               id="hora_fin" 
+                               name="hora_fin" 
+                               data-toggle="datetimepicker" 
+                               data-target="#hora_fin" 
+                               readonly 
+                               placeholder="Seleccionar hora...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recurrence Section -->
+    <div class="card mb-4" id="recurrencia_tipo_container">
+        <div class="card-header bg-light">
+            <h6 class="card-title mb-0">
+                <i class="fas fa-redo me-2 text-muted"></i>
+                Recurrencia
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="row g-3 mb-3">
+                <div class="col-sm-4 col-12">
+                    <label for="recurrencia_tipo" class="form-label fw-medium">Tipo de Recurrencia:</label>
+                    <select class="form-select" id="recurrencia_tipo" name="recurrencia_tipo">
+                        <option value="">-- Sin recurrencia --</option>
+                        <option value="diaria">Diaria</option>
+                        <option value="anual">Anual</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 col-12">
+                    <div class="recurrencia_duracion" style="display:none;">
+                        <label class="form-label fw-medium">Duración:</label>
+                        <div class="form-check">
+                            <input type="radio" 
+                                   class="form-check-input" 
+                                   name="recurrencia_duracion" 
+                                   id="recurrencia_duracion_ilimitado" 
+                                   value="" 
+                                   checked>
+                            <label class="form-check-label" for="recurrencia_duracion_ilimitado">
+                                Ilimitado
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" 
+                                   class="form-check-input" 
+                                   name="recurrencia_duracion" 
+                                   id="recurrencia_duracion_hasta_fecha_limite" 
+                                   value="fecha_limite">
+                            <label class="form-check-label" for="recurrencia_duracion_hasta_fecha_limite">
+                                Hasta fecha límite
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-12">
+                    <div class="recurrencia_fecha_limite" style="display:none;">
+                        <label for="recurrencia_fecha_limite" class="form-label fw-medium">Fecha Límite:</label>
+                        <input type="text" 
+                               class="form-control datetimepicker-input" 
+                               id="recurrencia_fecha_limite" 
+                               name="recurrencia_fecha_limite" 
+                               data-toggle="datetimepicker" 
+                               data-target="#recurrencia_fecha_limite" 
+                               readonly 
+                               placeholder="Seleccionar fecha límite...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Days Selection -->
+            <div id="recurrencia_tipo_diaria_container" style="display:none;">
+                <h6 class="fw-medium mb-3">Días de recurrencia</h6>
+                <div class="row g-2">
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_mon" 
+                                   name="recur_mon">
+                            <label class="form-check-label fw-medium" for="recur_mon">
+                                Lunes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_tue" 
+                                   name="recur_tue">
+                            <label class="form-check-label fw-medium" for="recur_tue">
+                                Martes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_wed" 
+                                   name="recur_wed">
+                            <label class="form-check-label fw-medium" for="recur_wed">
+                                Miércoles
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_thu" 
+                                   name="recur_thu">
+                            <label class="form-check-label fw-medium" for="recur_thu">
+                                Jueves
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_fri" 
+                                   name="recur_fri">
+                            <label class="form-check-label fw-medium" for="recur_fri">
+                                Viernes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_sat" 
+                                   name="recur_sat">
+                            <label class="form-check-label fw-medium" for="recur_sat">
+                                Sábado
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="form-check">
+                            <input type="checkbox" 
+                                   class="form-check-input" 
+                                   id="recur_sun" 
+                                   name="recur_sun">
+                            <label class="form-check-label fw-medium" for="recur_sun">
+                                Domingo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="form-check">
+                <input type="checkbox" 
+                       class="form-check-input form-check-input-lg" 
+                       id="activo" 
+                       name="activo" 
+                       checked>
+                <label class="form-check-label fw-medium" for="activo">
+                    Excepción Activa
+                </label>
+            </div>
+        </div>
+    </div>
+
+</form>

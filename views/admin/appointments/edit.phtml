@@ -1,0 +1,291 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+
+//
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/app/appointments/edit.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Citas", "appointments", "citas");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+<!-- Main Content -->
+<main class="container-fluid py-4" id="section-main">
+    
+    <!-- Loading Overlay -->
+    <div class="overlay-2 section-preloader" style="display:none;">
+        <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-lg-6 col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item">
+                        <a href="/admin" class="text-decoration-none text-muted">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/admin/appointments/index" class="text-decoration-none text-muted">Citas</a>
+                    </li>
+                    <li id="appointment_reference" class="breadcrumb-item active text-dark fw-medium"></li>
+                </ol>
+            </nav>
+            <h4 class="mb-0 fw-bold text-dark">
+                <i class="fas fa-calendar-check me-2 text-muted"></i>
+                Gestión de Cita
+            </h4>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="col-lg-6 col-md-4 text-end">
+            <div class="d-flex justify-content-end flex-wrap gap-2">
+                <!-- Indicador de cita cobrada -->
+                <span id="paid_indicator" class="badge bg-success fs-6 py-2 px-3" style="display:none;">
+                    <i class="fas fa-check-circle me-1"></i>COBRADO
+                </span>
+                
+                <button type="button" class="btn btn-outline-danger btn-sm action-btn" id="btnCancel" style="display:none;">
+                    <i class="fas fa-times me-1"></i>
+                    <span class="d-none d-sm-inline">Cancel</span>
+                </button>
+                
+                <button type="button" class="btn btn-success btn-sm action-btn" id="btnConfirm" style="display:none;">
+                    <i class="fas fa-check me-1"></i>
+                    <span class="d-none d-sm-inline">Confirmar</span>
+                </button>
+
+                <button type="button" class="btn btn-warning btn-sm action-btn" id="btnPending" style="display:none;">
+                    <i class="fas fa-clock me-1"></i>
+                    <span class="d-none d-sm-inline">Pendiente</span>
+                </button>
+                
+                <button type="button" class="btn btn-info btn-sm action-btn" id="btnReSchedule" style="display:none;">
+                    <i class="fas fa-calendar-alt me-1"></i>
+                    <span class="d-none d-sm-inline">Re-agendar</span>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm action-btn" id="btnInProgress" style="display:none;">
+                    <i class="fas fa-play me-1"></i>
+                    <span class="d-none d-sm-inline">En Progreso</span>
+                </button>
+
+                <a href="/admin/appointments/index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>
+                    <span class="d-none d-sm-inline">Back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-4"></div>
+
+    <!-- Status Header Card -->
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body py-3">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <span class="text-muted fw-medium">Estado actual:</span>
+                        <div id="current_status_badge"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex flex-wrap gap-2 justify-content-md-end">
+                        <span class="badge bg-light text-dark border">
+                            <i class="fas fa-map-marker-alt me-1"></i>
+                            <span id="location_badge"></span>
+                        </span>
+                        <span class="badge bg-light text-dark border">
+                            <i class="fas fa-door-open me-1"></i>
+                            <span id="resource_badge"></span>
+                        </span>
+                        <span class="badge bg-light text-dark border">
+                            <i class="fas fa-clock me-1"></i>
+                            <span id="time_badge"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Details Card -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-light border-0">
+            <h5 class="card-title mb-0 text-dark fw-medium">
+                <i class="fas fa-info-circle me-2 text-muted"></i>
+                Detalles de la Cita
+            </h5>
+        </div>
+        
+        <div class="card-body">
+            <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+                <div class="row g-4">
+                    <!-- Left Column -->
+                    <div class="col-lg-6">
+                        <!-- Cliente -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-user me-2 text-muted"></i>Cliente
+                            </label>
+                            <input type="text" class="form-control border-1" name="customer_name" id="customer_name" readonly>
+                        </div>
+
+                        <!-- Familiar -->
+                        <div class="mb-3" id="relative_container" style="display:none;">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-users me-2 text-muted"></i>Familiar
+                            </label>
+                            <input type="text" class="form-control border-1" name="relative_name_and_type" id="relative_name_and_type" readonly>
+                        </div>
+                        
+                        <!-- Servicio -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-teeth me-2 text-muted"></i>Servicio
+                            </label>
+                            <input type="text" class="form-control border-1" name="service_name" id="service_name" readonly>
+                        </div>
+                        
+                        <!-- Notas -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-sticky-note me-2 text-muted"></i>Notas
+                            </label>
+                            <textarea class="form-control border-1" name="appointment_notes" id="appointment_notes" rows="3" placeholder="Sin notas adicionales..." readonly></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="col-lg-6">
+                        <!-- Venta Asociada -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-receipt me-2 text-muted"></i>Venta Asociada
+                            </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control border-1" name="sale_id" id="sale_id" readonly placeholder="Sin venta asociada">
+                                <span class="input-group-text bg-light border-1">
+                                    <i class="fas fa-link text-muted"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Información del Servicio -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-tag me-2 text-muted"></i>Duración
+                            </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control border-1" name="service_duration" id="service_duration" readonly placeholder="Duración">
+                            </div>
+                        </div>
+
+                        <!-- Precio -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-dollar-sign me-2 text-muted"></i>Precio del Servicio
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-1">$</span>
+                                <input type="text" class="form-control border-1" name="service_price" id="service_price" readonly>
+                                <span class="input-group-text bg-light border-1">MXN</span>
+                            </div>
+                        </div>
+
+                        <!-- Fecha y Hora Completa -->
+                        <div class="mb-3">
+                            <label class="form-label fw-medium text-dark">
+                                <i class="fas fa-calendar-alt me-2 text-muted"></i>Fecha y Hora Reservada
+                            </label>
+                            <input type="text" class="form-control border-1" name="appointment_time" id="appointment_time" readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-control:read-only {
+            background-color: #f8f9fa;
+            border-color: #e9ecef;
+        }
+        
+        .card {
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn {
+            min-width: 110px;
+        }
+        
+        .badge {
+            font-weight: 500;
+        }
+    </style>
+
+</main>
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

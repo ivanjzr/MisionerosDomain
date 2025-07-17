@@ -1,0 +1,386 @@
+<form method="post" id="form_add_record" name="form_add_record" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header border-bottom">
+        <h5 class="modal-title text-primary" id="modal-title">
+            <i class="fas fa-plus me-2"></i>
+            Nueva Consulta
+        </h5>
+        <div class="ms-auto">
+            <button type="submit" class="btn btn-success me-2">
+                <i class='fas fa-save me-1'></i> Guardar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-1"></i>
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+        
+        <!-- Alerts Container -->
+        <div id="alerts-container-2" class="mb-3"></div>
+
+        <!-- Card: Información Básica de la Consulta -->
+        <div class="card border-0 bg-light mb-4">
+            <div class="card-body">
+                <h6 class="section-title mb-3">
+                    <i class="fas fa-calendar text-primary me-2"></i>
+                    Información de la Consulta
+                </h6>
+                
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-medium">Fecha/Hora de Revision</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="revision_date" readonly data-toggle="datetimepicker" data-target="#revision_date">
+                            <div class="input-group-append" data-toggle="datetimepicker" data-target="#revision_date">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="motivo_consulta" class="form-label fw-medium">
+                            <i class="fas fa-comment-medical me-2 text-muted"></i>
+                            Motivo de Consulta:
+                        </label>
+                        <input data-rule-required="true" 
+                               type="text" 
+                               class="form-control" 
+                               name="motivo_consulta" 
+                               id="motivo_consulta" 
+                               placeholder="Motivo de la consulta...">
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label for="notes" class="form-label fw-medium">
+                            <i class="fas fa-sticky-note me-2 text-muted"></i>
+                            Notas Generales:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="notes" 
+                                  id="notes" 
+                                  rows="3" 
+                                  placeholder="Notas adicionales..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Información Básica Médica -->
+        <div class="card border-0 bg-light mb-4">
+            <div class="card-body">
+                <h6 class="section-title mb-3">
+                    <i class="fas fa-heartbeat text-danger me-2"></i>
+                    Información Básica Médica
+                </h6>
+
+                <div class="row g-3 mb-3">
+
+                    
+
+                    <div class="col-md-3">
+                        <label for="peso_kg" class="form-label fw-medium">
+                            <i class="fas fa-weight me-2 text-muted"></i>
+                            Peso (Kg):
+                        </label>
+                        <input type="number" 
+                               step="0.01" 
+                               class="form-control" 
+                               name="peso_kg" 
+                               id="peso_kg" 
+                               placeholder="0.00">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="estatura_cm" class="form-label fw-medium">
+                            <i class="fas fa-ruler-vertical me-2 text-muted"></i>
+                            Estatura (cm):
+                        </label>
+                        <input type="number" 
+                               step="0.01" 
+                               class="form-control" 
+                               name="estatura_cm" 
+                               id="estatura_cm" 
+                               placeholder="0.00">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="temperatura_celsius" class="form-label fw-medium">
+                            <i class="fas fa-thermometer-half me-2 text-muted"></i>
+                            Temperatura (°C):
+                        </label>
+                        <input type="number" 
+                               step="0.1" 
+                               class="form-control" 
+                               name="temperatura_celsius" 
+                               id="temperatura_celsius" 
+                               placeholder="36.5">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="frecuencia_cardiaca" class="form-label fw-medium">
+                            <i class="fas fa-heart me-2 text-muted"></i>
+                            Frecuencia Cardíaca:
+                        </label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="frecuencia_cardiaca" 
+                               id="frecuencia_cardiaca" 
+                               placeholder="80">
+                    </div>
+
+                
+
+                    <div class="col-md-4">
+                        <label for="presion_sistolica" class="form-label fw-medium">
+                            <i class="fas fa-tint me-2 text-muted"></i>
+                            Presión Sistólica:
+                        </label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="presion_sistolica" 
+                               id="presion_sistolica" 
+                               placeholder="120">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="presion_diastolica" class="form-label fw-medium">Presión Diastólica:</label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="presion_diastolica" 
+                               id="presion_diastolica" 
+                               placeholder="80">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="glucosa_mg_dl" class="form-label fw-medium">
+                            <i class="fas fa-vial me-2 text-muted"></i>
+                            Glucosa (mg/dl):
+                        </label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="glucosa_mg_dl" 
+                               id="glucosa_mg_dl" 
+                               placeholder="100">
+                    </div>
+
+                
+
+                    <div class="col-md-4">
+                        <label for="alergias" class="form-label fw-medium">
+                            <i class="fas fa-exclamation-triangle me-2 text-muted"></i>
+                            Alergias:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="alergias" 
+                                  id="alergias" 
+                                  rows="2" 
+                                  placeholder="Alergias conocidas..."></textarea>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="medicamentos_actuales" class="form-label fw-medium">
+                            <i class="fas fa-pills me-2 text-muted"></i>
+                            Medicamentos Actuales:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="medicamentos_actuales" 
+                                  id="medicamentos_actuales" 
+                                  rows="2" 
+                                  placeholder="Medicamentos que toma..."></textarea>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="antecedentes_familiares" class="form-label fw-medium">
+                            <i class="fas fa-users me-2 text-muted"></i>
+                            Antecedentes Familiares:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="antecedentes_familiares" 
+                                  id="antecedentes_familiares" 
+                                  rows="2" 
+                                  placeholder="Antecedentes familiares relevantes..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Información Específica Dental -->
+        <div class="card border-0 bg-light mb-4">
+            <div class="card-body">
+                <h6 class="section-title mb-3">
+                    <i class="fas fa-tooth text-warning me-2"></i>
+                    Información Dental
+                </h6>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4">
+                        <label for="dolor_nivel_1_10" class="form-label fw-medium">
+                            <i class="fas fa-thermometer-full me-2 text-muted"></i>
+                            Nivel de Dolor (1-10):
+                        </label>
+                        <select class="form-select" name="dolor_nivel_1_10" id="dolor_nivel_1_10">
+                            <option value="">-- Sin dolor --</option>
+                            <option value="1">1 - Muy leve</option>
+                            <option value="2">2 - Leve</option>
+                            <option value="3">3 - Leve-Moderado</option>
+                            <option value="4">4 - Moderado</option>
+                            <option value="5">5 - Moderado</option>
+                            <option value="6">6 - Moderado-Severo</option>
+                            <option value="7">7 - Severo</option>
+                            <option value="8">8 - Severo</option>
+                            <option value="9">9 - Muy Severo</option>
+                            <option value="10">10 - Extremo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="cepillado_diario_veces" class="form-label fw-medium">
+                            <i class="fas fa-brush me-2 text-muted"></i>
+                            Cepillado Diario (veces):
+                        </label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="cepillado_diario_veces" 
+                               id="cepillado_diario_veces" 
+                               placeholder="2" 
+                               min="0" 
+                               max="10">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="ultima_limpieza_meses" class="form-label fw-medium">
+                            <i class="fas fa-calendar-alt me-2 text-muted"></i>
+                            Última Limpieza (meses):
+                        </label>
+                        <input type="number" 
+                               class="form-control" 
+                               name="ultima_limpieza_meses" 
+                               id="ultima_limpieza_meses" 
+                               placeholder="6" 
+                               min="0">
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   name="sangrado_encias" 
+                                   id="sangrado_encias">
+                            <label class="form-check-label fw-medium" for="sangrado_encias">
+                                <i class="fas fa-tint me-2 text-muted"></i>
+                                Sangrado de Encías
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   name="sensibilidad_dental" 
+                                   id="sensibilidad_dental">
+                            <label class="form-check-label fw-medium" for="sensibilidad_dental">
+                                <i class="fas fa-snowflake me-2 text-muted"></i>
+                                Sensibilidad Dental
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   name="mal_aliento" 
+                                   id="mal_aliento">
+                            <label class="form-check-label fw-medium" for="mal_aliento">
+                                <i class="fas fa-wind me-2 text-muted"></i>
+                                Mal Aliento
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   name="uso_hilo_dental" 
+                                   id="uso_hilo_dental">
+                            <label class="form-check-label fw-medium" for="uso_hilo_dental">
+                                <i class="fas fa-teeth me-2 text-muted"></i>
+                                Usa Hilo Dental
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   name="ortodoncia_previa" 
+                                   id="ortodoncia_previa">
+                            <label class="form-check-label fw-medium" for="ortodoncia_previa">
+                                <i class="fas fa-teeth-open me-2 text-muted"></i>
+                                Ortodoncia Previa
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="diagnostico" class="form-label fw-medium">
+                            <i class="fas fa-stethoscope me-2 text-muted"></i>
+                            Diagnóstico:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="diagnostico" 
+                                  id="diagnostico" 
+                                  rows="3" 
+                                  placeholder="Diagnóstico de la consulta..."></textarea>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="tratamiento_recomendado" class="form-label fw-medium">
+                            <i class="fas fa-prescription me-2 text-muted"></i>
+                            Tratamiento Recomendado:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="tratamiento_recomendado" 
+                                  id="tratamiento_recomendado" 
+                                  rows="3" 
+                                  placeholder="Tratamiento recomendado..."></textarea>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label for="odontograma" class="form-label fw-medium">
+                            <i class="fas fa-chart-line me-2 text-muted"></i>
+                            Odontograma:
+                        </label>
+                        <textarea class="form-control" 
+                                  name="odontograma" 
+                                  id="odontograma" 
+                                  rows="4" 
+                                  placeholder="Información del odontograma..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

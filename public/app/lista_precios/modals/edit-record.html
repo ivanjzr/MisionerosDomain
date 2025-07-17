@@ -1,0 +1,79 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+
+    <div class="row">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-12">
+            <label for="descripcion">Descripcion:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="descripcion" id="descripcion" placeholder="">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+            <label for="clave">Clave:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="clave" id="clave" placeholder="">
+        </div>
+    </div>
+
+
+
+    <div class="mt-4" style="padding:10px;background-color: #eee;border-radius: 20px;">
+        <div class="row">
+            <div class="col-sm-6 col-12">
+                <div id="tipo_info"></div>
+            </div>
+            <div class="col-sm-6 col-12">
+                <div id="edades_info"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="row mt-2">
+        <div class="col-12 text-left">
+            &emsp;&emsp;
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+            </label>
+        </div>
+    </div>
+
+
+
+
+    <div class="row mt-4 edit-mode-only" style="display:none;">
+        <div class="col-sm-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>
+

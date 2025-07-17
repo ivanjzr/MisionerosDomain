@@ -1,0 +1,59 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_fechas" name="form_fechas" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+
+    <div class="row">
+        <div class="col-12">
+
+            <div class="form-group">
+                <label>Date:</label>
+                <div class="input-group date" id="event_date" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#event_date" readonly />
+                    <div class="input-group-append" data-target="#event_date" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <br />
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <label for="description">Fecha Info:</label>
+            <textarea class="form-control" name="description" id="description" placeholder="Short Descripcion..."></textarea>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

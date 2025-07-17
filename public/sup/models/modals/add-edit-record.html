@@ -1,0 +1,102 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="parent_id">Modelo Principal:</label>
+            <select class="form-control" id="parent_id" name="parent_id" disabled></select>
+        </div>
+        <div class="col-sm-5 col-lg-5 col-md-5 col-12">
+            <label for="nombre">Nombre:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="nombre" id="nombre" placeholder="">
+        </div>
+        <div class="col-sm-3 col-lg-3 col-md-3 col-12">
+            <label for="clave">Clave:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="clave" id="clave" placeholder="">
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="model_name">Modelo:</label>
+            <input type="text" class="form-control" name="model_name" id="model_name" placeholder="">
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="fa_icon">Icono:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="fa_icon" id="fa_icon" placeholder="">
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="description">Descripcion:</label>
+            <textarea data-rule-maxlength="512" type="text" class="form-control" name="description" id="description" placeholder=""></textarea>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-12">
+            <div class="form-group">
+                <label for="orden">Orden:</label>
+                <input data-rule-required="true" type="text" class="form-control" name="orden" id="orden" placeholder="">
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-12 text-center">
+            <br />
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="is_only_admin" name="is_only_admin"> <strong> Es Solo Admin </strong>
+            </label>
+        </div>
+        <div class="col-md-4 col-lg-4 col-12 text-center">
+            <br />
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="is_menu_expandible" name="is_menu_expandible"> <strong> Es Menu Expandible </strong>
+            </label>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row edit-mode-only" style="display:none;">
+        <div class="col-sm-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>
+

@@ -1,0 +1,352 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+
+// 
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/account/index.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Cuenta Empresarial", "acct", "settings");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Main Content -->
+<div class="container-fluid">
+    
+    <!-- Page Header -->
+    <div class="row my-4">
+        <div class="col-md-6">
+            <h2>
+                <i class="fas fa-id-card me-2 text-primary"></i>
+                Cuenta
+            </h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#" class="text-decoration-none">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Mi Cuenta</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="/admin/patients/index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Card with Tabs -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                
+                <!-- Tabs Navigation -->
+                <div class="card-header bg-light p-0">
+                    <ul class="nav nav-tabs card-header-tabs" id="customerTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" 
+                                    id="tab-detalles" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#detalles" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="detalles" 
+                                    aria-selected="true">
+                                <i class="fas fa-building me-2"></i>
+                                Información de la Cuenta
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation" style="display:none;">
+                            <button class="nav-link" 
+                                    id="tab-account_apps" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#account_apps" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="account_apps" 
+                                    aria-selected="false">
+                                <i class="fas fa-list-alt me-2"></i>
+                                Aplicaciones
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="card-body">
+                    <div class="tab-content" id="customerTabsContent">
+                        
+                        <!-- Tab 1: Account Information -->
+                        <div class="tab-pane fade show active" 
+                             id="detalles" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-detalles">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-primary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="fw-medium">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section Header -->
+                            <div class="row align-items-center mb-4">
+                                <div class="col-md-8">
+                                    <h4 class="mb-0 account-title">-</h4>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                        <i class="fas fa-sync me-1"></i>
+                                        Actualizar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Account Information Cards -->
+                            <div class="row g-4">
+                                
+                                <!-- Basic Information -->
+                                <div class="col-lg-6">
+                                    <div class="card border-0 bg-light h-100">
+                                        <div class="card-header bg-transparent border-0 pb-0">
+                                            <h6 class="card-title mb-0">
+                                                <i class="fas fa-info-circle text-primary me-2"></i>
+                                                Información General
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-building text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Empresa</small>
+                                                            <span class="fw-medium reset-item" id="company_name_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-user text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Contacto</small>
+                                                            <span class="fw-medium reset-item" id="contact_name_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-calendar text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Fecha de Creación</small>
+                                                            <span class="fw-medium reset-item" id="datetime_created_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-hashtag text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">ID de Cuenta</small>
+                                                            <span class="fw-medium reset-item" id="account_id_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Application Details -->
+                                <div class="col-lg-6">
+                                    <div class="card border-0 bg-light h-100">
+                                        <div class="card-header bg-transparent border-0 pb-0">
+                                            <h6 class="card-title mb-0">
+                                                <i class="fas fa-cogs text-success me-2"></i>
+                                                Detalles de Aplicación
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-desktop text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Nombre de la App</small>
+                                                            <span class="fw-medium reset-item" id="app_name_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-folder text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Carpeta de la App</small>
+                                                            <span class="fw-medium reset-item" id="app_folder_name_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <i class="fas fa-code text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Controlador</small>
+                                                            <span class="fw-medium reset-item" id="domain_controller_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-eye text-muted me-3"></i>
+                                                        <div>
+                                                            <small class="text-muted d-block">Vistas</small>
+                                                            <span class="fw-medium reset-item" id="views_name_display">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Domain Information -->
+                                <div class="col-12">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-header bg-transparent border-0 pb-0">
+                                            <h6 class="card-title mb-0">
+                                                <i class="fas fa-globe text-info me-2"></i>
+                                                Dominios Configurados
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="text-center p-3 border rounded">
+                                                        <i class="fas fa-cloud text-primary mb-2 d-block"></i>
+                                                        <small class="text-muted d-block">Producción</small>
+                                                        <span class="fw-medium reset-item d-block" id="domain_prod_display">-</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-center p-3 border rounded">
+                                                        <i class="fas fa-laptop-code text-warning mb-2 d-block"></i>
+                                                        <small class="text-muted d-block">Desarrollo</small>
+                                                        <span class="fw-medium reset-item d-block" id="domain_dev_display">-</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Logo Section -->
+                                <div class="col-12">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-header bg-transparent border-0 pb-0">
+                                            <h6 class="card-title mb-0">
+                                                <i class="fas fa-image text-secondary me-2"></i>
+                                                Logotipo
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-3">
+                                                <div class="col-md-12">
+                                                    <div class="p-3 border rounded">
+                                                        <div class="mb-2">
+                                                            <img id="logo_img" src="" alt="Logo" class="img-fluid" style="max-height: 60px; display: none;">
+                                                            <div id="logo_placeholder" class="text-muted">
+                                                                <i class="fas fa-image fa-2x"></i>
+                                                            </div>
+                                                        </div>
+                                                        <small class="text-muted d-block">Logo Principal</small>
+                                                        <span class="fw-medium reset-item d-block" id="logo_path_display">-</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Tab 2: Apps -->
+                        <div class="tab-pane fade" 
+                             id="account_apps" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-account_apps">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-primary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="fw-medium">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- section content -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Input -->
+    <input type="hidden" value="<?=$user_info['sucursal'];?>" id="sucursal_name">
+
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

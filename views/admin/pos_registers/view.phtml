@@ -1,0 +1,361 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+EOF;
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/pos_registers/view.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Caja #{$record_id}", "pos");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Main Content -->
+<main class="container-fluid py-4" <?=$sidebar_margin;?>>
+    
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="/admin/home" class="text-decoration-none"><span class="fas fa-home"></span> Home </a></li>
+                    <li class="breadcrumb-item"><a href="/admin/pos/index" class="text-decoration-none">Punto de venta</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/pos/registers/index" class="text-decoration-none">Cajas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?=$App::getSectionTitle();?></li>
+                </ol>
+            </nav>
+            <h4 class="mb-0 fw-bold">
+                <i class="fas fa-cash-register me-2 text-primary"></i>
+                Ver Caja
+            </h4>
+        </div>
+        <div>
+            <a href="#!" class="btn btn-outline-secondary goBackLink">
+                <i class="fas fa-arrow-left me-2"></i>Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="card">
+        <div class="card-header bg-light">
+            <ul class="nav nav-tabs card-header-tabs" id="productTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="detalles-tab" data-bs-toggle="tab" data-bs-target="#detalles" type="button" role="tab">
+                        <i class="fas fa-info-circle me-2"></i>Detalles
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab">
+                        <i class="fas fa-dollar-sign me-2"></i>Ventas
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content" id="productTabsContent">
+                
+                <!-- Tab Detalles -->
+                <div class="tab-pane fade show active" id="detalles" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Cargando...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Header Section -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h5 class="mb-0">
+                                    <i class="fas fa-cash-register me-2 text-info"></i>
+                                    Reporte de Caja - <span class="register-title text-primary"></span>
+                                </h5>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Left Column - Información General -->
+                            <div class="col-lg-6">
+                                <!-- Información de Caja -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información General</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Sucursal:</label>
+                                                <div class="fw-bold" id="location_name">--</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Punto de Venta:</label>
+                                                <div class="fw-bold" id="pos_name">--</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Estado:</label>
+                                                <div id="status_badge">--</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">ID Caja:</label>
+                                                <div class="fw-bold text-primary" id="register_id">--</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Información de Usuarios -->
+                                <div class="card">
+                                    <div class="card-header bg-secondary text-white">
+                                        <h6 class="mb-0"><i class="fas fa-users me-2"></i>Usuarios</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <label class="form-label text-muted small">Abierto por:</label>
+                                                <div class="fw-bold" id="opened_user">--</div>
+                                                <small class="text-muted" id="opened_datetime">--</small>
+                                            </div>
+                                            <div class="col-12" id="closed_user_section" style="display: none;">
+                                                <label class="form-label text-muted small">Cerrado por:</label>
+                                                <div class="fw-bold" id="closed_user">--</div>
+                                                <small class="text-muted" id="closed_datetime">--</small>
+                                            </div>
+                                            <div class="col-12" id="current_user_section">
+                                                <label class="form-label text-muted small">Usuario actual:</label>
+                                                <div class="fw-bold text-success" id="current_user">--</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column - Totales -->
+                            <div class="col-lg-6">
+                                <!-- Balance Inicial -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-success text-white">
+                                        <h6 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Balance Inicial</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">MXN:</label>
+                                                <div class="fw-bold fs-5 text-success" id="balance_inicial_mxn">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">USD:</label>
+                                                <div class="fw-bold fs-5 text-success" id="balance_inicial_usd">$0.00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Totales de Ventas -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>Totales de Ventas</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <label class="form-label text-muted small">Total Ventas:</label>
+                                                <div class="fw-bold fs-4 text-primary" id="ventas_total">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Efectivo Cobrado:</label>
+                                                <div class="fw-bold" id="efectivo_cobrado_mxn">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Cambio Dado:</label>
+                                                <div class="fw-bold text-warning" id="cambio_dado">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Tarjetas:</label>
+                                                <div class="fw-bold" id="tarjetas_total">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Dólares (USD):</label>
+                                                <div class="fw-bold" id="dolares_vendidos_usd">$0.00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Balance Final -->
+                                <div class="card">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h6 class="mb-0"><i class="fas fa-calculator me-2"></i>Balance Final</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Esperado MXN:</label>
+                                                <div class="fw-bold" id="efectivo_final_esperado_mxn">$0.00</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="form-label text-muted small">Esperado USD:</label>
+                                                <div class="fw-bold" id="efectivo_final_esperado_usd">$0.00</div>
+                                            </div>
+                                            <div class="col-6" id="real_balance_section" style="display: none;">
+                                                <label class="form-label text-muted small">Real MXN:</label>
+                                                <div class="fw-bold" id="efectivo_final_real_mxn">$0.00</div>
+                                            </div>
+                                            <div class="col-6" id="real_balance_usd_section" style="display: none;">
+                                                <label class="form-label text-muted small">Real USD:</label>
+                                                <div class="fw-bold" id="efectivo_final_real_usd">$0.00</div>
+                                            </div>
+                                            <div class="col-6" id="difference_section" style="display: none;">
+                                                <label class="form-label text-muted small">Diferencia MXN:</label>
+                                                <div class="fw-bold" id="diferencia_mxn">$0.00</div>
+                                            </div>
+                                            <div class="col-6" id="difference_usd_section" style="display: none;">
+                                                <label class="form-label text-muted small">Diferencia USD:</label>
+                                                <div class="fw-bold" id="diferencia_usd">$0.00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Ventas -->
+                <div class="tab-pane fade" id="sales" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Cargando...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 align-items-end mb-4">
+                            <div class="col-sm-7 col-12">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-dollar-sign me-2 text-success"></i>
+                                    Ventas - <span class="register-title text-primary"></span>
+                                </h5>
+                            </div>
+                            <div class="col-sm-3 col-12">
+                                <label for="created_user_id" class="form-label fw-medium">Filtrar ventas por usuario</label><br />
+                                <select class="form-select" 
+                                        style="width:100%;"
+                                        data-rule-required="true" 
+                                        data-msg-required="..." 
+                                        data-rule-number="true" 
+                                        id="created_user_id" 
+                                        name="created_user_id">
+                                </select>
+                            </div>
+                            <div class="col-sm-2 col-12 text-end">
+                                <button type="button" class="btn btn-outline-secondary" id="btnReloadSales">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sales Table -->
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="grid_caja_ventas" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>ID</th>
+                                            <th>Cliente</th>
+                                            <th>SubTotal</th>
+                                            <th>Total</th>
+                                            <th>Efectivo</th>
+                                            <th>Tarjetas</th>
+                                            <th>Dólares</th>
+                                            <th>Cambio</th>
+                                            <th>Usuario</th>
+                                            <th>Fecha</th>
+                                            <th>Notas</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Footer Info -->
+            <div class="row mt-4">
+                <div class="col-12 text-end">
+                    <small class="text-muted">
+                        Folio: <strong id="registro_folio">--</strong> | 
+                        Fecha creación: <strong id="registro_fecha_creacion">--</strong>
+                    </small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" value="<?=$user_info['sucursal'];?>" id="sucursal_name">
+
+</main>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

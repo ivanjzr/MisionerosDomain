@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEVSolutions | Invoice Print</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/adm/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/adm/css/adminlte.css">
+</head>
+<body>
+<div class="wrapper">
+  <!-- Main content -->
+  <section class="invoice">
+    <!-- title row -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-header">
+          <i class="fas fa-wine-bottle"></i> VinosFan
+          <small class="float-right">Fecha: {{status_datetime.date}}</small>
+        </h2>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+      <div class="col-sm-4 invoice-col">
+        De
+        <address>
+          <strong>Victor Espinoza</strong><br>
+          Pedro Rosales de Leon #1425<br>
+          Cd. Juarez, CHIH 34750<br>
+          M: (+52) 656 123 45678<br>
+          Email: Pedidos@VinosFan.com
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        To
+        <address>
+          <strong>{{billing_address.nombre_completo}}</strong><br>
+          {{billing_address.address}}<br>
+          {{billing_address.ciudad}}, {{billing_address.estado}} {{billing_address.codigo_postal}}<br>
+          Phone: ({{billing_address.phone_cc}}) {{billing_address.phone_number}}<br>
+          Email: {{billing_address.email}}
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        <b>Factura #000{{id}}</b><br>
+        <br>
+        <b>Orden-ID:</b> #000{{id}}<br>
+        <b>Fecha Vencimiento:</b> {{status_datetime.date}}<br>
+        <b>Cuenta Cte:</b> VF/{{app_id}}/{{customer_id}}
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- Table row -->
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Cant</th>
+            <th>Producto</th>
+            <th>ID#</th>
+            <th>Descripcion</th>
+            <th>Subtotal</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          {% for idx, item in sale_items %}
+          <tr>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>00{{ item.product_id }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price }}</td>
+          </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-6">
+        <p class="lead">Payment Methods:</p>
+        <img src="/adm/img/credit/visa.png" alt="Visa">
+        <img src="/adm/img/credit/mastercard.png" alt="Mastercard">
+        <img src="/adm/img/credit/paypal2.png" alt="Paypal">
+
+        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+          Thank you for trusting us, for any questions call us at (+52-MEX) 656 845 3048
+        </p>
+      </div>
+      <!-- /.col -->
+      <div class="col-6">
+
+        <br />
+        <br />
+
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th style="width:50%">Subtotal:</th>
+              <td>${{grand}}</td>
+            </tr>
+            <tr>
+              <th>Total:</th>
+              <td>${{grand}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- ./wrapper -->
+<!-- Page specific script -->
+<script>
+  //window.addEventListener("load", window.print());
+</script>
+</body>
+</html>

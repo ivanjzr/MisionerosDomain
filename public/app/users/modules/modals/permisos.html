@@ -1,0 +1,96 @@
+<!-- Preloader -->
+<div class="overlay-2 permisos-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<!-- Modal Header -->
+<div class="modal-header-custom mb-3">
+    <div class="row align-items-center w-100">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" class="mb-0"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-end">
+            <button type="button" class="btn btn-success me-2 btnSavePermisos">
+                <i class="fas fa-save me-1"></i>
+                Guardar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-1"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Alerts Container -->
+<div id="alerts-container-2" class="mb-3"></div>
+
+<!-- Permission Types -->
+<div class="row g-3 mt-4 mb-5">
+    <div class="col-12">
+        <div class="card bg-light border-0">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="radio" 
+                                   class="form-check-input" 
+                                   name="tipos_permisos" 
+                                   id="tipos_permisos_none" 
+                                   value="0">
+                            <label class="form-check-label fw-medium" for="tipos_permisos_none">
+                                Sin Permisos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="radio" 
+                                   class="form-check-input" 
+                                   name="tipos_permisos" 
+                                   id="tipos_permisos_all" 
+                                   value="1">
+                            <label class="form-check-label fw-medium" for="tipos_permisos_all">
+                                Todos los Permisos
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input type="radio" 
+                                   class="form-check-input" 
+                                   name="tipos_permisos" 
+                                   id="tipos_permisos_select" 
+                                   value="2">
+                            <label class="form-check-label fw-medium" for="tipos_permisos_select">
+                                Escoger Permisos
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Permissions Container -->
+<div class="container-fluid permisos_container" style="display:none;">
+    <div class="card border-start border-primary border-4 mb-3">
+        <div class="card-body py-3">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="fas fa-info-circle text-primary fa-2x"></i>
+                </div>
+                <div class="col">
+                    <h6 class="mb-1 text-primary fw-bold">Configuración de Permisos</h6>
+                    <div class="mb-0 fw-medium">Marca los permisos que deseas asignar a este empleado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <div id="tree_permisos"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<form method="post" id="form_familiares" name="form_familiares" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Actualizar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Form Content -->
+    <div class="row g-3 my-4 mb-5">
+        <div class="col-md-4 col-12">
+            <label for="person_name" class="form-label fw-medium">
+                <i class="fas fa-user me-2 text-muted"></i>
+                Nombre Familiar/Amigo:
+            </label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="person_name" 
+                   id="person_name" 
+                   placeholder="Nombre completo...">
+        </div>
+        <div class="col-md-4 col-12">
+            <label class="form-label fw-medium">Fecha de nacimiento</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="birth_date_2" readonly data-toggle="datetimepicker" data-target="#birth_date_2">
+                <div class="input-group-append" data-toggle="datetimepicker" data-target="#birth_date_2">
+                    <span class="input-group-text">
+                        <i class="fas fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <label for="relative_id" class="form-label fw-medium">
+                <i class="fas fa-users me-2 text-muted"></i>
+                Tipo de Familiar:
+            </label>
+            <select data-rule-required="true" 
+                    class="form-select" 
+                    id="relative_id" 
+                    name="relative_id">
+                <option value="">-- Seleccionar tipo --</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Edit Mode Info (Hidden by default) -->
+    <div class="row controls-row edit-mode-only mt-4" style="display:none;">
+        <div class="col-12">
+            <div class="card bg-light border-0">
+                <div class="card-body py-2">
+                    <div class="row text-center">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <strong>Folio:</strong> 
+                                <span id="registro_folio" class="text-dark"></span>
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <strong>Fecha Creación:</strong> 
+                                <span id="registro_fecha_creacion" class="text-dark"></span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

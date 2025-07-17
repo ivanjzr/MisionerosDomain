@@ -1,0 +1,77 @@
+<?php
+$jsversion = (isset($js_files_version) && $js_files_version) ? $js_files_version : "";
+$dt = new \DateTime();
+$curr_year = $dt->format("Y");
+?>
+
+<!-- Footer -->
+<footer class="bg-light border-top mt-auto py-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <span class="text-muted">&copy; <?=$curr_year;?> <?=$GLOBALS['admin_title'];?></span>
+            </div>
+            <div class="col-md-6 text-end">
+                <small class="text-muted">Versión <?=$jsversion;?></small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/adm/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="/adm/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+
+<!-- Bootstrap 5 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugins -->
+ <script src="/adm/plugins/URI.min.js"></script>
+<script src="/adm/plugins/toastr/toastr.min.js"></script>
+<script src="/adm/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="/adm/plugins/moment/moment.min.js"></script>
+<script src="/adm/plugins/moment/locale/es-mx.js"></script>
+<script>
+    moment.locale('es-mx');
+    moment.updateLocale('es-mx', {
+        week: { dow: 1 }
+    });
+</script>
+
+<script src="/adm/plugins/jquery.blockUI.js"></script>
+<script src="/adm/js/bootstrap-modals.js"></script>
+
+<!-- SECTION PLUGINS -->
+<?=$App::$footer_scripts;?>
+
+<!-- Core Scripts -->
+<script src="/utils.js?v=<?=$jsversion;?>"></script>
+<script src="/app.js?v=<?=$jsversion;?>"></script>
+<script src="/adm/plugins/require.js"></script>
+
+<script>
+    require.config({
+        urlArgs: "bust=" + (new Date()).getTime(),
+        waitSeconds: 200
+    });
+    
+    // Logout functionality
+    document.querySelectorAll('.btnLogout').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof handleLogout === 'function') {
+                handleLogout(this.dataset.type);
+            }
+        });
+    });
+</script>
+
+<!-- SECTION SCRIPTS -->
+<?=$App::$footer_section_scripts;?>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<?php
+
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+
+
+//
+$App::$header_scrits = <<<EOF
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    
+EOF;
+
+
+
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script src="/app/configuracion/index.js?v=$js_files_version"></script>
+EOF;
+
+
+
+
+//
+$App::setPageTitle("Configuracion");
+$App::setMenuActive("configuracion");
+
+
+
+// section options
+$use_voice_command      = false;
+$use_smart_chat         = false;
+$use_notifications      = false;
+?>
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'left-panel.phtml'; ?>
+
+
+
+
+
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+
+
+
+
+
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+				<span class="ribbon-button-alignment">
+					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Info! Esto reiniciara todas las configuraciones de tus widgets." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+				</span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li> <a href="/admin/index"> Inicio </a> </li>
+            <li> Configuracion </li>
+        </ol>
+
+    </div>
+    <!-- END RIBBON -->
+
+
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+
+
+
+        <div class="row">
+            <div class="col-12 col-sm-7 col-md-7 col-lg-4">
+                <h1 class="page-title txt-color-blueDark">
+                    <i class="fa fa-cog"></i>
+                    Configuracion
+                </h1>
+            </div>
+            <div class="col-12 col-sm-5 col-md-5 col-lg-8 text-right">
+
+                <div class="btn-group pull-right btn-top-margin">
+
+
+                    <a href="/admin/index" class="btn btn-default btn-right-margin">
+                        <span class="fa fa-reply"></span>
+                        Back
+                    </a>
+
+                    <button type="button" class="btn btn-info" id="btnShowHelp" data-toggle="modal" data-target="#sectionHelpModal">
+                        <i class="fa fa-question"></i> Ayuda
+                    </button>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="well">
+
+
+                    <form method="post" id="form_config_equipaje" name="form_config_equipaje" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <div class="col-sm-8 col-12">
+                                <h2 class="page-title txt-color-blueDark no-padding no-margin">
+                                    <i class="fa fa-suitcase"></i>
+                                    Equipaje
+                                </h2>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-12">
+                                <label for="peso_maximo_lbs">Peso Maximo Libras:</label>
+                                <input type="text" data-rule-required="true" data-rule-number="true" class="form-control" name="peso_maximo_lbs" id="peso_maximo_lbs" placeholder="Libras Maximo EU...">
+                            </div>
+                            <div class="col-sm-9 col-12 text-right">
+                                <button type="submit" class="btn btn-success btn-right-margin"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+                    <br />
+                    <hr />
+                    <br />
+
+
+
+                    <form method="post" id="form_config_viajes" name="form_config_viajes" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <div class="col-sm-8 col-12">
+                                <h2 class="page-title txt-color-blueDark no-padding no-margin">
+                                    <i class="fa fa-bus"></i>
+                                    Configuracion Viajes
+                                </h2>
+                            </div>
+                        </div>
+
+                        <br />
+
+
+                        <div class="row">
+                            <div class="col-sm-3 col-12">
+                                <label for="tiempo_espera_salidas">Tiempo de espera entre salidas (minutos):</label>
+                                <input type="text" data-rule-required="true" data-rule-number="true" class="form-control" name="tiempo_espera_salidas" id="tiempo_espera_salidas" placeholder="0">
+                            </div>
+                            <div class="col-sm-9 col-12 text-right">
+                                <button type="submit" class="btn btn-success btn-right-margin"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+
+                    <br />
+                    <hr />
+                    <br />
+
+
+
+                    <form method="post" id="form_config_puntos" name="form_config_puntos" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <div class="col-sm-8 col-12">
+                                <h2 class="page-title txt-color-blueDark no-padding no-margin">
+                                    <i class="fa fa-gift"></i>
+                                    Configuracion Puntos
+                                </h2>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-sm-3 col-12">
+                                <label for="millas_por_punto">Millas por punto:</label>
+                                <input type="text" data-rule-required="true" data-rule-number="true" class="form-control" name="millas_por_punto" id="millas_por_punto" placeholder="0">
+                            </div>
+                            <div class="col-sm-9 col-12 text-right">
+                                <button type="submit" class="btn btn-success btn-right-margin"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+
+
+
+                    <br />
+                    <hr />
+                    <br />
+
+
+
+                    <form method="post" id="form_config_ajustes" name="form_config_ajustes" enctype="multipart/form-data">
+
+                        <div class="row">
+                            <div class="col-sm-8 col-12">
+                                <h2 class="page-title txt-color-blueDark no-padding no-margin">
+                                    <i class="fa fa-list-alt"></i>
+                                    Terminos y condiciones
+                                </h2>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-lg-8 col-sm-8 col-md-8 col-12">
+                                <label for="terminos_condiciones">Terminos y condiciones:</label>
+                                <textarea data-rule-required="true" class="form-control" name="terminos_condiciones" id="terminos_condiciones" placeholder="" rows="6"></textarea>
+                            </div>
+                            <div class="col-lg-4 col-sm-4 col-md-4 col-12 text-right">
+                                <button type="submit" class="btn btn-success btn-right-margin"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+
+
+
+
+
+<div id="sectionHelpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Equipaje</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Aqui puedes gestionar los precios del equipaje
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'footer.phtml'; ?>

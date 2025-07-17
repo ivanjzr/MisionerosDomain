@@ -1,0 +1,478 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="/adm/plugins/gijgo/gijgo.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script src="/adm/plugins/gijgo/gijgo.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/users/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Usuarios", "users", "settings");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper mt-4">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                    </ol>
+                </div>
+                <div class="col-sm-6 text-end">
+                    <a href="/admin/users/index" class="btn btn-outline-warning">
+                        <i class="fas fa-arrow-left me-1"></i> Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- 
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div id="img_section_container" class="mb-3" style="display:none">
+                                <img id="img_section_url" class="rounded-circle img-fluid" width="120" height="120">
+                            </div>
+                            
+                            <form method="post" id="form_foto" name="form_foto" enctype="multipart/form-data">
+                                <label class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-camera me-1"></i> Cambiar Foto
+                                    <input type="file" id="img_section" name="img_section" hidden>
+                                </label>
+                            </form>
+
+                            <h4 class="user-nombre mt-3 mb-1"></h4>
+                            <p class="user-titulo text-muted"></p>
+                            <div class="user mb-3"></div>
+                            
+                            <hr>
+                            
+                            <div class="text-start">
+                                <h6 class="fw-medium">
+                                    <i class="fas fa-sticky-note me-2 text-muted"></i>
+                                    Notas
+                                </h6>
+                                <p class="text-muted user-notes small"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <!-- Main Content -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <!-- Tabs Navigation -->
+                        <div class="card-header border-bottom-0 bg-light">
+                            <ul class="nav nav-tabs card-header-tabs" id="userTabs" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active" id="tab-detalles" data-bs-toggle="tab" data-bs-target="#detalles" type="button" role="tab">
+                                        <i class="fas fa-user me-1"></i> Información
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link pos_info" id="tab-pos" data-bs-toggle="tab" data-bs-target="#pos" type="button" role="tab">
+                                        <i class="fas fa-cash-register me-1"></i> Punto de Venta
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link permisos_info" id="tab-permisos" data-bs-toggle="tab" data-bs-target="#permisos" type="button" role="tab">
+                                        <i class="fas fa-shield-alt me-1"></i> Permisos
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="tab-content" id="userTabsContent">
+                                <!-- Tab Detalles -->
+                                <div class="tab-pane fade show active" id="detalles" role="tabpanel">
+                                    <div class="overlay-wrapper">
+                                        <div class="overlay" style="display:none;">
+                                            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                            <div class="text-bold pt-2">Cargando...</div>
+                                        </div>
+
+                                        <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+                                            <!-- Header -->
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-sm-6">
+                                                    <h5 class="mb-0">Detalles del Usuario</h5>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+                                                    <button type="submit" class="btn btn-success me-2">
+                                                        <i class="fas fa-save me-1"></i> Save
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                                        <i class="fas fa-sync me-1"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Personal Information -->
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-8 col-12">
+                                                    <label for="name" class="form-label fw-medium">
+                                                        <i class="fas fa-user me-2 text-muted"></i>
+                                                        Nombre:
+                                                    </label>
+                                                    <input data-rule-required="true" 
+                                                        type="text" 
+                                                        class="form-control" 
+                                                        name="name" 
+                                                        id="name" 
+                                                        placeholder="Nombre...">
+                                                </div>
+                                                <div class="col-md-4 col-12">
+                                                    <label for="sys_title_id" class="form-label fw-medium">
+                                                        <i class="fas fa-id-badge me-2 text-muted"></i>
+                                                        Título:
+                                                    </label>
+                                                    <select data-rule-required="true" 
+                                                            class="form-select" 
+                                                            id="sys_title_id" 
+                                                            name="sys_title_id" 
+                                                            disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <!-- Contact Information -->
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-6">
+                                                    <label for="email" class="form-label fw-medium">
+                                                        <i class="fas fa-envelope me-2 text-muted"></i>
+                                                        Email:
+                                                    </label>
+                                                    <input data-rule-required="true" 
+                                                           data-rule-email="true" 
+                                                           type="email" 
+                                                           class="form-control" 
+                                                           name="email" 
+                                                           id="email"
+                                                           readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="phone_country_id" class="form-label fw-medium">
+                                                        <i class="fas fa-flag me-2 text-muted"></i>
+                                                        Código País:
+                                                    </label>
+                                                    <select data-rule-required="true" 
+                                                            data-rule-number="true" 
+                                                            class="form-select" 
+                                                            id="phone_country_id" 
+                                                            name="phone_country_id" 
+                                                            disabled>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="phone_number" class="form-label fw-medium">
+                                                        <i class="fas fa-phone me-2 text-muted"></i>
+                                                        Teléfono:
+                                                    </label>
+                                                    <input type="text" 
+                                                           class="form-control" 
+                                                           name="phone_number" 
+                                                           id="phone_number" 
+                                                           placeholder="Número..."
+                                                           readonly>
+                                                </div>
+                                            </div>
+
+                                            <!-- Security -->
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-6">
+                                                    <label for="password" class="form-label fw-medium">
+                                                        <i class="fas fa-lock me-2 text-muted"></i>
+                                                        Contraseña:
+                                                    </label>
+                                                    <input type="password" 
+                                                           class="form-control" 
+                                                           name="password" 
+                                                           id="password"
+                                                           readonly>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="password_confirm" class="form-label fw-medium">
+                                                        <i class="fas fa-check-circle me-2 text-muted"></i>
+                                                        Confirmar Contraseña:
+                                                    </label>
+                                                    <input type="password" 
+                                                           class="form-control" 
+                                                           name="password_confirm" 
+                                                           id="password_confirm"
+                                                           readonly>
+                                                </div>
+                                            </div>
+
+                                            <!-- Status and Notes -->
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="row g-3">
+                                                        <div class="col-12">
+                                                            <div class="card bg-light border-0">
+                                                                <div class="card-body d-flex align-items-center">
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" 
+                                                                               class="form-check-input" 
+                                                                               id="active" 
+                                                                               name="active">
+                                                                        <label class="form-check-label fw-medium" for="active">
+                                                                            Usuario Habilitado
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="card bg-light border-0">
+                                                                <div class="card-body d-flex align-items-center">
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" 
+                                                                               class="form-check-input" 
+                                                                               id="is_admin" 
+                                                                               name="is_admin">
+                                                                        <label class="form-check-label fw-medium" for="is_admin">
+                                                                            <i class="fas fa-user-shield me-2 text-warning"></i>
+                                                                            Es Administrador
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="notes" class="form-label fw-medium">
+                                                        <i class="fas fa-sticky-note me-2 text-muted"></i>
+                                                        Notas:
+                                                    </label>
+                                                    <textarea data-rule-maxlength="512" 
+                                                              class="form-control" 
+                                                              name="notes" 
+                                                              id="notes" 
+                                                              rows="5"
+                                                              placeholder="Notas adicionales..."></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Pos -->
+                                <div class="tab-pane fade" id="pos" role="tabpanel">
+                                    <div class="overlay-wrapper">
+                                        <div class="overlay" style="display:none;">
+                                            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                            <div class="text-bold pt-2">Cargando...</div>
+                                        </div>
+
+                                        
+                                        
+                                        <form method="post" id="form_pos" name="form_pos" enctype="multipart/form-data">
+                                            <!-- Header -->
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-sm-6">
+                                                    <h5 class="mb-0">Configuracion Puntos de Venta</h5>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+                                                    <button type="submit" class="btn btn-success me-2">
+                                                        <i class="fas fa-save me-1"></i> Save
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                                        <i class="fas fa-sync me-1"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" 
+                                                            class="form-check-input" 
+                                                            id="is_pos_user" 
+                                                            name="is_pos_user"
+                                                            value="1">
+                                                        <label class="form-check-label fw-medium d-block" for="is_pos_user">
+                                                            Usuario de Punto de Venta
+                                                            <br /><small class="mt-1 fw-normal">Permite abrir y cerrar cajas, asi como realizar ventas </small>
+                                                        </label>                                                                
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Personal Information -->
+                                            <div class="row g-3 my-4">
+                                                <div class="col-md-6 col-12">
+                                                    <label for="pos_pin" class="form-label fw-medium">
+                                                        <i class="fas fa-user me-2 text-muted"></i>
+                                                        Numero de PIN:
+                                                    </label>
+                                                    <input 
+                                                    data-rule-required="true" 
+                                                    data-rule-required="number" 
+                                                    data-rule-minlength="4"
+                                                    data-rule-maxlength="8"
+                                                           type="number" 
+                                                           class="form-control" 
+                                                           name="pos_pin" 
+                                                           id="pos_pin" 
+                                                           placeholder="">
+                                                        <small>numero de PIN de 4-8 digitos para acceso al punto de venta</small>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="card bg-light border-0">
+                                                        <div class="card-body">
+                                                            <div class="form-check">
+                                                                <input type="checkbox" 
+                                                                    class="form-check-input" 
+                                                                    id="login_to_pos" 
+                                                                    name="login_to_pos"
+                                                                    value="1">
+                                                                <label class="form-check-label fw-medium d-block" for="login_to_pos">
+                                                                    Punto de Venta como principal
+                                                                    <br /><small class="mt-1 fw-normal">Cuando se inicia sesion se envia directo al punto de venta</small>
+                                                                </label>                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Tab Permisos -->
+                                <div class="tab-pane fade" id="permisos" role="tabpanel">
+                                    <div class="overlay-wrapper">
+                                        <div class="overlay" style="display:none;">
+                                            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                            <div class="text-bold pt-2">Cargando...</div>
+                                        </div>
+
+                                        <form method="post" id="form_sucursales" name="form_sucursales" enctype="multipart/form-data">
+                                            <!-- Header -->
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-sm-6">
+                                                    <h5 class="mb-0">Permisos - <span class="usuario-nombre"></span></h5>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+                                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadSucursales">
+                                                        <i class="fas fa-sync me-1"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- DataTable -->
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <table id="grid_usuario_sucursales" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>Folio</th>
+                                                                <th>Usuario ID</th>
+                                                                <th>Sucursal</th>
+                                                                <th>Dirección</th>
+                                                                <th>Permisos</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer Info -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-end">
+                                    <small class="text-muted">
+                                        Folio: <strong id="registro_folio"></strong> | 
+                                        Fecha creación: <strong id="registro_fecha_creacion"></strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

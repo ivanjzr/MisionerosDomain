@@ -1,0 +1,187 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Template Selection -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <label for="maqueta_id" class="form-label fw-medium">
+                <i class="fas fa-template me-2 text-muted"></i> Mensaje Base: </label>
+            <select data-rule-required="true" 
+                    data-rule-number="true" 
+                    class="form-select" 
+                    id="maqueta_id" 
+                    name="maqueta_id">
+                <option value="">-- Seleccionar plantilla --</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- App Selection (Hidden) -->
+    <div class="row g-3 mb-4" style="display:none;">
+        <div class="col-12">
+            <label for="account_id" class="form-label fw-medium">
+                <i class="fas fa-cog me-2 text-muted"></i>
+                Aplicación:
+            </label>
+            <select class="form-select" 
+                    data-rule-required="true" 
+                    id="account_id" 
+                    name="account_id">
+                <option value="">-- Seleccionar aplicación --</option>
+                <option value="5">Qponea</option>
+                <option value="11">Pedidero</option>
+                <option value="12">YonkeParts</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SMS Section -->
+    <div class="section-header mb-3">
+        <h5 class="section-title">
+            <i class="fas fa-sms me-2 text-muted"></i>
+            Mensaje de Texto (SMS)
+        </h5>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <label for="sms_msg" class="form-label fw-medium">
+                Contenido del SMS:
+            </label>
+            <textarea class="form-control" 
+                      name="sms_msg" 
+                      id="sms_msg" 
+                      rows="4"
+                      placeholder="Mensaje de texto que se enviará..."></textarea>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card bg-light border-0">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="form-check">
+                        <input type="checkbox" 
+                               class="form-check-input" 
+                               id="sms_active" 
+                               name="sms_active">
+                        <label class="form-check-label fw-medium" for="sms_active">
+                            <i class="fas fa-mobile-alt me-2 text-primary"></i>
+                            Habilitar envío de mensaje de texto
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Section -->
+    <div class="section-header mb-3">
+        <h5 class="section-title">
+            <i class="fas fa-envelope me-2 text-muted"></i>
+            Mensaje de Correo Electrónico
+        </h5>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <label for="email_subject" class="form-label fw-medium">
+                Asunto del Correo:
+            </label>
+            <textarea class="form-control" 
+                      name="email_subject" 
+                      id="email_subject" 
+                      rows="2"
+                      placeholder="Asunto del mensaje de correo..."></textarea>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <label for="email_msg" class="form-label fw-medium">
+                Contenido del Correo:
+            </label>
+            <textarea class="form-control" 
+                      name="email_msg" 
+                      id="email_msg" 
+                      rows="6"
+                      placeholder="Mensaje de correo que se enviará..."></textarea>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card bg-light border-0">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="form-check">
+                        <input type="checkbox" 
+                               class="form-check-input" 
+                               id="email_active" 
+                               name="email_active">
+                        <label class="form-check-label fw-medium" for="email_active">
+                            <i class="fas fa-envelope me-2 text-info"></i>
+                            Habilitar envío de mensaje de correo
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Default Option -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="card bg-light border-0">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="form-check">
+                        <input type="checkbox" 
+                               class="form-check-input" 
+                               id="in_use" 
+                               name="in_use">
+                        <label class="form-check-label fw-medium" for="in_use">
+                            Utilizar este mensaje como predeterminado
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Mode Footer Info -->
+    <div class="row edit-mode-only" style="display:none;">
+        <div class="col-12 text-end">
+            <hr />
+            <small class="text-muted">
+                Folio: <strong id="registro_folio"></strong> | 
+                Fecha creación: <strong id="registro_fecha_creacion"></strong>
+            </small>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,390 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="/adm/plugins/gijgo/gijgo.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <script src="/adm/plugins/gijgo/gijgo.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/employees/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+//
+$App::setSectionInfo("Empleado {$record_id}", "employees", "rh");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper mt-4">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                    </ol>
+                </div>
+                <div class="col-sm-6 text-end">
+                    <a href="/admin/employees/index" class="btn btn-outline-warning">
+                        <i class="fas fa-arrow-left me-1"></i> Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- 
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div id="img_section_container" class="mb-3" style="display:none">
+                                <img id="img_section_url" class="rounded-circle img-fluid" width="120" height="120">
+                            </div>
+                            
+                            <form method="post" id="form_foto" name="form_foto" enctype="multipart/form-data">
+                                <label class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-camera me-1"></i> Cambiar Foto
+                                    <input type="file" id="img_section" name="img_section" hidden>
+                                </label>
+                            </form>
+
+                            <h4 class="user-nombre mt-3 mb-1"></h4>
+                            <p class="user-titulo text-muted"></p>
+                            <div class="user mb-3"></div>
+                            
+                            <hr>
+                            
+                            <div class="text-start">
+                                <h6 class="fw-medium">
+                                    <i class="fas fa-sticky-note me-2 text-muted"></i>
+                                    Notas
+                                </h6>
+                                <p class="text-muted user-notes small"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <!-- Main Content -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <!-- Tabs Navigation -->
+                        <div class="card-header border-bottom-0 bg-light">
+                            <ul class="nav nav-tabs card-header-tabs" id="mainTab" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active" id="tab-detalles" data-bs-toggle="tab" data-bs-target="#detalles" type="button" role="tab">
+                                        <i class="fas fa-user me-1"></i> Información
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                <button class="nav-link" 
+                                        id="tab-commissions" 
+                                        data-bs-toggle="tab" 
+                                        data-bs-target="#commissions" 
+                                        type="button" 
+                                        role="tab" 
+                                        aria-controls="commissions" 
+                                        aria-selected="false">
+                                    <i class="fas fa-dollar-sign me-2"></i>
+                                    Comisiones
+                                </button>
+                            </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="tab-content" id="mainTabContent">
+                                
+                                <!-- Tab Detalles -->
+                                <div class="tab-pane fade show active" id="detalles" role="tabpanel">
+                                    <div class="overlay-wrapper">
+                                        <div class="overlay" style="display:none;">
+                                            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                            <div class="text-bold pt-2">Cargando...</div>
+                                        </div>
+
+                                        <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+                                            <!-- Header -->
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-sm-6">
+                                                    <h5 class="mb-0">Detalles del Empleado</h5>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+
+                                                    <button type="button" class="btn btn-outline-secondary me-2" id="btnCreateUser">
+                                                        <i class="fas fa-user me-1"></i> Crear Usuario
+                                                    </button>
+
+                                                    <button type="submit" class="btn btn-success me-2">
+                                                        <i class="fas fa-save me-1"></i> Save
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                                        <i class="fas fa-sync me-1"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Personal Information -->
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-12">
+                                                    <label for="name" class="form-label fw-medium">
+                                                        <i class="fas fa-user me-2 text-muted"></i>
+                                                        Nombre:
+                                                    </label>
+                                                    <input data-rule-required="true" 
+                                                        type="text" 
+                                                        class="form-control" 
+                                                        name="name" 
+                                                        id="name" 
+                                                        placeholder="Nombre...">
+                                                </div>
+                                                <small class="text-muted mt-1 d-block" id="contact_info_container">
+                                                    <i class="fas fa-id-card me-1"></i>
+                                                    Contacto asociado: #<span id="contact_id"></span> - <span id="contact_name"></span>
+                                                </small>
+                                            </div>
+
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-6 col-12">
+                                                    <label for="job_title_id" class="form-label fw-medium">
+                                                        <i class="fas fa-id-badge me-2 text-muted"></i>
+                                                        Título Laboral:
+                                                    </label>
+                                                    <select data-rule-required="true" 
+                                                            class="form-select" 
+                                                            id="job_title_id" 
+                                                            name="job_title_id" 
+                                                            disabled>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <label for="departamento_id" class="form-label fw-medium">
+                                                        <i class="fas fa-id-badge me-2 text-muted"></i>
+                                                        Departamento:
+                                                    </label>
+                                                    <select data-rule-required="true" 
+                                                            class="form-select" 
+                                                            id="departamento_id" 
+                                                            name="departamento_id" 
+                                                            disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+
+                                            <!-- Contact Information -->
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-6">
+                                                    <label for="email" class="form-label fw-medium">
+                                                        <i class="fas fa-envelope me-2 text-muted"></i>
+                                                        Email:
+                                                    </label>
+                                                    <input data-rule-required="true" 
+                                                           data-rule-email="true" 
+                                                           type="email" 
+                                                           class="form-control" 
+                                                           name="email" 
+                                                           id="email"
+                                                           readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="phone_country_id" class="form-label fw-medium">
+                                                        <i class="fas fa-flag me-2 text-muted"></i>
+                                                        Código País:
+                                                    </label>
+                                                    <select data-rule-required="true" 
+                                                            data-rule-number="true" 
+                                                            class="form-select" 
+                                                            id="phone_country_id" 
+                                                            name="phone_country_id" 
+                                                            disabled>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="phone_number" class="form-label fw-medium">
+                                                        <i class="fas fa-phone me-2 text-muted"></i>
+                                                        Teléfono:
+                                                    </label>
+                                                    <input type="text" 
+                                                           class="form-control" 
+                                                           name="phone_number" 
+                                                           id="phone_number" 
+                                                           placeholder="Número..."
+                                                           readonly>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                            <!-- Status and Notes -->
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="row g-3">
+                                                        <div class="col-12">
+                                                            <div class="card bg-light border-0">
+                                                                <div class="card-body d-flex align-items-center">
+                                                                    <div class="form-check">
+                                                                        <input type="checkbox" 
+                                                                               class="form-check-input" 
+                                                                               id="active" 
+                                                                               name="active">
+                                                                        <label class="form-check-label fw-medium" for="active">
+                                                                            Empleado Habilitado
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="notes" class="form-label fw-medium">
+                                                        <i class="fas fa-sticky-note me-2 text-muted"></i>
+                                                        Notas:
+                                                    </label>
+                                                    <textarea data-rule-maxlength="512" 
+                                                              class="form-control" 
+                                                              name="notes" 
+                                                              id="notes" 
+                                                              rows="5"
+                                                              placeholder="Notas adicionales..."></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Tab Commissions -->
+                                <div class="tab-pane fade" id="commissions" role="tabpanel">
+                                    <div class="overlay-wrapper">
+                                        <div class="overlay" style="display:none;">
+                                            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                            <div class="text-bold pt-2">Cargando...</div>
+                                        </div>
+
+                                        <form method="post" id="form_commissions" name="form_commissions" enctype="multipart/form-data">
+                                            <!-- Header -->
+                                            <div class="row align-items-center mb-4">
+                                                <div class="col-sm-6">
+                                                    <h5 class="mb-0">Comisiones del Empleado</h5>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+
+                                                    <button type="submit" class="btn btn-success me-2">
+                                                        <i class="fas fa-save me-1"></i> Save
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                                        <i class="fas fa-sync me-1"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row g-3 mb-4">
+                                                <div class="col-md-6 col-12">
+                                                    <label for="commission_rate" class="form-label fw-medium">
+                                                        <i class="fas fa-percentage me-2 text-muted"></i>
+                                                        Tarifa Comisión:
+                                                    </label>
+                                                    <input data-rule-required="true" 
+                                                        data-rule-number="true"
+                                                        data-rule-min="0"
+                                                        data-rule-max="100"
+                                                        data-rule-step="0.01"
+                                                        data-msg-required="La tarifa de comisión es requerida"
+                                                        data-msg-number="Ingrese un número válido (0-100)"
+                                                        data-msg-min="La comisión mínima es 0%"
+                                                        data-msg-max="La comisión máxima es 100%"
+                                                        data-msg-step="Use máximo 2 decimales"
+                                                        type="number" 
+                                                        min="0"
+                                                        max="100"
+                                                        step="0.01"
+                                                        class="form-control" 
+                                                        name="commission_rate" 
+                                                        id="commission_rate" 
+                                                        placeholder="Ej: 15.50 (0-100%)">
+                                                </div>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer Info -->
+                            <div class="row mt-4">
+                                <div class="col-12 text-end">
+                                    <small class="text-muted">
+                                        Folio: <strong id="registro_folio"></strong> | 
+                                        Fecha creación: <strong id="registro_fecha_creacion"></strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

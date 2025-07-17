@@ -1,0 +1,114 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Save
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Basic Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-5 col-12">
+            <label for="nombre" class="form-label fw-medium">Make Name:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="nombre" 
+                   id="nombre" 
+                   placeholder="name...">
+        </div>
+        <div class="col-sm-7 col-12">
+            <label for="url" class="form-label fw-medium">Url address:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="url" 
+                   id="url" 
+                   placeholder="url..." 
+                   readonly>
+        </div>
+    </div>
+
+    <!-- Description and Image -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-7 col-12">
+            <label for="description" class="form-label fw-medium">description:</label>
+            <textarea class="form-control" 
+                      name="description" 
+                      id="description" 
+                      rows="4"
+                      placeholder="description..."></textarea>
+        </div>
+        <div class="col-sm-5 col-12">
+            <!-- Image Preview -->
+            <div id="img_section_container" style="display:none;" class="mb-3">
+                <label class="form-label fw-medium">current image:</label>
+                <div class="border rounded p-2 bg-light text-center">
+                    <img id="img_section_url" 
+                         class="img-fluid rounded" 
+                         style="max-height: 150px; max-width: 100%;">
+                </div>
+            </div>
+            
+            <!-- Image Upload -->
+            <div>
+                <label for="img_section" class="form-label fw-medium">Image:</label>
+                <input type="file" 
+                       class="form-control" 
+                       name="img_section" 
+                       id="img_section"
+                       accept="image/*">
+                <small class="form-text text-muted">Accepted formats: JPG, PNG, GIF</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <div class="form-check">
+                <input type="checkbox" 
+                       class="form-check-input form-check-input-lg" 
+                       id="active" 
+                       name="active">
+                <label class="form-check-label fw-medium" for="active">
+                    Enabled
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Info (Edit Mode Only) -->
+    <div class="edit-mode-only" style="display:none;">
+        <div class="row">
+            <div class="col-12 text-end">
+                <hr>
+                <small class="text-muted">
+                    Folio: <strong id="registro_folio">--</strong> | 
+                    Fecha creación: <strong id="registro_fecha_creacion">--</strong>
+                </small>
+            </div>
+        </div>
+    </div>
+
+</form>

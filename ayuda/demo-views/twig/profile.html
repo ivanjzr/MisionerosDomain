@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+{# este es un comentario #}
+
+{{ path_for('profile', { 'username': 'josh' }) }}
+
+
+<br />
+{{username}}
+<br />
+
+
+{% endblock %}

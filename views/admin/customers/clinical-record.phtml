@@ -1,0 +1,513 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+
+//
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/customers/clinical_record.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Expediente Clinico {$record_id}", "customers");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Main Content -->
+<div class="container-fluid">
+    
+    <!-- Page Header -->
+    <div class="row my-4">
+        <div class="col-md-6">
+            <h2 class="text-secondary">
+                <i class="fas fa-file-medical me-2"></i>
+                Expediente <span class="patient-title text-muted"></span>
+            </h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#" class="text-decoration-none text-secondary">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/admin/customers/index" class="text-decoration-none text-secondary">Pacientes</a>
+                    </li>
+                    <li class="breadcrumb-item active text-muted">Expediente Clinico</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-4">
+            <label for="patient_name" class="form-label fw-medium"> Gestionar Expediente para: </label>
+            <select class="form-select form-select-sm"
+                    id="customer_person_id" 
+                    name="customer_person_id" 
+                    disabled>
+            </select>
+        </div>
+        <div class="col-md-2 text-end">
+            <a href="/admin/customers/index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Card with Tabs -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+
+                <!-- Tabs Navigation -->
+                <div class="card-header bg-light p-0">
+                    <ul class="nav nav-tabs card-header-tabs" id="customerTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" 
+                                    id="tab-detalles" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#detalles" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="detalles" 
+                                    aria-selected="true">
+                                <i class="fas fa-file-medical me-2"></i>
+                                Expediente Clinico
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" 
+                                    id="tab-registro" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#registro" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="registro" 
+                                    aria-selected="false">
+                                <i class="fas fa-book me-2"></i>
+                                Registro
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="card-body">
+                    <div class="tab-content" id="customerTabsContent">
+                        
+                        <!-- Tab 1: Último Expediente -->
+                        <div class="tab-pane fade show active p-2" 
+                             id="detalles" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-detalles">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-primary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="fw-medium">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center my-4">
+                                <div class="col-md-8">
+                                    <div class="section-header mb-0">
+                                        <h6 class="section-title">
+                                            <i class="fas fa-id-card text-info"></i>
+                                            Información del Paciente
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <div class="d-flex gap-2 justify-content-end">
+
+                                        <button type="button" class="btn btn-outline-primary" id="btnPrintExpediente">
+                                            <i class="fas fa-print me-1"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-outline-success" id="btnSendExpediente">
+                                            <i class="fas fa-envelope me-1"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row g-3 mb-4">
+
+                                <div class="col-md-3 col-12">
+                                    <label for="patient_name" class="form-label fw-medium">
+                                        <i class="fas fa-user me-2 text-muted"></i>
+                                        Nombre Completo:
+                                    </label>
+                                    <div class="fw-bold text-dark reset-item" id="patient_name">--</div>
+                                </div>
+
+                                <div class="col-md-3 col-12"">
+                                    <label for="patient_email" class="form-label fw-medium">
+                                        <i class="fas fa-envelope me-2 text-muted"></i>
+                                        Email:
+                                    </label>
+                                    <div class="text-dark reset-item" id="patient_email">--</div>
+                                </div>
+
+                                <div class="col-md-3 col-12">
+                                    <label for="patient_phone" class="form-label fw-medium">
+                                        <i class="fas fa-phone me-2 text-muted"></i>
+                                        Teléfono:
+                                    </label>
+                                    <div class="text-dark reset-item" id="patient_phone">--</div>
+                                </div>
+
+                                <div class="col-md-3 col-12">
+                                    <label for="birth_date" class="form-label fw-medium">
+                                        <i class="fas fa-calendar me-2 text-muted"></i>
+                                        Fecha Nacimiento / Edad
+                                    </label>
+                                    <div class="text-dark reset-item" id="patient_birth_date">--</div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="card border-0 bg-light mb-4 p-2" id="dental_info_container" style="display:none;">
+                                <div class="card-body">
+                                    <!-- Información Específica Dental -->
+                                    <div class="section-header mt-0">
+                                        <h4 class="section-title">
+                                            <i class="fas fa-tooth text-warning"></i>
+                                            Información Dental
+                                        </h4>
+                                    </div>
+                                    
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-3">
+                                            <label for="" class="form-label fw-medium">
+                                                Fecha/Hora de Revision:
+                                            </label>
+                                            <br />
+                                            <div class="badge bg-success fs-6 p-2">
+                                                <i class="fas fa-calendar-check me-1"></i>
+                                                <span class="reset-item" id="clinical_revision_date">--</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="dental_motivo_consulta" class="form-label fw-medium">
+                                                <i class="fas fa-comment-medical me-2 text-muted"></i>
+                                                Motivo de Consulta:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_motivo_consulta">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="dental_dolor_nivel_1_10" class="form-label fw-medium">
+                                                <i class="fas fa-thermometer-full me-2 text-muted"></i>
+                                                Nivel de Dolor (1-10):
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="dental_dolor_nivel_1_10">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="dental_cepillado_diario_veces" class="form-label fw-medium">
+                                                <i class="fas fa-brush me-2 text-muted"></i>
+                                                Cepillado Diario:
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="dental_cepillado_diario_veces">--</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-3">
+                                            <label for="dental_sangrado_encias" class="form-label fw-medium">
+                                                <i class="fas fa-tint me-2 text-muted"></i>
+                                                Sangrado Encías:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_sangrado_encias">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="dental_sensibilidad_dental" class="form-label fw-medium">
+                                                <i class="fas fa-snowflake me-2 text-muted"></i>
+                                                Sensibilidad Dental:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_sensibilidad_dental">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="dental_mal_aliento" class="form-label fw-medium">
+                                                <i class="fas fa-wind me-2 text-muted"></i>
+                                                Mal Aliento:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_mal_aliento">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="dental_uso_hilo_dental" class="form-label fw-medium">
+                                                <i class="fas fa-teeth me-2 text-muted"></i>
+                                                Uso Hilo Dental:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_uso_hilo_dental">--</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-6">
+                                            <label for="dental_diagnostico" class="form-label fw-medium">
+                                                <i class="fas fa-stethoscope me-2 text-muted"></i>
+                                                Diagnóstico:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_diagnostico">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <label for="dental_tratamiento_recomendado" class="form-label fw-medium">
+                                                <i class="fas fa-prescription me-2 text-muted"></i>
+                                                Tratamiento Recomendado:
+                                            </label>
+                                            <div class="text-dark reset-item" id="dental_tratamiento_recomendado">--</div>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+
+
+
+                            <div class="" id="no_info_container" style="display:none;">
+                                <div class="alert alert-info d-flex align-items-center" role="alert">
+                                    <i class="fas fa-info-circle me-3 fs-4"></i>
+                                    <div>
+                                        <h6 class="alert-heading mb-1">Sin Expediente Clínico</h6>
+                                        <p class="mb-0">Este paciente aún no tiene un expediente clínico registrado. Vaya a la pestaña <strong>"Registro"</strong> para crear su primera consulta.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="card border-0 bg-light mb-4 p-2" id="basic_info_container" style="display:none;">
+                                <div class="card-body">
+                                    <!-- Información Básica Médica -->
+                                    <div class="section-header mb-3 mt-0">
+                                        <h4 class="section-title">
+                                            <i class="fas fa-heartbeat text-danger"></i>
+                                            Información Básica Médica
+                                        </h4>
+                                    </div>
+                                    
+                                    
+                                    <div class="row g-3 mb-4">
+
+                                        <div class="col-md-3">
+                                            <label for="basic_peso_kg" class="form-label fw-medium">
+                                                <i class="fas fa-weight me-2 text-muted"></i>
+                                                Peso (Kg):
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="basic_peso_kg">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="basic_estatura_cm" class="form-label fw-medium">
+                                                <i class="fas fa-ruler-vertical me-2 text-muted"></i>
+                                                Estatura (cm):
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="basic_estatura_cm">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="basic_temperatura_celsius" class="form-label fw-medium">
+                                                <i class="fas fa-thermometer-half me-2 text-muted"></i>
+                                                Temperatura (°C):
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="basic_temperatura_celsius">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="basic_frecuencia_cardiaca" class="form-label fw-medium">
+                                                <i class="fas fa-heart me-2 text-muted"></i>
+                                                Frecuencia Cardíaca:
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="basic_frecuencia_cardiaca">--</div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-medium">
+                                                <i class="fas fa-tint me-2 text-muted"></i>
+                                                Presión Arterial (mmHg):
+                                            </label>
+                                            <div class="fw-medium text-dark">
+                                                <span class="reset-item" id="basic_presion_sistolica">--</span> / <span class="reset-item" id="basic_presion_diastolica">--</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <label for="basic_glucosa_mg_dl" class="form-label fw-medium">
+                                                <i class="fas fa-vial me-2 text-muted"></i>
+                                                Glucosa (mg/dl):
+                                            </label>
+                                            <div class="fw-medium text-dark reset-item" id="basic_glucosa_mg_dl">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label for="basic_alergias" class="form-label fw-medium">
+                                                <i class="fas fa-exclamation-triangle me-2 text-muted"></i>
+                                                Alergias:
+                                            </label>
+                                            <div class="text-dark reset-item" id="basic_alergias">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label for="basic_medicamentos_actuales" class="form-label fw-medium">
+                                                <i class="fas fa-pills me-2 text-muted"></i>
+                                                Medicamentos Actuales:
+                                            </label>
+                                            <div class="text-dark reset-item" id="basic_medicamentos_actuales">--</div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label for="basic_antecedentes_familiares" class="form-label fw-medium">
+                                                <i class="fas fa-users me-2 text-muted"></i>
+                                                Antecedentes Familiares:
+                                            </label>
+                                            <div class="text-dark reset-item" id="basic_antecedentes_familiares">--</div>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Tab 2: Registro -->
+                        <div class="tab-pane fade p-2" 
+                             id="registro" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-registro">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-secondary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="text-muted">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Registro Header -->
+                            <div class="row align-items-center my-4">
+                                <div class="col-md-8">
+                                    <h6 class="border-bottom pb-2 mb-0 text-secondary">
+                                        <i class="fas fa-list me-2"></i>
+                                        Registro de Consultas
+                                    </h6>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <button type="button" class="btn btn-success me-2" id="btnAddConsulta">
+                                        <i class="fas fa-plus me-1"></i>
+                                        Nueva Consulta
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="btnReloadConsulta">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Consultas Table -->
+                            <div class="table-responsive">
+                                <table id="grid_customer_consultas" class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th></th>
+                                            <th>Folio #</th>
+                                            <th>Fecha Revisión</th>
+                                            <th>Motivo Consulta</th>
+                                            <th>Dolor</th>
+                                            <th>Diagnóstico</th>
+                                            <th>Fecha Registro</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- DataTable content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Record Info Footer -->
+                    <div class="row mt-4 pt-3 border-top">
+                        <div class="col-12 text-end">
+                            <small class="text-muted">
+                                <strong>Paciente ID:</strong> <span id="registro_folio" class="text-dark">--</span> | 
+                                <strong>Fecha Creación:</strong> <span id="registro_fecha_creacion" class="text-dark">--</span>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Input -->
+    <input type="hidden" value="<?=$user_info['sucursal'];?>" id="sucursal_name">
+
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

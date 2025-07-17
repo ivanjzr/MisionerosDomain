@@ -1,0 +1,58 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_send_test" name="form_send_test" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h3 id="modal-title" style="margin:0;padding:0;">Enviar Mensaje Prueba</h3>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin"> Enviar </button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+            <label for="phone_cc_send">Clave:</label>
+            <Select class="form-control" data-rule-required="true" name="phone_cc_send" id="phone_cc_send">
+                <option>--select</option>
+                <option value="+1" selected>US(+1)</option>
+                <option value="+52">MEX(+52)</option>
+            </Select>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8 col-12">
+            <label for="phone_number_send">Telefono:</label>
+            <input type="text" class="form-control" data-rule-required="true" name="phone_number_send" id="phone_number_send" placeholder="Telefono...">
+        </div>
+    </div>
+
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12">
+            <label for="message_send">Mensaje:</label>
+            <textarea class="form-control" name="message_send" id="message_send" data-rule-required="true" data-rule-maxlength="160" placeholder=""></textarea>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

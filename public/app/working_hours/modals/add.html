@@ -1,0 +1,54 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0">Nuevo Horario de Trabajo</h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Form Content -->
+    <div class="row g-3 mb-5">
+        <div class="col-sm-8 col-12">
+            <label for="nombre" class="form-label fw-medium">Nombre:</label>
+            <input type="text" 
+                   data-rule-required="true" 
+                   class="form-control" 
+                   id="nombre" 
+                   name="nombre"
+                   placeholder="Nombre del horario...">
+        </div>
+        <div class="col-sm-4 col-12 d-flex align-items-end">
+            <div class="form-check">
+                <input type="checkbox" 
+                       class="form-check-input form-check-input-lg" 
+                       id="active" 
+                       name="active" 
+                       checked>
+                <label class="form-check-label fw-medium" for="active">
+                    Activo
+                </label>
+            </div>
+        </div>
+    </div>
+
+</form>

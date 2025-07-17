@@ -1,0 +1,57 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-6 col-12">
+        <h4 id="modal-title" style="margin:0;padding:0;"> Mis Boletos </h4>
+    </div>
+    <div class="col-sm-6 col-12 text-right">
+        <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+            <span class="fa fa-times"></span>
+            Salir
+        </a>
+
+    </div>
+</div>
+<hr style="margin-top:8px;" />
+
+
+
+<div class="row mt-4">
+    <div class="col-12">
+        <small style="color:orangered;"> cada boleto cuenta con 5 minutos para ser adquirido, despues de este tiempo se libera el lugar </small>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Seat Passanger</th><th>Salida/Ruta/Bus</th><th>Origen</th><th>Destino</th><th>Precio</th><th>Creado</th><th></th>
+            </tr>
+            </thead>
+            <tbody id="tbl_body_results"></tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row mt-4 mb-4">        
+    <div class="col-5 text-right">
+        <h3 id="elems_expired"></h3>
+    </div>
+    <div class="col-5 text-right">
+        <input type="hidden" id="total_amount" />
+        <h3 id="totals"></h3>
+    </div>
+    <div class="col-2 text-right">
+        <button type="button" id="btnContinue" class="btn btn-success btn-right-margin"><span class="fas fa-arrow-right"></span> Continuar </button>
+    </div>
+</div>
+
+

@@ -1,0 +1,66 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_section2" name="form_section2" enctype="multipart/form-data">
+
+
+
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"> Buscar Destinos </h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+
+
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <label for="origen_ciudad_id">Origen</label>
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="origen_ciudad_id" name="origen_ciudad_id"></select>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <label for="destino_ciudad_id">Destino</label>
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="destino_ciudad_id" name="destino_ciudad_id"></select>
+        </div>
+    </div>
+
+
+
+    <div class="row mt-4">
+        <div class="col-sm-6 col-12">
+            <label for="fecha_hora_busqueda">Hora:</label>
+            <div class="input-group date" id="fecha_hora_busqueda" data-target-input="nearest">
+                <input type="text" class="form-control datetimepicker-input" data-target="#fecha_hora_busqueda" readonly />
+                <div class="input-group-append" data-target="#fecha_hora_busqueda" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6 col-12 text-center">
+            <button type="submit" class="btn btn-success btn-right-margin"> Buscar </button>
+        </div>
+    </div>
+
+
+
+
+</form>

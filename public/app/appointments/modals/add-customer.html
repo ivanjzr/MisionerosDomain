@@ -1,0 +1,121 @@
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-plus me-2 text-primary"></i>
+                    Agregar Cliente
+                </h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <input type="hidden" name="active" value="1" />
+                <button type="submit" class="btn btn-success me-2">
+                    <i class="fas fa-save me-1"></i>
+                    Agregar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Form Content -->
+    <div class="customer-form-simple">
+        
+        <!-- Personal Information -->
+        <div class="section-header mb-3">
+            <h6 class="section-title">
+                <i class="fas fa-id-card text-info"></i>
+                Información Personal
+            </h6>
+        </div>
+        
+        <div class="row g-3 mb-3">        
+            <div class="col-12">
+                <label for="name" class="form-label fw-medium">
+                    <i class="fas fa-user me-2 text-muted"></i>
+                    Nombre:
+                </label>
+                <input data-rule-required="true" 
+                       type="text" 
+                       class="form-control" 
+                       name="name" 
+                       id="name" 
+                       placeholder="Nombre del cliente...">
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="section-header mb-3">
+            <h6 class="section-title">
+                <i class="fas fa-address-card text-success"></i>
+                Información de Contacto
+            </h6>
+        </div>
+        
+        <div class="row g-3 mb-3">
+            <div class="col-12">
+                <label for="email" class="form-label fw-medium">
+                    <i class="fas fa-envelope me-2 text-muted"></i>
+                    Email:
+                </label>
+                <input data-rule-email="true" 
+                       type="email" 
+                       class="form-control" 
+                       name="email" 
+                       id="email" 
+                       placeholder="correo@ejemplo.com">
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-4 col-12">
+                <label for="phone_country_id" class="form-label fw-medium">
+                    <i class="fas fa-flag me-2 text-muted"></i>
+                    Código País:
+                </label>
+                <select data-rule-required="true" 
+                        data-rule-number="true" 
+                        class="form-select" 
+                        id="phone_country_id" 
+                        name="phone_country_id" 
+                        disabled>
+                    <option value="">-- País --</option>
+                </select>
+            </div>
+            
+            <div class="col-sm-8 col-12">
+                <label for="phone_number" class="form-label fw-medium">
+                    <i class="fas fa-phone me-2 text-muted"></i>
+                    Teléfono:
+                </label>
+                <input type="number" 
+                       data-rule-required="true" 
+                       data-rule-number="true" 
+                       class="form-control" 
+                       name="phone_number" 
+                       id="phone_number"
+                       placeholder="123456789">
+            </div>
+        </div>
+
+        <!-- Info Note -->
+        <div class="alert alert-light border-0 mt-4">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <small class="text-muted mb-0">
+                    <strong>Nota:</strong> El cliente será habilitado automáticamente al ser creado.
+                </small>
+            </div>
+        </div>
+        
+    </div>
+
+</form>

@@ -1,0 +1,128 @@
+<!-- Modal Body -->
+<div class="modal-body">
+    <div class="row">
+        <div class="col-12">
+            <!-- Fecha y hora destacada -->
+            <div class="appointment-datetime mb-4">
+                <div class="card bg-light border-0">
+                    <div class="card-body py-3">
+                        <div class="row align-items-center mb-2">
+                            <div class="col-auto">
+                                <i class="fas fa-calendar-alt text-primary fa-lg"></i>
+                            </div>
+                            <div class="col">
+                                <h6 class="mb-0 text-primary fw-semibold" id="appointment_date"></h6>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-clock text-primary fa-lg"></i>
+                            </div>
+                            <div class="col">
+                                <h6 class="mb-0 text-primary fw-semibold" id="appointment_time"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información detallada -->
+            <div class="appointment-details">
+                <h6 class="text-muted mb-3 fw-semibold">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Detalles de la Cita
+                </h6>
+                
+                <div class="border rounded p-3 bg-white">
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Referencia</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="fw-bold" id="appointment_reference"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Cliente</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="fw-bold" id="customer_name"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Servicio</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="fw-bold" id="service_name"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Recurso</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="fw-bold" id="resource_name"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Ubicación</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="fw-bold" id="location_name"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2 border-bottom">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Estado</small>
+                        </div>
+                        <div class="col-8">
+                            <span id="status_badge" class="badge fs-6 fw-medium">
+                                <span id="status_text"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row py-2 border-bottom" id="appmnt_sale_container" style="display:none;">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Venta Asociada</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="badge bg-success text-white fs-6 fw-medium" id="sale_text"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-2" id="notes_container" style="display:none;">
+                        <div class="col-4">
+                            <small class="text-muted fw-medium">Notas</small>
+                        </div>
+                        <div class="col-8">
+                            <span class="text-dark" id="appointment_notes"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Footer -->
+<div class="modal-footer border-top">
+    <div class="d-flex gap-2 w-100 justify-content-end">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times me-1"></i>
+            Cerrar
+        </button>
+        <a href="#" class="btn btn-primary" id="btnEditarCita">
+            <i class="fas fa-edit me-1"></i>
+            Gestionar
+        </a> 
+    </div>
+</div>

@@ -1,0 +1,494 @@
+/* Sidebar fijo para desktop */
+.sidebar-container {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    background: white;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+    z-index: 1020;
+}
+
+/* Ajuste del contenido principal */
+@media (min-width: 992px) {
+    body {
+        padding-left: 280px;
+    }
+}
+
+/* Mobile: quitar padding cuando sidebar está oculto */
+@media (max-width: 991px) {
+    body {
+        padding-left: 0;
+    }
+}
+
+/* Resto de estilos básicos */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1030;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+
+
+label.error{
+    color: orangered;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+/* --------------- modales styles ------------------*/
+
+/* ===== MODALES BOOTSTRAP 5 ===== */
+
+/* Modal Reservar Cita */
+.modal-header-custom {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.section-header {
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 8px;
+}
+
+.section-title {
+    color: #495057;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.card.border-start.border-primary {
+    background-color: #f8f9fb;
+}
+
+.card.border-start.border-success {
+    background-color: #f0fff4;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-label i {
+    margin-right: 6px;
+    width: 16px;
+    text-align: center;
+}
+
+.btn-group-custom {
+    display: flex;
+    align-items: center;
+}
+
+.customer-section,
+.service-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.appointment-info-section .card-body {
+    background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+}
+
+.fw-medium {
+    font-weight: 500;
+}
+
+/* Modal Ver Cita */
+.appointment-datetime .card {
+    background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+}
+
+.appointment-details .border {
+    border-color: #e9ecef !important;
+}
+
+.appointment-details .border-bottom:last-child {
+    border-bottom: none !important;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+.fs-6 {
+    font-size: 0.875rem;
+}
+
+/* Loading spinner */
+.overlay-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 9999;
+    border-radius: 0.375rem;
+}
+
+
+
+/* Responsive para modales */
+@media (max-width: 576px) {
+    .customer-section,
+    .service-section {
+        padding: 15px;
+    }
+    
+    .btn-group-custom {
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+    
+    .appointment-details .row {
+        flex-direction: column;
+    }
+    
+    .appointment-details .col-4,
+    .appointment-details .col-8 {
+        width: 100%;
+        padding-bottom: 0.25rem;
+    }
+    
+    .modal-footer .d-flex {
+        flex-direction: column;
+    }
+    
+    .modal-footer .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+
+
+/* ===== ESTILOS ADICIONALES PARA TABLAS BOOTSTRAP 5 ===== */
+
+/* Checkbox mejorado */
+.form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Badges con mejor spacing */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+.badge i {
+    font-size: 0.8em;
+}
+
+/* Status dots personalizados */
+.badge.rounded-pill {
+    padding: 0;
+    border: none;
+}
+
+/* Hover effects para filas de tabla */
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Spinner mejorado para botones */
+.spinner-border-sm {
+    width: 0.875rem;
+    height: 0.875rem;
+}
+
+/* Iconos de estado con mejor spacing */
+.text-success i,
+.text-danger i,
+.text-warning i,
+.text-muted i {
+    font-size: 1.1em;
+}
+
+/* Centrado para checkboxes en tabla */
+.form-check {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Mejor alineación para badges en tabla */
+td .badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Estados hover para iconos */
+.text-success:hover i,
+.text-danger:hover i {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Responsive badges */
+@media (max-width: 768px) {
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.25em 0.5em;
+    }
+    
+    .badge i {
+        display: none;
+    }
+}
+
+
+/* ===== CHECKBOXES MÁS GRANDES ===== */
+
+/* Checkbox normal - un poco más grande */
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.125em;
+}
+
+/* Checkbox grande */
+.form-check-input.form-check-input-lg {
+    width: 1.5em;
+    height: 1.5em;
+    margin-top: 0;
+}
+
+/* Checkbox extra grande */
+.form-check-input.form-check-input-xl {
+    width: 1.75em;
+    height: 1.75em;
+    margin-top: -0.125em;
+}
+
+/* Espaciado entre checkbox y label */
+.form-check-label {
+    margin-left: 0.5rem;
+    line-height: 1.5;
+}
+
+/* Espaciado específico para checkboxes grandes */
+.form-check-input-lg + .form-check-label {
+    margin-left: 0.75rem;
+    line-height: 1.5;
+}
+
+.form-check-input-xl + .form-check-label {
+    margin-left: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Ajuste para checkboxes en tablas */
+.table .form-check-input {
+    width: 1.3em;
+    height: 1.3em;
+    margin: 0;
+}
+
+/* Focus mejorado para checkboxes grandes */
+.form-check-input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+
+
+
+
+/* POS Cards Styles */
+.pos-card {
+    transition: all 0.3s ease;
+    border-radius: 12px !important;
+}
+
+.pos-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.pos-card.border-success {
+    box-shadow: 0 4px 15px rgba(25, 135, 84, 0.2) !important;
+}
+
+.pos-card .card-header {
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1.25rem;
+}
+
+.pos-card .card-footer {
+    border-radius: 0 0 12px 12px !important;
+    padding: 1.25rem;
+}
+
+.pos-card .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.pos-card .dropdown-toggle::after {
+    display: none;
+}
+
+.pos-card .badge {
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Animaciones para estados */
+.pos-card .badge.bg-success {
+    animation: pulse-success 2s infinite;
+}
+
+@keyframes pulse-success {
+    0% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(25, 135, 84, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0); }
+}
+
+/* Mejoras para el dropdown */
+.pos-card .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    min-width: 180px;
+}
+
+.pos-card .dropdown-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.pos-card .dropdown-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 1.25rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .pos-card .card-header {
+        padding: 1rem;
+    }
+    
+    .pos-card .card-body {
+        padding: 1rem;
+    }
+    
+    .pos-card .card-footer {
+        padding: 1rem;
+    }
+}
+
+/* Preloader personalizado */
+.section-preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    cursor: pointer;
+    float: right;
+    color: #856404;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+    transition: all 0.2s ease;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear:hover {
+    background: #ffc107;
+    color: #212529;
+    border-color: #ffb302;
+}
+
+
+
+/* Para Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* fix hide scroll on bottom div from datatables */
+.table-responsive .bottom{
+    padding: 20px;
+}
+
+.form-control::placeholder {
+    color: #000 !important;
+    opacity: 0.3;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.form-control:disabled {
+    background-color: #f9f9f9 !important;
+    opacity: 1;
+}

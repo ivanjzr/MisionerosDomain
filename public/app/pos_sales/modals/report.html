@@ -1,0 +1,94 @@
+<form method="post" id="form_report" name="form_report" enctype="multipart/form-data" autocomplete="off">
+
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-10 col-12">
+                <strong id="report_title" class="mb-0"></strong>
+            </div>
+            <div class="col-sm-2 col-12 text-end">                
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>                
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="p-2">
+
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check">
+
+                    <input type="checkbox"
+                        class="form-check-input form-check-input-lg"
+                        id="sale_details"
+                        name="sale_details"
+                        value="1"
+                        checked>
+                    <label class="form-check-label fw-medium" for="sale_details">
+                        Incluir Detalle de Ventas
+                    </label>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+
+        
+        
+        
+        <div id="group_sales_container" style="display:none;">
+            
+            <hr />
+
+            <div class="row my-4">
+                <div class="col-12">
+                    <label class="form-label fw-medium">Agrupar Ventas:</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input type="radio" 
+                                    data-rule-required="true" 
+                                    class="form-check-input" 
+                                    name="grouped_by_users" 
+                                    id="grouped_by_users_none" 
+                                    value="0">
+                            <label class="form-check-label fw-medium" for="grouped_by_users_none">
+                                Sin Agrupar
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" 
+                                    data-rule-required="true" 
+                                    class="form-check-input" 
+                                    name="grouped_by_users" 
+                                    id="grouped_by_users_true" 
+                                    value="1" checked>
+                            <label class="form-check-label fw-medium" for="grouped_by_users_true" id="report_grouped_by"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr />
+
+        </div>
+
+
+        <div class="row g-3 my-4">
+            <div class="col-12">            
+                <button type="submit" id="btn_submit" class="btn btn-success btn-block me-2">
+                    <i class='fa fa-download'></i> Descargar
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</form>

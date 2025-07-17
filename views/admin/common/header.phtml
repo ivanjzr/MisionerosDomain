@@ -1,0 +1,76 @@
+<?php
+$sidebar_margin=(isset($hide_sidebar) && $hide_sidebar) ? "style='margin-left:0;'" : '';
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?=$GLOBALS['admin_title'] . " - " . $App::getSectionTitle();?></title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/adm/plugins/fontawesome-free/css/all.min.css">
+    
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="/adm/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/adm/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
+    <!-- CUSTOM -->
+    <?=$App::$header_scrits;?>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/adm/css/style.css?v=1.01">
+
+</head>
+<body>
+
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+    <div class="container-fluid">
+        <!-- Left Side: Logo + Menu Toggle -->
+        <div class="d-flex align-items-center">
+            <!-- Logo -->
+            <div class="navbar-brand d-flex align-items-center me-3">
+                <a href="/admin">
+                    <img src="/logos<?=$user_info['logo_path'];?>" alt="<?=$user_info['app_name'];?>" 
+                        class="d-none d-md-block" style="width:160px; height:auto;">
+                    <img src="/logos<?=$user_info['logo_path'];?>" alt="<?=$user_info['app_name'];?>" 
+                        class="d-md-none" style="width:80px; height:auto;">
+                </a>
+            </div>
+            
+            <!-- Sidebar Toggle (solo visible en móvil) -->
+            <button class="btn btn-outline-secondary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-mobile">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Center: Page Title (solo en desktop) -->
+        <div class="d-none d-lg-block">
+            <h5 class="mb-0"><?=$App::getSectionTitle();?></h5>
+        </div>
+        
+        <!-- Right Side: User Actions -->
+        <div class="d-flex align-items-center">
+            <a href="/admin/user/select-sucursal" class="btn btn-outline-primary btn-sm me-2">
+                <i class="fas fa-exchange-alt me-1"></i>
+                <span class="d-none d-sm-inline"><?=$user_info['sucursal'];?></span>
+                <span class="d-sm-none">Sucursal</span>
+            </a>
+            <a href="#" class="btn btn-outline-danger btn-sm btnLogout" data-type="admin">
+                <i class="fas fa-sign-out-alt me-1"></i>
+                <span class="d-none d-sm-inline">Logout</span>
+            </a>
+        </div>
+        
+    </div>
+</nav>
+
+<!-- Spacer for fixed navbar -->
+<div style="height: 70px;"></div>

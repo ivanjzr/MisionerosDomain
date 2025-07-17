@@ -1,0 +1,165 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/summernote/summernote-bs4.min.css">
+
+    <!-- dropzonejs -->
+    <link rel="stylesheet" href="/adm/plugins/dropzone/min/dropzone.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- dropzonejs -->
+    <script src="/adm/plugins/dropzone/min/dropzone.min.js"></script>
+EOF;
+
+
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script src="/adm/js/table-builder.js?v=$js_files_version"></script>
+    <script src="/app/docs_manager/index.js?v=$js_files_version"></script>
+EOF;
+
+
+//
+$App::setSectionInfo("Docs Manager", "docs_manager", "website");
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Docs Manager</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Docs Manager</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-primary btn-block mb-3 btnAddItem"><span class="fas fa-plus"></span> Create Folder </a>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Folders</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="nav nav-pills flex-column" id="table-folders">
+
+<!--                                <li class="nav-item active">-->
+<!--                                    <a href="#" class="nav-link btnFolder">-->
+<!--                                        <i class="fas fa-file-alt"></i> Inbox &nbsp; <span class="badge bg-info"> 12</span>-->
+<!--                                        <button type="button" class="btn btn-default btn-sm btnDelete float-right">-->
+<!--                                            <i class="far fa-trash-alt"></i>-->
+<!--                                        </button>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+
+
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+
+
+
+
+                            <h3 class="card-title" id="folder-name"></h3>
+
+                            <div class="card-tools">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm btns-content" id="btnAddFile" style="display:none;">
+                                        <i class="fas fa-plus"></i> Add File(s)
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm checkbox-toggle btns-content" style="display:none;"><i class="far fa-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm btns-content" id="btnRefreshFiles"  style="display:none;">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm btns-content" id="btnDelFiles"  style="display:none;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- /.card-tools -->
+
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="table-responsive mailbox-messages">
+                                <div class="overlay-2 section-preloader" style="display:none;">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
+                                <table class="table table-hover table-striped" id="table-files">
+                                    <tbody></tbody>
+                                </table>
+                                <!-- /.table -->
+                            </div>
+                            <!-- /.mail-box-messages -->
+                        </div>
+
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+
+
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

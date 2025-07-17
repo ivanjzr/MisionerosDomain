@@ -1,0 +1,6 @@
+Error: SSL certificate problem: unable to get local issuer certificate, code: 0, file: C:\wamp64\www\Misioneros\vendor\twilio\sdk\src\Twilio\Http\CurlClient.php, line: 41
+No se envio SMS, Sin telefono o telefono invalido para Espinoza Francisco en ocupacion con folio 1338
+Error: SSL certificate problem: unable to get local issuer certificate, code: 0, file: C:\wamp64\www\Misioneros\vendor\twilio\sdk\src\Twilio\Http\CurlClient.php, line: 41
+Error: SSL certificate problem: unable to get local issuer certificate, code: 0, file: C:\wamp64\www\Misioneros\vendor\twilio\sdk\src\Twilio\Http\CurlClient.php, line: 41
+No se envio SMS, Sin telefono o telefono invalido para Espinoza Francisco en ocupacion con folio 1338
+Error: SSL certificate problem: unable to get local issuer certificate, code: 0, file: C:\wamp64\www\Misioneros\vendor\twilio\sdk\src\Twilio\Http\CurlClient.php, line: 41

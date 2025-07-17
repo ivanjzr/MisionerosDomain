@@ -1,0 +1,446 @@
+body {
+    background-color: #f1f3f4;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid #e9ecef;
+}
+
+.login-header {
+    background: #ffffff;
+    color: #495057;
+    padding: 30px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.login-body {
+    padding: 30px;
+    background: #ffffff;
+}
+
+.form-control {
+    border-radius: 0.375rem;
+    border: 1px solid #e3e6f0;
+    padding: 0.75rem;
+    transition: all 0.15s ease;
+    background: #ffffff;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+}
+
+.btn-login {
+    background-color: #495057;
+    border-color: #495057;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.btn-login:hover {
+    background-color: #343a40;
+    border-color: #343a40;
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.75rem rgba(73, 80, 87, 0.3);
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #e3e6f0;
+    border-left: none;
+    border-radius: 0 0.375rem 0.375rem 0;
+    color: #6c757d;
+}
+
+.input-group .form-control {
+    border-right: none;
+    border-radius: 0.375rem 0 0 0.375rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.card-title {
+    color: #495057;
+    font-weight: 600;
+}
+
+
+
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1030;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+
+label.error{
+    color: orangered;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+/* --------------- modales styles ------------------*/
+
+/* ===== MODALES BOOTSTRAP 5 ===== */
+
+/* Modal Reservar Cita */
+.modal-header-custom {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+.section-header {
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 8px;
+}
+
+.section-title {
+    color: #495057;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.card.border-start.border-primary {
+    background-color: #f8f9fb;
+}
+
+.card.border-start.border-success {
+    background-color: #f0fff4;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-label i {
+    margin-right: 6px;
+    width: 16px;
+    text-align: center;
+}
+
+.btn-group-custom {
+    display: flex;
+    align-items: center;
+}
+
+.customer-section,
+.service-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.appointment-info-section .card-body {
+    background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+}
+
+.fw-medium {
+    font-weight: 500;
+}
+
+/* Modal Ver Cita */
+.appointment-datetime .card {
+    background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+}
+
+.appointment-details .border {
+    border-color: #e9ecef !important;
+}
+
+.appointment-details .border-bottom:last-child {
+    border-bottom: none !important;
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+.fs-6 {
+    font-size: 0.875rem;
+}
+
+/* Loading spinner */
+.overlay-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    border-radius: 0.375rem;
+}
+
+.section-preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive para modales */
+@media (max-width: 576px) {
+    .customer-section,
+    .service-section {
+        padding: 15px;
+    }
+    
+    .btn-group-custom {
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+    
+    .appointment-details .row {
+        flex-direction: column;
+    }
+    
+    .appointment-details .col-4,
+    .appointment-details .col-8 {
+        width: 100%;
+        padding-bottom: 0.25rem;
+    }
+    
+    .modal-footer .d-flex {
+        flex-direction: column;
+    }
+    
+    .modal-footer .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+
+
+/* ===== ESTILOS ADICIONALES PARA TABLAS BOOTSTRAP 5 ===== */
+
+/* Checkbox mejorado */
+.form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Badges con mejor spacing */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+.badge i {
+    font-size: 0.8em;
+}
+
+/* Status dots personalizados */
+.badge.rounded-pill {
+    padding: 0;
+    border: none;
+}
+
+/* Hover effects para filas de tabla */
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Spinner mejorado para botones */
+.spinner-border-sm {
+    width: 0.875rem;
+    height: 0.875rem;
+}
+
+/* Iconos de estado con mejor spacing */
+.text-success i,
+.text-danger i,
+.text-warning i,
+.text-muted i {
+    font-size: 1.1em;
+}
+
+/* Centrado para checkboxes en tabla */
+.form-check {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Mejor alineación para badges en tabla */
+td .badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Estados hover para iconos */
+.text-success:hover i,
+.text-danger:hover i {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Responsive badges */
+@media (max-width: 768px) {
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.25em 0.5em;
+    }
+    
+    .badge i {
+        display: none;
+    }
+}
+
+
+/* ===== CHECKBOXES MÁS GRANDES ===== */
+
+/* Checkbox normal - un poco más grande */
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.125em;
+}
+
+/* Checkbox grande */
+.form-check-input.form-check-input-lg {
+    width: 1.5em;
+    height: 1.5em;
+    margin-top: 0;
+}
+
+/* Checkbox extra grande */
+.form-check-input.form-check-input-xl {
+    width: 1.75em;
+    height: 1.75em;
+    margin-top: -0.125em;
+}
+
+/* Espaciado entre checkbox y label */
+.form-check-label {
+    margin-left: 0.5rem;
+    line-height: 1.5;
+}
+
+/* Espaciado específico para checkboxes grandes */
+.form-check-input-lg + .form-check-label {
+    margin-left: 0.75rem;
+    line-height: 1.5;
+}
+
+.form-check-input-xl + .form-check-label {
+    margin-left: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Ajuste para checkboxes en tablas */
+.table .form-check-input {
+    width: 1.3em;
+    height: 1.3em;
+    margin: 0;
+}
+
+/* Focus mejorado para checkboxes grandes */
+.form-check-input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+
+
+/* Para Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+/* Animación para cards de productos - MÁS RÁPIDA */
+.product-flash .card {
+    background-color: #d4edda !important;
+    border-color: #28a745 !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3) !important;
+    transition: all 0.15s ease; /* Más rápido */
+}
+
+.card {
+    transition: all 0.15s ease; /* Más rápido */
+}
+
+/* Animación para filas de la tabla - MÁS RÁPIDA CON FADE OUT */
+.item-flash {
+    background-color: #d4edda !important;
+    animation: flashItem 0.8s ease-out; /* Mucho más rápido: de 1.5s a 0.8s */
+}
+
+@keyframes flashItem {
+    0% { 
+        background-color: #28a745; 
+        transform: scale(1.05);
+    }
+    25% { 
+        background-color: #d4edda; 
+        transform: scale(1.03);
+    }
+    100% { 
+        background-color: transparent; 
+        transform: scale(1); 
+    }
+}
+
+
+/* fix hide scroll on bottom div from datatables */
+.table-responsive .bottom{
+    padding: 20px;
+}
+
+.form-control::placeholder {
+    color: #000 !important;
+    opacity: 0.3;
+}

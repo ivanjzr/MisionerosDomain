@@ -1,0 +1,50 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+            <label for="folder_name">Folder Name:</label>
+            <input type="text" data-rule-required="true" class="form-control" name="folder_name" id="folder_name" placeholder="">
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+            <label for="description">Description:</label><br />
+            <textarea class="form-control" name="description" id="description" placeholder=""></textarea>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row edit-mode-only">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+
+</form>

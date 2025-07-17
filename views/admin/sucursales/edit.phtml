@@ -1,0 +1,431 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/sucursales/edit.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Sucursal {$record_id}", "sucursales", "settings");
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Main Content -->
+<div class="container-fluid">
+    
+    <!-- Page Header -->
+    <div class="row my-4">
+        <div class="col-md-6">
+            <h2>
+                <i class="fas fa-user-edit me-2 text-primary"></i>
+                Editar Sucursal
+            </h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#" class="text-decoration-none">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/admin/patients/index" class="text-decoration-none">Sucursales</a>
+                    </li>
+                    <li class="breadcrumb-item active">Editar</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="/admin/sucursales/index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i>
+                Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Card with Tabs -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                
+                <!-- Tabs Navigation -->
+                <div class="card-header bg-light p-0">
+                    <ul class="nav nav-tabs card-header-tabs" id="customerTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" 
+                                    id="tab-detalles" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#detalles" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="detalles" 
+                                    aria-selected="true">
+                                <i class="fas fa-user me-2"></i>
+                                Información
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" 
+                                    id="tab-tax_info" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#tax_info" 
+                                    type="button" 
+                                    role="tab" 
+                                    aria-controls="tax_info" 
+                                    aria-selected="false">
+                                <i class="fas fa-cog me-2"></i>
+                                Tax Information
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="card-body">
+                    <div class="tab-content" id="customerTabsContent">
+                        
+                        
+                        <div class="tab-pane fade show active" 
+                             id="detalles" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-detalles">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-primary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="fw-medium">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+                                
+
+                                <!-- Form Header -->
+                                <div class="row align-items-center my-4">
+                                    <div class="col-md-8">
+                                        <h4 class="mb-0">
+                                            <i class="fas fa-edit me-2 text-primary"></i>
+                                            Detalles Sucursal - <span class="section-title text-muted"></span>
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <button type="submit" form="form_section" class="btn btn-success me-2">
+                                            <i class="fas fa-save me-1"></i>
+                                            Save
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btnReloadDetails">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Basic Information -->
+                                <div class="row g-3 mt-2 mb-4">
+                                    <div class="col-md-6">
+                                        <label for="nombre" class="form-label fw-medium">
+                                            <i class="fas fa-store me-2 text-muted"></i>
+                                            Nombre de la Sucursal:
+                                        </label>
+                                        <input data-rule-required="true" 
+                                                type="text" 
+                                                class="form-control" 
+                                                name="nombre" 
+                                                id="nombre" 
+                                                placeholder="Nombre de la sucursal...">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label fw-medium">
+                                            <i class="fas fa-envelope me-2 text-muted"></i>
+                                            Email:
+                                        </label>
+                                        <input data-rule-required="true" 
+                                                data-rule-email="true" 
+                                                type="email" 
+                                                class="form-control" 
+                                                name="email" 
+                                                id="email"
+                                                placeholder="correo@sucursal.com">
+                                    </div>
+                                </div>
+
+                                <!-- Contact Information -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-4">
+                                        <label for="phone_cc" class="form-label fw-medium">
+                                            <i class="fas fa-flag me-2 text-muted"></i>
+                                            País:
+                                        </label>
+                                        <select data-rule-required="true" class="form-select" name="phone_cc" id="phone_cc">
+                                            <option value="">-- Seleccionar --</option>
+                                            <option value="+1" selected>US (+1)</option>
+                                            <option value="+52">MEX (+52)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="phone_number" class="form-label fw-medium">
+                                            <i class="fas fa-phone me-2 text-muted"></i>
+                                            Teléfono:
+                                        </label>
+                                        <input type="text" 
+                                            data-rule-required="true"
+                                            class="form-control" 
+                                            name="phone_number" 
+                                            id="phone_number" 
+                                            placeholder="Número de teléfono...">
+                                    </div>
+                                </div>
+
+                                <!-- Address Information -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label for="address" class="form-label fw-medium">
+                                            <i class="fas fa-map-marker-alt me-2 text-muted"></i>
+                                            Dirección:
+                                        </label>
+                                        <textarea data-rule-maxlength="512" 
+                                                    class="form-control" 
+                                                    name="address" 
+                                                    id="address" 
+                                                    rows="3"
+                                                    placeholder="Dirección completa..."></textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="estado_id" class="form-label fw-medium">
+                                            <i class="fas fa-map me-2 text-muted"></i>
+                                            Estado:
+                                        </label>
+                                        <select data-rule-required="true" 
+                                                class="form-select" 
+                                                id="estado_id" 
+                                                name="estado_id" 
+                                                disabled>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="ciudad_id" class="form-label fw-medium">
+                                            <i class="fas fa-city me-2 text-muted"></i>
+                                            Ciudad:
+                                        </label>
+                                        <select data-rule-required="true" 
+                                                class="form-select" 
+                                                id="ciudad_id" 
+                                                name="ciudad_id" 
+                                                disabled>
+                                            <option value="">--</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                
+                                <!-- Status -->
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="card bg-light border-0">
+                                            <div class="card-body d-flex align-items-center justify-content-center">
+                                                <div class="form-check">
+                                                    <input type="checkbox" 
+                                                            class="form-check-input" 
+                                                            id="active" 
+                                                            name="active">
+                                                    <label class="form-check-label fw-medium" for="active">
+                                                        Sucursal Habilitada
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+                        </div>
+
+                        <!-- Tab 2: tax_info -->
+                        <div class="tab-pane fade" 
+                             id="tax_info" 
+                             role="tabpanel" 
+                             aria-labelledby="tab-tax_info">
+                            
+                            <!-- Loading Overlay -->
+                            <div class="overlay-2 section-preloader">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="text-center">
+                                        <div class="spinner-border text-primary mb-2" role="status">
+                                            <span class="visually-hidden">Cargando...</span>
+                                        </div>
+                                        <div class="fw-medium">Cargando...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- cfdi Header -->
+                            <div class="row align-items-center my-4">
+                                <div class="col-12">
+                                    <h4 class="mb-0">
+                                        <i class="fas fa-cog me-2 text-success"></i>
+                                        Tax Info Config - <span class="section-title"></span>
+                                    </h4>
+                                </div>
+                            </div>
+
+
+                            
+                            
+                            <div class="card bg-light border rounded p-4">
+                                <form method="post" id="form_sucursal_cfdi" name="form_sucursal_cfdi" enctype="multipart/form-data">
+                                    <!-- Basic Information -->
+                                    <div class="row g-3 mt-2 mb-4 align-items-end">
+                                        <div class="col-md-3 col-5">
+                                            <label for="nombre_razon_social" class="form-label fw-medium">
+                                                <i class="fas fa-store me-2 text-muted"></i>
+                                                Legal Company Name
+                                            </label>
+                                            <input data-rule-required="true" 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    name="nombre_razon_social" 
+                                                    id="nombre_razon_social" 
+                                                    placeholder="">
+                                        </div>
+                                        <div class="col-md-3 col-5">
+                                            <label for="rfc" class="form-label fw-medium">
+                                                <i class="fas fa-envelope me-2 text-muted"></i>
+                                                Tax ID / EIN:
+                                            </label>
+                                            <input data-rule-required="true" 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    name="rfc" 
+                                                    id="rfc" 
+                                                    placeholder="">
+                                        </div>
+                                        <div class="col-md-2 col-2">
+                                            <button type="submit" form="form_sucursal_cfdi" class="btn btn-success">
+                                                <i class="fas fa-save me-1"></i>
+                                                Save
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary btnReloadDetails">
+                                                <i class="fas fa-sync"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+
+                            <!-- cfdi Header -->
+                            <div style="display:none;">
+
+                                <div class="row align-items-center my-5">
+                                    <div class="col-8">
+                                        <h4 class="mb-0">
+                                            <i class="fas fa-list me-2 text-primary"></i>
+                                            Listado de Sellos
+                                        </h4>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <button type="button" class="btn btn-success me-2" id="btnAddSello">
+                                            <i class="fas fa-plus me-1"></i>
+                                            Add Sellos
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="btnReloadSellos">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                                            
+                                <div class="table-responsive">
+                                    <table id="grid_sucursal_sellos" class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th width="50"></th>
+                                                <th>Folio</th>
+                                                <th>RFC / Razon Social</th>
+                                                <th> Fecha de Expedicion </th>
+                                                <th> Fecha de Expiracion </th>
+                                                <th> Validez </th>
+                                                <th width="100"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- DataTable content -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Record Info Footer -->
+                    <div class="row mt-4 pt-3 border-top">
+                        <div class="col-12 text-end">
+                            <small class="text-muted">
+                                <strong>Folio:</strong> <span id="registro_folio" class="text-dark">--</span> | 
+                                <strong>Fecha Creación:</strong> <span id="registro_fecha_creacion" class="text-dark">--</span>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Input -->
+    <input type="hidden" value="<?=$user_info['sucursal'];?>" id="sucursal_name">
+
+</div>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

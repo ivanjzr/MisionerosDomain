@@ -1,0 +1,64 @@
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="msg_id">Template:</label>
+            <select data-rule-required="true" class="form-control" name="msg_id" id="msg_id" disabled></select>
+        </div>
+        <div class="col-sm-8 col-lg-8 col-md-8 col-12">
+            <label for="msg">Message:</label>
+            <textarea class="form-control" name="msg" id="msg" placeholder="Notes..."></textarea>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+
+
+    <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="grid_sale_msgs" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Id:</th>
+                    <th>Template:</th>
+                    <th>Message:</th>
+                    <th>Sent By:</th>
+                    <th>Date:</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+
+
+</form>

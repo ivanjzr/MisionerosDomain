@@ -1,0 +1,173 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/config/config_clabe/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Clabe Interbancaria", "config_clabe", "config", "payment_gateways");
+
+
+?>
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                            </ol>
+
+                        </div><!-- /.col -->
+                        <div class="col-sm-6 text-right">
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+
+                            <a href="/admin/index" class="btn btn-flat btn-warning"><i class="fas fa-reply"></i> Back </a>
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+
+
+
+
+                    <div class="card card-default">
+                        <div class="card-body">
+
+                            <div class="overlay-2 section-preloader">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="nombre_cuenta">Nombre de la Cuenta:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="nombre_cuenta" id="nombre_cuenta" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="clabe_interbancaria">Clabe Interbancaria:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="clabe_interbancaria" id="clabe_interbancaria" placeholder="...">
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label for="notas">Notas:</label>
+                                        <textarea type="text" class="form-control" name="notas" id="notas" placeholder="..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+                            <br />
+
+
+
+                            <div class="row">
+                                <div class="offset-lg-1 offset-md-1 col-sm-4 col-md-4 col-lg-4 col-12 text-center">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <br />
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            Nota: Es necesario que los clientes proporcionen el numero de <strong>folio</strong> asociado a su compra para verificar su pago
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+            </section>
+
+
+
+        </form>
+    </div><!-- /.container-fluid -->
+
+
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'footer.phtml'; ?>

@@ -1,0 +1,487 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/buses/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Edit Bus {$record_id}", "buses");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+<!-- Main Content -->
+<main class="container-fluid py-4" <?=$sidebar_margin;?>>
+    
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="/admin/home" class="text-decoration-none"><span class="fas fa-home"></span> Home </a></li>
+                    <li class="breadcrumb-item">
+                        <a href="/admin/buses/index" class="text-decoration-none"> Buses </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"><?=$App::getSectionTitle();?></li>
+                </ol>
+            </nav>
+            <h4 class="mb-0 fw-bold">
+                <i class="fas fa-edit me-2 text-primary"></i>
+                Edit Bus
+            </h4>
+        </div>
+        <div>
+            <a href="/admin/buses/index" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Back
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="card">
+        <div class="card-header bg-light">
+            <ul class="nav nav-tabs card-header-tabs" id="busTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="detalles-tab" data-bs-toggle="tab" data-bs-target="#detalles" type="button" role="tab">
+                        <i class="fas fa-info-circle me-2"></i> Details
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="prices-tab" data-bs-toggle="tab" data-bs-target="#prices" type="button" role="tab">
+                        <i class="fas fa-dollar-sign me-2"></i> Price
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab">
+                        <i class="fas fa-tags me-2"></i> Features
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery" type="button" role="tab">
+                        <i class="fas fa-images me-2"></i> Gallery
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content" id="busTabsContent">
+                
+                <!-- Tab Detalles -->
+                <div class="tab-pane fade show active" id="detalles" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+                            
+                            <!-- Header Section -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-box me-2 text-info"></i>
+                                        <span class="bus-type"></span> <span class="bus-title text-primary"></span>
+                                    </h5>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save me-2"></i>Save
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" id="btnReloadDetails">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <!-- Left Column -->
+                                <div class="col-lg-8">
+                                    <!-- Basic Information -->
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-sm-5">
+                                            <label for="nombre" class="form-label fw-medium">Nombre:</label>
+                                            <input data-rule-required="true" 
+                                                   type="text" 
+                                                   class="form-control" 
+                                                   name="nombre" 
+                                                   id="nombre" 
+                                                   placeholder="bus name...">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <label for="url" class="form-label fw-medium">Dirección URL:</label>
+                                            <input data-rule-required="true" 
+                                                   type="text" 
+                                                   class="form-control" 
+                                                   name="url" 
+                                                   id="url" 
+                                                   placeholder="URL..." 
+                                                   readonly>
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="mb-4">
+                                        <label for="description" class="form-label fw-medium">description:</label>
+                                        <textarea class="form-control" 
+                                                  name="description" 
+                                                  id="description" 
+                                                  rows="3"
+                                                  placeholder="description..."></textarea>
+                                    </div>
+
+                                    <!-- Type, Code and Category -->
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-4 col-12">
+                                            <label for="bus_code" class="form-label fw-medium">Bus Code:</label>
+                                            <input data-rule-required="true" 
+                                                   type="text" 
+                                                   class="form-control" 
+                                                   name="bus_code" 
+                                                   id="bus_code" 
+                                                   placeholder="Code...">
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <label class="form-label fw-medium">Make / Model:</label>
+                                            <div id="make_and_model_info"></div>
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <label for="year" class="form-label fw-medium">Bus year:</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                data-rule-digits="true"
+                                                data-rule-min="2000"
+                                                data-rule-max="2026"
+                                                data-rule-minlength="4"
+                                                data-rule-maxlength="4"
+                                                data-msg-digits="Please enter a valid year (numbers only)"
+                                                data-msg-min="Bus year must be 2000 or later"
+                                                data-msg-max="Bus year cannot be later than 2026"
+                                                data-msg-minlength="Year must be 4 digits"
+                                                data-msg-maxlength="Year must be 4 digits"
+                                                id="year" 
+                                                name="year"
+                                                placeholder="2019">
+                                        </div>                                        
+                                    </div>
+
+
+                                    <!-- Status -->
+                                    <div class="row my-4 g-3">
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input type="checkbox" 
+                                                    class="form-check-input form-check-input-lg" 
+                                                    id="active" 
+                                                    name="active">
+                                                <label class="form-check-label fw-medium" for="active">
+                                                    Enabled
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Right Column - Image -->
+                                <div class="col-lg-4">
+                                    <!-- Image Preview -->
+                                    <div id="img_section_container" style="display:none;" class="mb-3">
+                                        <label class="form-label fw-medium">Current image:</label>
+                                        <div class="border rounded p-2 bg-light text-center">
+                                            <img id="img_section_url" 
+                                                 class="img-fluid rounded" 
+                                                 style="max-height: 200px; max-width: 100%;">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Image Upload -->
+                                    <div>
+                                        <label for="img_section" class="form-label fw-medium">Image (máx. 784px x 545px):</label>
+                                        <input type="file" 
+                                               class="form-control" 
+                                               name="img_section" 
+                                               id="img_section"
+                                               accept="image/*">
+                                        <small class="form-text text-muted">Allowed formats: JPG, PNG, GIF</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tab Precios -->
+                <div class="tab-pane fade" id="prices" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" id="form_prices" name="form_prices" class="prices_container" enctype="multipart/form-data">
+                            
+                            <!-- Header Section -->
+                            <div class="row g-3 align-items-end mb-4">
+                                <div class="col-sm-6">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-dollar-sign me-2 text-success"></i>
+                                        Precios - <span class="bus-title text-primary"></span>
+                                    </h5>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="bus_precio" class="form-label fw-medium">Precio:</label>
+                                    <input type="text" 
+                                           data-rule-number="true" 
+                                           class="form-control" 
+                                           name="bus_precio" 
+                                           id="bus_precio" 
+                                           placeholder="0.00">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" id="btnAddUpdate" class="btn btn-success">
+                                            <i class="fas fa-plus me-1"></i>Add
+                                        </button>
+                                        <button type="button" id="btnCancel" class="btn btn-warning" style="display:none;">
+                                            Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="btnReloadPrices">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prices Table -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="grid_bus_prices" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>ID</th>
+                                                <th>Bus Id</th>
+                                                <th>Precio</th>
+                                                <th>Actualizado</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                
+                <!-- Tab features -->
+                <div class="tab-pane fade" id="features" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" id="form_features" name="form_features" enctype="multipart/form-data">
+                            
+                            <!-- Header Section -->
+                            <div class="row g-3 align-items-end mb-4">
+                                <div class="col-sm-8">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-tags me-2 text-info"></i>
+                                        Features - <span class="bus-title text-primary"></span>
+                                    </h5>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="feature_id" class="form-label fw-medium">Select Feature:</label>
+                                    <select class="form-select" 
+                                            data-rule-required="true" 
+                                            id="feature_id" 
+                                            name="feature_id">
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-plus me-1"></i>Add
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="btnReloadFeatures">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Features Table -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="grid_bus_features" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Id</th>
+                                                <th>Feature ID</th>
+                                                <th>Feature Name</th>
+                                                <th>Color</th>
+                                                <th>Created On</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tab Gallery -->
+                <div class="tab-pane fade" id="gallery" role="tabpanel">
+                    <div class="overlay-wrapper">
+                        <div class="overlay d-none">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <i class="fas fa-3x fa-sync-alt fa-spin text-primary"></i>
+                                    <div class="fw-bold pt-2">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" id="form_gallery" name="form_gallery" enctype="multipart/form-data">
+                            
+                            <!-- Header Section -->
+                            <div class="row g-3 align-items-end mb-4">
+                                <div class="col-sm-6">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-images me-2 text-primary"></i>
+                                        Gallery - <span class="bus-title text-primary"></span>
+                                    </h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="gallery_img_section" class="form-label fw-medium">Select Image (máx. 784px x 545px):</label>
+                                    <input type="file" 
+                                           data-rule-required="true" 
+                                           class="form-control" 
+                                           name="gallery_img_section" 
+                                           id="gallery_img_section"
+                                           accept="image/*">
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-plus me-1"></i>Add
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="btnReloadGallery">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gallery Table -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="grid_bus_images" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Id</th>
+                                                <th>Bus Id</th>
+                                                <th>Image</th>
+                                                <th>Updated On</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Info -->
+            <div class="row mt-4">
+                <div class="col-12 text-end">
+                    <small class="text-muted">
+                        Id: <strong id="registro_folio">--</strong> | 
+                        Fecha creación: <strong id="registro_fecha_creacion">--</strong>
+                    </small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" value="<?=$user_info['sucursal'];?>" id="sucursal_name">
+
+</main>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

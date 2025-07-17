@@ -1,0 +1,164 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Personal Information -->
+     <div class="row g-3 mb-4">        
+        <div class="col-md-8 col-12">
+            <label for="name" class="form-label fw-medium">
+                <i class="fas fa-user me-2 text-muted"></i>
+                Nombre:
+            </label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="name" 
+                   id="name" 
+                   placeholder="Nombre...">
+        </div>
+        <div class="col-md-4 col-12">
+            <label for="sys_title_id" class="form-label fw-medium">
+                <i class="fas fa-id-badge me-2 text-muted"></i>
+                Título:
+            </label>
+            <select data-rule-required="true" 
+                    class="form-select" 
+                    id="sys_title_id" 
+                    name="sys_title_id" 
+                    disabled>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-5">
+            <label for="email" class="form-label fw-medium">
+                <i class="fas fa-envelope me-2 text-muted"></i>
+                Email:
+            </label>
+            <input data-rule-required="true" 
+                   data-rule-email="true" 
+                   type="email" 
+                   class="form-control" 
+                   name="email" 
+                   id="email"
+                   placeholder=""
+                   readonly>
+        </div>
+        <div class="col-md-3">
+            <label for="phone_country_id" class="form-label fw-medium">
+                <i class="fas fa-flag me-2 text-muted"></i>
+                Código País:
+            </label>
+            <select data-rule-required="true" 
+                    data-rule-number="true" 
+                    class="form-select" 
+                    id="phone_country_id" 
+                    name="phone_country_id" 
+                    disabled>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="phone_number" class="form-label fw-medium">
+                <i class="fas fa-phone me-2 text-muted"></i>
+                Teléfono:
+            </label>
+            <input type="text" 
+                   class="form-control" 
+                   name="phone_number" 
+                   id="phone_number" 
+                   placeholder="Número de teléfono..."
+                   readonly>
+        </div>
+    </div>
+
+    
+    <!-- Security -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <label for="password" class="form-label fw-medium">
+                <i class="fas fa-lock me-2 text-muted"></i>
+                Contraseña:
+            </label>
+            <input type="password" 
+                   class="form-control" 
+                   name="password" 
+                   id="password"
+                   placeholder="Contraseña segura..."
+                   readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="password_confirm" class="form-label fw-medium">
+                <i class="fas fa-check-circle me-2 text-muted"></i>
+                Confirmar Contraseña:
+            </label>
+            <input type="password" 
+                   class="form-control" 
+                   name="password_confirm" 
+                   id="password_confirm"
+                   placeholder="Repetir contraseña..."
+                   readonly>
+        </div>
+    </div>
+    <!-- Status and Configuration -->
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="card bg-light border-0 h-100">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="form-check">
+                                <input type="checkbox" 
+                                       class="form-check-input" 
+                                       id="is_admin" 
+                                       name="is_admin">
+                                <label class="form-check-label fw-medium" for="is_admin">
+                                    <i class="fas fa-user-shield me-2 text-warning"></i>
+                                    Es Administrador
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="notes" class="form-label fw-medium">
+                <i class="fas fa-sticky-note me-2 text-muted"></i>
+                Notas:
+            </label>
+            <textarea data-rule-maxlength="512" 
+                      class="form-control" 
+                      name="notes" 
+                      id="notes" 
+                      rows="5"
+                      placeholder="Notas adicionales sobre el usuario..."></textarea>
+        </div>
+    </div>
+
+</form>

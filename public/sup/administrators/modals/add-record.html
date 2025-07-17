@@ -1,0 +1,104 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input data-rule-required="true" type="text" class="form-control" name="nombre" id="nombre" placeholder="nombre...">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-5 col-md-5 col-lg-5 col-12">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input data-rule-required="true" data-rule-email="true" type="text" class="form-control" name="email" id="email">
+            </div>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3 col-12">
+            <label for="phone_cc">Telefono Clave:</label>
+            <Select class="form-control" name="phone_cc" id="phone_cc">
+                <option>--select</option>
+                <option value="+1" selected>US(+1)</option>
+                <option value="+52">MEX(+52)</option>
+            </Select>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+            <label for="phone_number">Telefono:</label>
+            <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="Telefono...">
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                <label for="password">Clave:</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+        </div>
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                <label for="password_confirm">Confirmar Clave:</label>
+                <input type="password" class="form-control" name="password_confirm" id="password_confirm">
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-12 text-center">
+            <br />
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+            </label>
+        </div>
+        <div class="col-md-6 col-lg-6 col-12">
+            <div class="form-group">
+                <label for="notes">Notas:</label>
+                <textarea data-rule-maxlength="512" type="text" class="form-control" name="notes" id="notes" placeholder=""></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+
+</form>

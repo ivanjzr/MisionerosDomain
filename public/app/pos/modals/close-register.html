@@ -1,0 +1,175 @@
+<form method="post" id="form_close_register" name="form_close_register" enctype="multipart/form-data" autocomplete="off">
+
+    <!-- Modal Header -->
+    <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center">
+            <div class="bg-danger bg-opacity-10 rounded-circle p-2 me-3">
+                <i class="fas fa-cash-register text-danger"></i>
+            </div>
+            <div>
+                <h5 class="modal-title mb-0" id="close-register-title"></h5>
+                <small class="text-muted">Confirme el conteo final para cerrar operaciones</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+        
+        <!-- Resumen de Ventas -->
+        <div class="card border-0 bg-success bg-opacity-10 mb-3">
+            <div class="card-body p-3">
+                <h6 class="text-success mb-2">
+                    <i class="fas fa-chart-line me-2"></i>Resumen del Día
+                </h6>
+                <div class="row text-center">
+                    <div class="col-4">
+                        <small class="text-muted d-block">Ventas</small>
+                        <strong class="text-success" id="summary_ventas">$0.00</strong>
+                    </div>
+                    <div class="col-4">
+                        <small class="text-muted d-block">Efectivo</small>
+                        <strong class="text-success" id="summary_efectivo">$0.00</strong>
+                    </div>
+                    <div class="col-4">
+                        <small class="text-muted d-block">Dólares</small>
+                        <strong class="text-success" id="summary_dolares">$0.00</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balance Esperado vs Contado -->
+        <div class="card border-0 bg-light mb-4">
+            <div class="card-header bg-transparent border-0 pb-2">
+                <h6 class="mb-0 text-secondary">
+                    <i class="fas fa-calculator me-2"></i>Arqueo Final
+                </h6>
+            </div>
+            <div class="card-body pt-2">
+                
+                <!-- Balance Esperado -->
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <small class="text-muted d-block">Esperado MXN:</small>
+                        <div class="fw-bold text-primary" id="expected_balance_mxn">$0.00</div>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted d-block">Esperado USD:</small>
+                        <div class="fw-bold text-primary" id="expected_balance_usd">$0.00</div>
+                    </div>
+                </div>
+
+                <hr class="my-3">
+
+                <!-- Balance Contado -->
+                <div class="row g-3">
+                    <div class="col-sm-6 col-12">
+                        <label for="closed_balance" class="form-label text-muted small fw-medium">
+                            <strong>Contado MXN</strong>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-dollar-sign text-success"></i>
+                            </span>
+                            <input type="number" 
+                                   class="form-control border-start-0 ps-0" 
+                                   id="closed_balance" 
+                                   name="closed_balance"
+                                   placeholder="0.00"
+                                   step="0.01"
+                                   min="0"
+                                   required
+                                   value=""/>
+                        </div>
+                        <small class="text-muted">Efectivo real contado en caja</small>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <label for="closed_balance_usd" class="form-label text-muted small fw-medium">
+                            <strong>Contado USD</strong>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-coins text-warning"></i>
+                            </span>
+                            <input type="number" 
+                                   class="form-control border-start-0 ps-0" 
+                                   id="closed_balance_usd" 
+                                   name="closed_balance_usd"
+                                   placeholder="0.00"
+                                   step="0.01"
+                                   min="0"
+                                   value=""/>
+                        </div>
+                        <small class="text-muted">Dólares reales contados en caja</small>
+                    </div>
+                </div>
+
+                <!-- Diferencias (se calculan automáticamente) -->
+                <div class="row g-2 mt-3" id="differences_section" style="display: none;">
+                    <div class="col-6">
+                        <small class="text-muted d-block">Diferencia MXN:</small>
+                        <div class="fw-bold" id="difference_mxn">$0.00</div>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted d-block">Diferencia USD:</small>
+                        <div class="fw-bold" id="difference_usd">$0.00</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <label for="closing_notes" class="form-label text-muted small fw-medium">
+                        Notas de Cierre (Opcional)
+                    </label>
+                    <textarea class="form-control" 
+                              id="closing_notes" 
+                              name="closing_notes"
+                              rows="2"
+                              placeholder="Observaciones sobre el arqueo, diferencias encontradas, etc..."></textarea>
+                    <small class="text-muted">Comentarios adicionales sobre el cierre</small>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Alerta de Diferencias -->
+        <div class="alert alert-warning border-0 bg-warning bg-opacity-10" id="difference_alert" style="display: none;">
+            <div class="d-flex">
+                <i class="fas fa-exclamation-triangle text-warning me-2 mt-1"></i>
+                <div>
+                    <small class="text-warning mb-1 d-block fw-medium">Diferencia detectada:</small>
+                    <small class="text-muted" id="difference_message">
+                        El conteo no coincide con el balance esperado.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="alert alert-info border-0 bg-info bg-opacity-10">
+            <div class="d-flex">
+                <i class="fas fa-info-circle text-info me-2 mt-1"></i>
+                <div>
+                    <small class="text-info mb-1 d-block fw-medium">Antes de cerrar:</small>
+                    <small class="text-muted">
+                        • Cuente físicamente todo el efectivo en caja<br>
+                        • Verifique que coincida con el sistema<br>
+                        • Una vez cerrada, no podrá realizar más ventas
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">
+            <i class="fas fa-times me-1"></i>Cancelar
+        </button>
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-lock me-1"></i>Cerrar Caja
+        </button>
+    </div>
+
+</form>

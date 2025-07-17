@@ -1,0 +1,20 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+<div id="header">
+    {% include('admin/default/header.html') %}
+</div>
+twig
+<div id="wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+
+<div id="footer">
+    {% include('admin/default/footer.html') %}
+</div>
+</body>
+</html>

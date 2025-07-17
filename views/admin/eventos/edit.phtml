@@ -1,0 +1,329 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+
+
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/events/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Eventos", "events");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                        </ol>
+
+
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 text-right">
+
+                        <a href="/admin/events/index" class="btn btn-flat btn-warning"><i class="fas fa-reply"></i> Back </a>
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-detalles" data-toggle="pill" href="#detalles" role="tab" aria-controls="detalles" aria-selected="true">Detalles</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-fechas" data-toggle="pill" href="#fechas" role="tab" aria-controls="fechas" aria-selected="false">Fechas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-gallery" data-toggle="pill" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false">Galeria</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-three-tabContent">
+                                    <div class="tab-pane fade show active" id="detalles" role="tabpanel" aria-labelledby="tab-detalles">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+
+                                            <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12">
+                                                        <h4>Detalles - <span class="product-title"></span></h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12 text-right">
+                                                        <br />
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fa fa-save"></i> Save
+                                                        </button>
+                                                        <button type="button" class="btn btn-flat btn-default" id="btnReloadDetails"><i class="fas fa-sync"></i> </button>
+                                                    </div>
+                                                </div>
+
+                                                <hr />
+
+                                                <div class="row">
+                                                    <div class="col-sm-8 col-lg-8 col-md-8 col-12" style="">
+
+                                                        <div class="row">
+                                                            <div class="col-sm-5 col-lg-5 col-md-5 col-12">
+                                                                <label for="title">Title:</label>
+                                                                <input data-rule-required="true" type="text" class="form-control" name="title" id="title" placeholder="Title...">
+                                                            </div>
+                                                            <div class="col-sm-7 col-lg-7 col-md-7 col-12">
+                                                                <label for="url">direccion URL:</label>
+                                                                <input data-rule-required="true" type="text" class="form-control" name="url" id="url" placeholder="url..." readonly>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <label for="sub_title">Subtitle:</label>
+                                                                <input data-rule-required="true" type="text" class="form-control" name="sub_title" id="sub_title" placeholder="Subtitle...">
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+                                                                <label for="description">Short Descripcion:</label>
+                                                                <textarea class="form-control" name="description" id="description" placeholder="Short Descripcion..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-12">
+                                                                <label for="full_description">Descripcion:</label>
+                                                                <textarea class="form-control" name="full_description" id="full_description" placeholder="Full Descripcion..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+
+                                                        <div id="img_section_container" class="text-center" style="display:none">
+                                                            <img id="img_section_url">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="img_section">Imagen (max 886px x 960px)</label>
+                                                            <input type="file" class="form-control" name="img_section" id="img_section">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <br />
+                                                <hr />
+                                                <br />
+
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <br />
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="active" name="active" class="styled-checkbox"> <strong> Producto Habilitado </strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+                                                <br />
+
+
+
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="fechas" role="tabpanel" aria-labelledby="tab-fechas">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+
+
+
+
+                                            <div class="row">
+                                                <div class="col-sm-8 col-lg-8 col-md-8 col-12">
+                                                    <h4>fechas - <span class="product-title"></span></h4>
+                                                </div>
+                                                <div class="col-sm-4 col-lg-4 col-md-4 col-12 text-end">
+                                                    <br />
+                                                    <button type="button" id="btnModalAddFecha" class="btn btn-success"><span class="fa fa-plus"></span> Add </button>
+                                                    <button type="button" class="btn btn-flat btn-default" id="btnReloadFechas"><i class="fas fa-sync"></i> </button>
+                                                </div>
+                                            </div>
+
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <table id="grid_evento_fechas" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>Folio:</th>
+                                                                    <th>evento_id:</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Info</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                            </div>
+                                            <!-- /.row -->
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="tab-gallery">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+                                            <form method="post" id="form_gallery" name="form_gallery" enctype="multipart/form-data">
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12">
+                                                        <h4>Galeria - <span class="product-title"></span></h4>
+                                                    </div>
+                                                    <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+                                                        <div class="form-group">
+                                                            <label for="gallery_img_section">Seleccionar imagen (max 886px x 960px)</label>
+                                                            <input type="file" data-rule-required="true" class="form-control" name="gallery_img_section" id="gallery_img_section">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 col-lg-2 col-md-2 col-12">
+                                                        <br />
+                                                        <button type="submit" class="btn btn-success"><span class="fa fa-plus"></span> Add </button>
+                                                        <button type="button" class="btn btn-flat btn-default" id="btnReloadGallery"><i class="fas fa-sync"></i> </button>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="card">
+                                                            <!-- /.card-header -->
+                                                            <div class="card-body">
+                                                                <table id="grid_evento_images" class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Folio:</th>
+                                                                        <th>evento_id:</th>
+                                                                        <th></th>
+                                                                        <th>Actualizado:</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                        </div>
+                                                        <!-- /.card -->
+                                                    </div>
+                                                </div>
+                                                <!-- /.row -->
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-custom-content">
+                                    <div class="row controls-row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

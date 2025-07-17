@@ -1,0 +1,158 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_edit_exception" name="form_edit_exception" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnEdit2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+
+
+
+
+    <div class="row mt-4">
+        <div class="col-sm-6 col-12">
+            <label>Motivo:</label>
+            <input type="text" data-rule-required="true" class="form-control" id="motivo" name="motivo">            
+        </div>
+        <div class="col-sm-6 col-12">
+            <label>Descripcion:</label>
+            <textarea type="text" class="form-control" id="description" name="description"></textarea>
+        </div>
+    </div>
+
+
+    <div class="row mt-2">
+        <div class="col-sm-6 col-12">
+            <div class="form-group">
+                <label for="prioridad">Prioridad de la excepción:</label>
+                <select class="form-control" id="prioridad" name="prioridad">
+                    <option value="10">Máxima prioridad - Cierre de emergencia</option>
+                    <option value="20">Alta prioridad - Evento especial</option>
+                    <option value="30">Media-alta - Días festivos/feriados</option>
+                    <option value="40">Media - Temporada especial</option>
+                    <option value="50">Media-baja - Cambio en día específico</option>
+                    <option value="100" selected>Baja - Excepción regular</option>
+                    <option value="999">Mínima - Solo aplica si no hay otra excepción</option>
+                </select>
+                <small class="form-text text-muted">La prioridad determina qué excepción aplica cuando hay conflictos. Valores más bajos tienen mayor prioridad.</small>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="recurrencia_tipo_container" style="display:none;">
+        <div class="row mt-4">
+            <div class="col-sm-4 col-12">
+                <label for="recurrencia_tipo">Tipo de Recurrencia:</label>
+                <select class="form-control" id="recurrencia_tipo" name="recurrencia_tipo">
+                    <option value="">--sin recurrencia</option>
+                    <option value="diaria">Diaria</option>
+                    <option value="semanal">Semanal</option>
+                    <option value="quincenal">Quincenal</option>
+                    <option value="mensual">Mensual</option>
+                    <option value="anual">Anual</option>
+                </select>
+            </div>
+            <div class="col-sm-4 col-12 text-center">
+                <div class="form-group recurrencia_duracion" style="display:none;">
+                    <label for="recurrencia_duracion">Duracion:</label><br />
+                    <label><input type="radio" class="styled-checkbox" name="recurrencia_duracion" id="recurrencia_duracion_ilimitado" value=""> Ilimitado </label><br />
+                    <label><input type="radio" class="styled-checkbox" name="recurrencia_duracion" id="recurrencia_duracion_hasta_fecha_limite" value="fecha_limite"> hasta fecha limite </label>
+                </div>
+            </div>
+            <div class="col-sm-4 col-12">
+                <div class="form-group recurrencia_fecha_limite" style="display:none;">
+                    <label>Fecha Limite:</label>
+                    <input type="text" class="form-control datetimepicker-input" id="recurrencia_fecha_limite" name="recurrencia_fecha_limite" data-toggle="datetimepicker" data-target="#recurrencia_fecha_limite" readonly />
+                </div>
+            </div>
+        </div>
+
+
+        <div id="recurrencia_tipo_diaria_container" style="display:none;">
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    Dias de recurrencia
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_mon" name="recur_mon"> <strong> Lunes </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_tue" name="recur_tue"> <strong> Martes </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_wed" name="recur_wed"> <strong> Miércoles </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_thu" name="recur_thu"> <strong> Jueves </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_fri" name="recur_fri"> <strong> Viernes </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_sat" name="recur_sat"> <strong> Sábado </strong>
+                    </label>
+                </div>
+                <div class="col-sm-3 col-3 text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="styled-checkbox" id="recur_sun" name="recur_sun"> <strong> Domingo </strong>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="activo" name="activo"> <strong> Excepcion Activa </strong>
+            </label>
+        </div>
+    </div>
+
+
+
+
+
+    
+
+</form>

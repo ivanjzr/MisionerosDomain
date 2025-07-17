@@ -1,0 +1,77 @@
+<!-- Preloader -->
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-6 col-12">
+                <h4 id="modal-title" class="mb-0"></h4>
+            </div>
+            <div class="col-sm-6 col-12 text-end">
+                <button type="submit" class="btn btn-success me-2 btnAdd2">
+                    <i class="fas fa-save me-1"></i>
+                    Guardar
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>
+                    Salir
+                </button>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Alerts Container -->
+    <div id="alerts-container-2" class="mb-3"></div>
+
+    <!-- Basic Information -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-12">
+            <label for="name" class="form-label fw-medium">Nombre de Caja:</label>
+            <input data-rule-required="true" 
+                   type="text" 
+                   class="form-control" 
+                   name="name" 
+                   id="name" 
+                   placeholder="Nombre del caja...">
+        </div>
+        <div class="col-sm-6 col-12">
+            <label for="location_id" class="form-label fw-medium">Sucursal:</label>
+            <select class="form-select" 
+                    data-rule-required="true" 
+                    id="location_id" 
+                    name="location_id" 
+                    disabled>
+                <option value="">-- Seleccionar sucursal --</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="row g-3 mb-4">
+        <div class="col-12">
+            <label for="description" class="form-label fw-medium">Descripción:</label>
+            <textarea class="form-control" 
+                      name="description" 
+                      id="description" 
+                      rows="3"
+                      placeholder="Descripción del caja..."></textarea>
+        </div>
+    </div>
+
+
+    <!-- Status -->
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="active" name="active">
+                <label class="form-check-label" for="active">Activa</label>
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,66 @@
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="...">
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <label for="abreviado">Abreviado:</label>
+            <input type="text" class="form-control" name="abreviado" id="abreviado" placeholder="...">
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12">
+            <br />
+            <button type="submit" id="btnAddUpdate" class="btn btn-success"></button>
+            <button type="button" id="btnCancel" class="btn btn-warning" style="display:none;">Cancel</button>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12">
+
+            <table id="grid_estado_ciudades"></table>
+
+        </div>
+    </div>
+
+
+    <br />
+
+
+
+    <div class="row controls-row hidden edit-mode-only">
+        <div class="col-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

@@ -1,0 +1,347 @@
+<?php
+
+?>
+
+<!-- Sidebar for Desktop / Offcanvas for Mobile -->
+<div class="sidebar-container d-lg-block d-none" id="sidebar-desktop">
+    <!-- Contenido del sidebar sin header de offcanvas -->
+    <div class="sidebar-body">
+        
+        <!-- Brand Logo Section -->
+        <div class="p-3 border-bottom bg-primary text-white">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <img src="/adm/img/AdminLTELogo.png" 
+                         alt="AdminLTE Logo" 
+                         class="rounded-circle" 
+                         width="40" 
+                         height="40" 
+                         style="opacity: .8">
+                </div>
+                <div>
+                    <div class="fw-bold"><?=SUPADMIN_TITLE;?></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Panel -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <?php if (isset($user_info['image_url']) && $user_info['image_url']) { ?>
+                        <img src="<?=$user_info['image_url'];?>" class="rounded-circle" width="40" height="40" alt="User">
+                    <?php } else { ?>
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div>
+                    <div class="fw-bold"><?= $user_info['nombre'] ;?></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="p-2">
+            
+            <!-- Dashboard -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/index" class="btn <?=$App::isMenuActive("dashboard") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Tablero
+                </a>
+            </div>
+
+            <!-- Cuentas -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/accounts/index" class="btn <?=$App::isMenuActive("accounts") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-briefcase me-2"></i>
+                    Cuentas
+                </a>
+            </div>
+
+            <!-- Usuarios -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/administrators/index" class="btn <?=$App::isMenuActive("administrators") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-users me-2"></i>
+                    Usuarios
+                </a>
+            </div>
+
+            <!-- Configuración (Menu with submenu) -->
+            <?php 
+            $isConfigOpen = $App::isMenuOpen("config") ? 'show' : '';
+            $isConfigActive = $App::isDropDownMenuActive("config") ? 'btn-primary' : 'btn-light';
+            ?>
+            <div class="mb-1">
+                <button class="btn <?=$isConfigActive;?> w-100 text-start d-flex justify-content-between align-items-center" 
+                        type="button" data-bs-toggle="collapse" data-bs-target="#menu-config">
+                    <span>
+                        <i class="fas fa-cog me-2"></i>
+                        Configuración
+                    </span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="collapse <?=$isConfigOpen;?>" id="menu-config">
+                    <div class="ms-3 mt-1">
+                        
+                        <!-- Ubicaciones -->
+                        <a href="/<?=SUPADMIN_URL;?>/locations/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("cat_locations") ? 'active' : '';?>">
+                            <i class="fas fa-dot-circle me-2"></i>
+                            Ubicaciones
+                        </a>
+
+                        <!-- Modelos -->
+                        <a href="/<?=SUPADMIN_URL;?>/models/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("models") ? 'active' : '';?>">
+                            <i class="fas fa-dot-circle me-2"></i>
+                            Modelos
+                        </a>
+
+                        <!-- Pasarelas de Pago (Submenu level 2) -->
+                        <?php 
+                        $isPaymentOpen = $App::isSubMenuOpen("payment_gateways") ? 'show' : '';
+                        ?>
+                        <div class="mb-1">
+                            <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#submenu-payment">
+                                <span>
+                                    <i class="fas fa-list-ul me-2"></i>
+                                    Pasarelas de Pago
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isPaymentOpen;?>" id="submenu-payment">
+                                <div class="ms-3 mt-1">
+                                    
+                                    <!-- Stripe -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/stripe/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_stripe") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Stripe
+                                    </a>
+
+                                    <!-- PayPal -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/paypal/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_paypal") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        PayPal
+                                    </a>
+
+                                    <!-- Authorize.Net -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/authorizenet/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_authorizenet") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Authorize.Net
+                                    </a>
+
+                                    <!-- CLABE -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/clabe/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_clabe") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        CLABE Interbancaria
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interfaces (Submenu level 2) -->
+                        <?php 
+                        $isPlatformOpen = $App::isSubMenuOpen("platform_gateways") ? 'show' : '';
+                        ?>
+                        <div class="mb-1">
+                            <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#submenu-platform">
+                                <span>
+                                    <i class="fas fa-list-ul me-2"></i>
+                                    Interfaces
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isPlatformOpen;?>" id="submenu-platform">
+                                <div class="ms-3 mt-1">
+                                    
+                                    <!-- Twilio -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/twilio/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_twilio") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Twilio
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Offcanvas -->
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebar-mobile" style="width: 280px;">
+    
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title">Menú</h5>
+        <button type="button" class="btn-close"></button>
+    </div>
+    
+    <div class="offcanvas-body p-0">
+        
+        <!-- Brand Logo Section -->
+        <div class="p-3 border-bottom bg-primary text-white">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <img src="/adm/img/AdminLTELogo.png" 
+                         alt="AdminLTE Logo" 
+                         class="rounded-circle" 
+                         width="40" 
+                         height="40" 
+                         style="opacity: .8">
+                </div>
+                <div>
+                    <div class="fw-bold"><?=SUPADMIN_TITLE;?></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- User Panel -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <?php if (isset($user_info['image_url']) && $user_info['image_url']) { ?>
+                        <img src="<?=$user_info['image_url'];?>" class="rounded-circle" width="40" height="40" alt="User">
+                    <?php } else { ?>
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div>
+                    <div class="fw-bold"><?= $user_info['nombre'] ;?></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu (Same as desktop) -->
+        <div class="p-2">
+            
+            <!-- Dashboard -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/index" class="btn <?=$App::isMenuActive("dashboard") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Tablero
+                </a>
+            </div>
+
+            <!-- Cuentas -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/accounts/index" class="btn <?=$App::isMenuActive("accounts") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-briefcase me-2"></i>
+                    Cuentas
+                </a>
+            </div>
+
+            <!-- Usuarios -->
+            <div class="mb-1">
+                <a href="/<?=SUPADMIN_URL;?>/administrators/index" class="btn <?=$App::isMenuActive("administrators") ? 'btn-primary' : 'btn-light';?> w-100 text-start">
+                    <i class="fas fa-users me-2"></i>
+                    Usuarios
+                </a>
+            </div>
+
+            <!-- Configuración (Menu with submenu) -->
+            <div class="mb-1">
+                <button class="btn <?=$isConfigActive;?> w-100 text-start d-flex justify-content-between align-items-center" 
+                        type="button" data-bs-toggle="collapse" data-bs-target="#menu-config-mobile">
+                    <span>
+                        <i class="fas fa-cog me-2"></i>
+                        Configuración
+                    </span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="collapse <?=$isConfigOpen;?>" id="menu-config-mobile">
+                    <div class="ms-3 mt-1">
+                        
+                        <!-- Ubicaciones -->
+                        <a href="/<?=SUPADMIN_URL;?>/locations/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("cat_locations") ? 'active' : '';?>">
+                            <i class="fas fa-dot-circle me-2"></i>
+                            Ubicaciones
+                        </a>
+
+                        <!-- Menus -->
+                        <a href="/<?=SUPADMIN_URL;?>/menus/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("cat_menus") ? 'active' : '';?>">
+                            <i class="fas fa-dot-circle me-2"></i>
+                            Menus
+                        </a>
+
+                        <!-- Pasarelas de Pago (Submenu level 2) -->
+                        <div class="mb-1">
+                            <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#submenu-payment-mobile">
+                                <span>
+                                    <i class="fas fa-list-ul me-2"></i>
+                                    Pasarelas de Pago
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isPaymentOpen;?>" id="submenu-payment-mobile">
+                                <div class="ms-3 mt-1">
+                                    
+                                    <!-- Stripe -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/stripe/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_stripe") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Stripe
+                                    </a>
+
+                                    <!-- PayPal -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/paypal/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_paypal") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        PayPal
+                                    </a>
+
+                                    <!-- Authorize.Net -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/authorizenet/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_authorizenet") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Authorize.Net
+                                    </a>
+
+                                    <!-- CLABE -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/clabe/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_clabe") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        CLABE Interbancaria
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interfaces (Submenu level 2) -->
+                        <div class="mb-1">
+                            <button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#submenu-platform-mobile">
+                                <span>
+                                    <i class="fas fa-list-ul me-2"></i>
+                                    Interfaces
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isPlatformOpen;?>" id="submenu-platform-mobile">
+                                <div class="ms-3 mt-1">
+                                    
+                                    <!-- Twilio -->
+                                    <a href="/<?=SUPADMIN_URL;?>/config/twilio/index" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$App::isMenuActive("config_twilio") ? 'active' : '';?>">
+                                        <i class="fas fa-dot-circle me-2"></i>
+                                        Twilio
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</div>

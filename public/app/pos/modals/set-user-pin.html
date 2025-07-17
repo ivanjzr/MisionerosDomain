@@ -1,0 +1,47 @@
+<form method="post" id="form_set_pin" name="form_set_pin" enctype="multipart/form-data" autocomplete="off">
+
+
+    
+    <!-- Modal Header -->
+    <div class="modal-header-custom mb-3">
+        <div class="row align-items-center w-100">
+            <div class="col-sm-10 col-12">
+                <strong id="user-name" class="mb-0"></strong>
+            </div>
+            <div class="col-sm-2 col-12 text-end">                
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>                
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row g-3 my-4">
+        <div class="col-12">
+            <label for="user_pin" class="form-label fw-medium">
+                <i class="fas fa-users me-2 text-muted"></i>
+                NUMERO DE PIN
+            </label>
+            <input type="text"
+                class="form-control" 
+                id="user_pin" 
+                name="user_pin"
+                placeholder="****"
+                style="-webkit-text-security: disc; text-security: disc;"
+                autocomplete="off" />
+        </div>
+    </div>
+
+
+    <div class="row g-3 my-4">
+        <div class="col-12">
+            
+            <button type="submit" class="btn btn-success btn-block me-2">
+                <i class='fa fa-sign-in'></i> Continuar
+            </button>
+
+        </div>
+    </div>
+
+</form>

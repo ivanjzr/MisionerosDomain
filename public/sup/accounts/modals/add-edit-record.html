@@ -1,0 +1,75 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <div class="row">
+        <div class="col-sm-5 col-lg-5 col-md-5 col-12">
+            <label for="company_name">Empresa:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="company_name" id="company_name" placeholder="...">
+        </div>
+        <div class="col-sm-7 col-lg-7 col-md-7 col-12">
+            <label for="contact_name">Contacto:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="contact_name" id="contact_name" placeholder="...">
+        </div>
+    </div>
+
+
+
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-12 text-center">
+            <br />
+            <br />
+            <label class="checkbox-inline">
+                <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+            </label>
+        </div>
+        <div class="col-md-6 col-lg-6 col-12">
+            <div class="form-group">
+                <label for="notes">Notas:</label>
+                <textarea data-rule-maxlength="512" type="text" class="form-control" name="notes" id="notes" placeholder=""></textarea>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+
+
+    <div class="row edit-mode-only" style="display:none;">
+        <div class="col-sm-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>
+

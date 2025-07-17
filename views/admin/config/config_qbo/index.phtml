@@ -1,0 +1,215 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/app/config/config_qbo/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Quickbooks", "quickbooks", "quickbooks");
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                            </ol>
+
+                        </div><!-- /.col -->
+                        <div class="col-sm-6 text-right">
+
+                            <button type="button" class="btn btn-flat btn-warning" id="btnClearQuickbooksCredentials" style="display:none;"><i class="fas fa-remove"></i> Clear Credentials </button>
+
+                            <button type="button" class="btn btn-flat btn-primary" id="btnGenerateAuthUrlAndLogin"><i class="fas fa-url"></i> Quickbooks Login</button>
+                            <button type="button" class="btn btn-flat btn-primary" id="btnSyncCustomers" style="display:none;"><i class="fas fa-sync"></i> Sincronizar Clientes </button>
+                            <button type="button" class="btn btn-flat btn-primary" id="btnSyncSales" style="display:none;"><i class="fas fa-sync"></i> Sincronizar Ventas </button>
+                            <!--<button type="button" class="btn btn-flat btn-warning" id="btnRevokeToken" style="display:none;"><i class="fas fa-times"></i> Revoke Token </button>-->
+
+                            <br />
+                            <small>Insert Id: <span id="token_id"></span></small>
+                            <br />
+
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+
+                            <a href="/admin/index" class="btn btn-flat btn-warning"><i class="fas fa-reply"></i> Back </a>
+
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+
+
+
+
+                    <div class="card card-default">
+                        <div class="card-body">
+
+                            <div class="overlay-2 section-preloader">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
+
+
+                            <h4> Credenciales Produccion </h4>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="prod_client_id">Client ID:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="prod_client_id" id="prod_client_id" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="prod_client_secret">Client Secret:</label>
+                                        <textarea data-rule-required="true" type="text" class="form-control" name="prod_client_secret" id="prod_client_secret" placeholder="..."></textarea>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="prod_redirect_url">Redirect Url:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="prod_redirect_url" id="prod_redirect_url" placeholder="...">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!-- /.row -->
+
+
+                            <br />
+
+
+                            <h4> Credenciales Pruebas </h4>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="dev_client_id">Client Id:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="dev_client_id" id="dev_client_id" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="dev_client_secret">Client Secret:</label>
+                                        <textarea data-rule-required="true" type="text" class="form-control" name="dev_client_secret" id="dev_client_secret" placeholder="..."></textarea>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+                                    <div class="form-group">
+                                        <label for="dev_redirect_url">Redirect Url:</label>
+                                        <input data-rule-required="true" type="text" class="form-control" name="dev_redirect_url" id="dev_redirect_url" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+                            <br />
+
+
+
+                            <div class="row">
+                                <div class="offset-lg-2 offset-md-2  col-sm-4 col-md-4 col-lg-4 col-12 text-center">
+                                    <p> Modo: </p>
+                                    <label><input type="radio" class="styled-checkbox" name="is_prod" id="is_prod_prod" value="1"> Produccion </label>
+                                    <label style="margin-left:40px;"><input type="radio" class="styled-checkbox" name="is_prod" id="is_prod_dev" value="0"> Pruebas </label>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4 col-12 text-center">
+                                    <p> &nbsp; </p>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Quickbooks Habilitado </strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <br />
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            Visita <a href="https://intuit.com/"> Intuit.com </a> para mas informacion sobre la configuracion del Api
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+            </section>
+
+
+
+        </form>
+    </div><!-- /.container-fluid -->
+
+
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

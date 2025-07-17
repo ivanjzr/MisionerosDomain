@@ -1,0 +1,365 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//dd($user_info);
+
+// 
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+    
+    <style>
+        .calendar-sidebar {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .calendar-main {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            padding: 1rem;
+        }
+        
+        .status-legend {
+            display: flex;
+            margin-top: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            background: #f8f9fa;
+            border-radius: 0.25rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .status-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+        
+        .calendar-controls {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-group .btn {
+            border-radius: 0.375rem;
+        }
+        
+        #calendar {
+            min-height: 600px;
+        }
+        
+        .form-select-sm {
+            border-radius: 0.375rem;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .sidebar-section h6 {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+    </style>    
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@5.11.3/main.min.js"></script>
+    <script src="/adm/plugins/fullcalendar/locales/es-us.js"></script>
+EOF;
+
+//
+$App::$footer_section_scripts = <<<EOF
+    <script src="/app/appointments/index.js?v=$js_files_version"></script>
+EOF;
+
+
+//
+$app_id = $user_info['app_id'];
+
+//
+if ($app_id==APP_ID_BARBERDESK){
+    $section_title_name = "peluqueros";
+} else {
+    $section_title_name = "consultorios";
+}
+
+
+//
+$App::setSectionInfo("Citas", "appointments", "citas");
+
+
+    //
+    function getMenusList($sub_sections) {
+        $config_menus = [];        
+        if ($sub_sections) {
+            foreach ($sub_sections as $sub) {
+                if ($sub['is_menu_expandible']){
+                    $config_menus[] = [
+                        'name' => $sub['nombre'],
+                        'url' => '/admin/' . str_replace('.', '/', $sub['model_name']) . '/index',
+                        'icon' => $sub['fa_icon']
+                    ];
+                }
+                
+            }
+        }
+        return $config_menus;
+    }
+    //
+    function getIndividualMenus($sub_sections) {
+        $config_menus = [];
+        if ($sub_sections) {
+            foreach ($sub_sections as $sub) {
+                if (!$sub['is_menu_expandible']){
+                    $config_menus[] = [
+                        'name' => $sub['nombre'],
+                        'url' => '/admin/' . str_replace('.', '/', $sub['model_name']) . '/index',
+                        'icon' => $sub['fa_icon']
+                    ];
+                }
+                
+            }
+        }
+        return $config_menus;
+    }
+
+    
+    //dd($user_info);
+    $menus_list = [];
+    $individual_menus = [];
+    //
+    if (isset($user_info['sub_menus']) && is_array($user_info['sub_menus'])){
+        $menus_list = getMenusList($user_info['sub_menus']);
+        $individual_menus = getIndividualMenus($user_info['sub_menus']);
+    }
+    //dd($menus_list);
+       
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header-login.phtml'; ?>
+
+
+
+    <!-- Secondary Navigation -->
+    <div class="bg-light py-3">
+        <div class="container-fluid">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <a href="/admin">
+                                <img src="/logos<?=$user_info['logo_path'];?>" 
+                                    alt="<?=$user_info['app_name'];?>" 
+                                    style="height: 40px; width: auto;">
+                            </a>
+                        </div>
+                        <!-- Left: Breadcrumb & Title -->
+                        <div class="col">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-2">
+                                    <li class="breadcrumb-item">
+                                        <a href="/admin/home" class="text-decoration-none">
+                                            <i class="fas fa-home me-1"></i>Home
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <?= $App::getSectionTitle(); ?>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+
+                        <div class="col-md-4">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                                Calendario - <span id="calendar-title"></span>
+                            </h4>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <div class="btn-group" role="group">
+                                <button id="prev-btn" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button id="today-btn" class="btn btn-primary btn-sm">Hoy</button>
+                                <button id="next-btn" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Right: Config Menu -->
+                        <div class="col-md-4 col-12 text-md-end">
+
+                            <?php if (count($individual_menus) > 0): ?>
+                                <?php foreach ($individual_menus as $menu): ?>
+
+                                <a class="btn btn-primary" href="<?= $menu['url']; ?>">
+                                    <i class="fas <?= $menu['icon']; ?> me-2"></i>
+                                    <?= $menu['name']; ?>
+                                </a>
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+
+                            <button type="button" class="btn btn-outline-secondary btnReload">
+                                <i class="fas fa-sync"></i>
+                            </button>
+
+                        
+                            <?php if (count($menus_list) > 0): ?>
+
+
+                                <div class="dropdown d-inline-block">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                            id="configDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-cog me-2"></i>
+                                        <span class="d-none d-sm-inline">Catalogos</span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="configDropdown">
+                                        <li>
+                                            <h6 class="dropdown-header">
+                                                <i class="fas <?= $user_info['current']['fa_icon']; ?> me-2"></i>
+                                                <?= $user_info['current']['nombre']; ?>
+                                            </h6>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <?php foreach ($menus_list as $menu): ?>
+                                            <li>
+                                                <a class="dropdown-item" href="<?= $menu['url']; ?>">
+                                                    <i class="fas <?= $menu['icon']; ?> me-2"></i>
+                                                    <?= $menu['name']; ?>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+
+                            <?php endif; ?>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Main Content -->
+<main class="container-fluid py-2 px-5">
+   
+
+    <!-- Calendar Section -->
+    <div class="row">
+        <!-- Calendar Main -->
+        <div class="col-lg-10">
+            <div class="calendar-main">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-2">
+            <div class="calendar-sidebar p-3">
+                
+                <!-- Mini Calendar -->
+                <div class="sidebar-section">
+                    <h6>
+                        <i class="fas fa-calendar me-2 text-muted"></i>
+                        Fecha
+                    </h6>
+                    <div id="calendar_date"></div>
+                </div>
+
+                <!-- Location Filter -->
+                <div class="sidebar-section">
+                    <h6>
+                        <i class="fas fa-map-marker-alt me-2 text-muted"></i>
+                        Sucursal
+                    </h6>
+                    <select id="filter_location" class="form-select form-select-sm" disabled></select>
+                </div>
+
+                <!-- View Options -->
+                <div class="sidebar-section">
+                    <h6>
+                        <i class="fas fa-eye me-2 text-muted"></i>
+                        Vista
+                    </h6>
+                    <div id="calendar_views" class="d-grid gap-1"></div>
+                </div>
+
+                <!-- Resource Filter -->
+                <div class="sidebar-section">
+                    <h6>
+                        <i class="fas fa-chair me-2 text-muted"></i>
+                        <?=ucFirst($section_title_name);?>
+                    </h6>
+                    <select id="filter_resource" class="form-select form-select-sm" disabled>
+                        <option>Todos los <?=$section_title_name;?></option>
+                    </select>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Legend -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="mb-0 fw-medium">
+                            <i class="fas fa-info-circle me-2 text-primary"></i>
+                            Leyenda de Estados
+                        </h6>
+                        <div class="status-legend" id="status_list">
+                            <!-- Status items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

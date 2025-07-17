@@ -1,0 +1,58 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+    <div class="row">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-12 display_pais_info" style="display:none;">
+            <label for="pais_id">Pais:</label><br />
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="pais_id" name="pais_id"></select>
+        </div>
+        <div class="col-sm-5 col-lg-5 col-md-5 col-12">
+            <label for="nombre">Nombre:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="nombre" id="nombre" placeholder="...">
+        </div>
+        <div class="col-sm-3 col-lg-3 col-md-3 col-12">
+            <label for="abreviado">Abreviado:</label>
+            <input data-rule-required="true" type="text" class="form-control" name="abreviado" id="abreviado" placeholder="...">
+        </div>
+    </div>
+
+
+
+    <br />
+
+
+    <div class="row controls-row hidden edit-mode-only">
+        <div class="col-12 text-right">
+            <hr />
+            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

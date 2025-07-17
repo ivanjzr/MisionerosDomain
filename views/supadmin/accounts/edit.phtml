@@ -1,0 +1,200 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+//var_dump($user_info); exit;
+
+
+
+//
+$App::$header_scrits = <<<EOF
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adm/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+EOF;
+
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    
+    <!-- DataTables  & Plugins -->
+    <script src="/adm/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adm/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/adm/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/adm/plugins/jszip/jszip.min.js"></script>
+    <script src="/adm/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/adm/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/adm/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+EOF;
+
+
+
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script>
+        var record_id = $record_id;
+    </script>
+    <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
+    <script src="/sup/accounts/edit.js?v=$js_files_version"></script>
+EOF;
+
+
+
+//
+$App::setSectionInfo("Accounts", "accounts");
+
+
+?>
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'header.phtml'; ?>
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'aside-menu.phtml'; ?>
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"><?=$App::getSectionTitle();?></li>
+                        </ol>
+
+
+                    </div><!-- /.col -->
+                    <div class="col-sm-6 text-right">
+
+                        <a href="/adm27/accounts/index" class="btn btn-flat btn-warning"><i class="fas fa-reply"></i> Back </a>
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header p-0 pt-1 border-bottom-0">
+                                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-detalles" data-toggle="pill" href="#detalles" role="tab" aria-controls="detalles" aria-selected="true">Info</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-three-tabContent">
+                                    <div class="tab-pane fade show active" id="detalles" role="tabpanel" aria-labelledby="tab-detalles">
+                                        <div class="overlay-wrapper">
+                                            <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+
+                                            <form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12">
+                                                        <h4>Detalles - <span class="section-title"></span></h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-lg-6 col-md-6 col-12 text-right">
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fa fa-save"></i> Save
+                                                        </button>
+                                                        <button type="button" class="btn btn-flat btn-default" id="btnReloadDetails"><i class="fas fa-sync"></i> </button>
+                                                    </div>
+                                                </div>
+
+
+                                                <hr />
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="company_name">Empresa:</label>
+                                                            <input data-rule-required="true" type="text" class="form-control" name="company_name" id="company_name" placeholder="nombre...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="contact_name">Contacto:</label>
+                                                            <input data-rule-required="true" type="text" class="form-control" name="contact_name" id="contact_name" placeholder="nombre...">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-6 col-12 text-center">
+                                                        <br />
+                                                        <br />
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" class="styled-checkbox" id="active" name="active"> <strong> Habilitado </strong>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="notes">Notas:</label>
+                                                            <textarea data-rule-maxlength="512" type="text" class="form-control" name="notes" id="notes" placeholder=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-custom-content">
+                                    <div class="row controls-row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <small>folio: <strong id="registro_folio"></strong>, fecha creacion: <strong id="registro_fecha_creacion"></strong></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+
+
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+
+
+    </div><!-- /.container-fluid -->
+
+
+
+<?php include PATH_VIEWS_SUPADMIN.DS.'common'.DS.'footer.phtml'; ?>

@@ -1,0 +1,198 @@
+<?php
+
+//
+include PATH_BASE.DS.'js_versioning.phtml';
+//
+$user_info = $App::GetUserData();
+
+//echo $admin_title; exit;
+//dd($user_info);
+//unset($_SESSION['admin']['ses']); exit;
+
+
+
+// 
+$App::$header_scrits = <<<EOF
+    <link rel="stylesheet" href="/adm/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/adm/plugins/select2/css/select2.min.css">
+    
+    <style>
+       
+    </style>    
+EOF;
+
+//
+$App::$footer_scripts = <<<EOF
+    <script src="/adm/plugins/jquery-form/jquery.form.min.js"></script>
+    <script src="/adm/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="/adm/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/adm/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/adm/plugins/select2/js/i18n/es.js"></script>
+    <script src="/adm/js/s2-extended.js"></script>
+EOF;
+
+///
+$App::$footer_section_scripts = <<<EOF
+    <script src="/app/pos/index.js?v=$js_files_version"></script>
+EOF;
+
+//
+$App::setSectionInfo("Punto de Venta", "pos");
+
+    //dd($user_info);
+
+    //
+    function getMenusList($sub_sections) {
+        $config_menus = [];        
+        if ($sub_sections) {
+            foreach ($sub_sections as $sub) {
+                if ($sub['is_menu_expandible']){
+                    $config_menus[] = [
+                        'name' => $sub['nombre'],
+                        'url' => '/admin/' . str_replace('.', '/', $sub['model_name']) . '/index',
+                        'icon' => $sub['fa_icon']
+                    ];
+                }
+                
+            }
+        }
+        return $config_menus;
+    }
+    //
+    function getIndividualMenus($sub_sections) {
+        $config_menus = [];
+        if ($sub_sections) {
+            foreach ($sub_sections as $sub) {
+                if (!$sub['is_menu_expandible']){
+                    $config_menus[] = [
+                        'name' => $sub['nombre'],
+                        'url' => '/admin/' . str_replace('.', '/', $sub['model_name']) . '/index',
+                        'icon' => $sub['fa_icon']
+                    ];
+                }
+                
+            }
+        }
+        return $config_menus;
+    }
+
+    //dd($user_info);
+    $menus_list = [];
+    $individual_menus = [];
+    //
+    if (isset($user_info['sub_menus']) && is_array($user_info['sub_menus'])){
+        $menus_list = getMenusList($user_info['sub_menus']);
+        $individual_menus = getIndividualMenus($user_info['sub_menus']);
+    }
+    //dd($menus_list);
+       
+
+
+?>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'header-login.phtml'; ?>
+
+
+
+    <!-- Header & Navigation -->
+    <div class="bg-light py-3">
+        <div class="container-fluid">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">                    
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+
+                            <div class="d-flex align-items-center">
+                                <a href="/admin/home" class="me-3">
+                                    <img src="/logos<?=$user_info['logo_path'];?>" 
+                                        alt="<?=$user_info['app_name'];?>" 
+                                        style="height: 40px; width: auto;">
+                                </a>
+                                <h4 class="mb-0 fw-bold">
+                                    <i class="fas fa-cash-register me-2 text-primary"></i>
+                                    <?=$user_info['sucursal']?>
+                                </h4>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4 text-center">
+                            
+                            <!-- -->
+                        
+                        </div>
+                        <!-- Right: Config Menu -->
+                        <div class="col-md-4 col-12 text-md-end">
+
+                            <?php if (count($individual_menus) > 0): ?>
+                                <?php foreach ($individual_menus as $menu): ?>
+                                <a class="btn btn-primary" href="<?= $menu['url']; ?>">
+                                    <i class="fas <?= $menu['icon']; ?> me-2"></i>
+                                    <?= $menu['name']; ?>
+                                </a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                        id="configDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-list me-2"></i>
+                                    <span class="d-none d-sm-inline">Catalogos</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="configDropdown">
+                                    <?php foreach ($menus_list as $menu): ?>
+                                        <li>
+                                            <a class="dropdown-item" href="<?= $menu['url']; ?>">
+                                                <i class="fas <?= $menu['icon']; ?> me-2"></i>
+                                                <?= $menu['name']; ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>                                        
+                                </ul>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-secondary btnReload">
+                                <i class="fas fa-sync"></i>
+                            </button>
+
+                            <div class="dropdown d-inline-block">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                        id="configDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-cog me-2"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="configDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/admin/user/select-sucursal">
+                                            <i class="fas fa-exchange-alt me-1"></i>
+                                            Cambiar Sucursal
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item btnLogout" href="#!" data-type="admin">
+                                            <i class="fas fa-sign-out-alt me-1"></i>
+                                            Cerrar Sesion
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Main Content -->
+    <main class="container-fluid py-2 px-5">
+
+        <!-- listado de pos disponibles -->
+        <div class="row" id="pos_list"></div>
+
+    </main>
+
+<?php include PATH_VIEWS_ADMIN.DS.'common'.DS.'footer.phtml'; ?>

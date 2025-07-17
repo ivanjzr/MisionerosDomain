@@ -1,0 +1,51 @@
+<form method="post" id="form_section" name="form_section" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+
+            <button type="submit" class="btn btn-success btn-right-margin btnAdd2"></button>
+
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+    <div id="alerts-container-2"></div>
+
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-12">
+            <label for="tipo_salida_id">Tipo Salida:</label>
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="tipo_salida_id" name="tipo_salida_id"></select>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-12">
+            <label for="new_cantidad">Cantidad (a restar):</label>
+            <input type="text" data-rule-required="true" data-rule-number="true" class="form-control" name="new_cantidad" id="new_cantidad" placeholder="0">
+        </div>
+    </div>
+
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-12 col-md-12 col-12">
+            <label for="notes">Notas:</label>
+            <textarea class="form-control" name="notes" id="notes" placeholder="Notas..."></textarea>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</form>

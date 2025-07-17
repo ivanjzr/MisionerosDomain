@@ -1,0 +1,126 @@
+<div class="overlay-2 section-preloader" style="display:none;">
+    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+</div>
+
+
+<form method="post" id="form_send" name="form_send" enctype="multipart/form-data">
+
+
+    <div class="row">
+        <div class="col-sm-6 col-12">
+            <h4 id="modal-title-2" style="margin:0;padding:0;"></h4>
+        </div>
+        <div class="col-sm-6 col-12 text-right">
+            <a href="#" class="btn btn-default" data-bs-dismiss="modal">
+                <span class="fa fa-times"></span>
+                Salir
+            </a>
+
+        </div>
+    </div>
+    <hr style="margin-top:8px;" />
+
+
+
+
+    <div class="row mt-2 mb-4">
+        <div class="col-6 text-center">
+            <label>Tipo de venta</label><br />
+            <label><input type="radio" class="styled-checkbox" name="tipo_cliente" id="tc_ciente" value="1"> Cliente </label>
+            &emsp;<label><input type="radio" class="styled-checkbox" name="tipo_cliente" id="tc_seller" value="2"> Vendedor </label>
+            &emsp;<label><input type="radio" class="styled-checkbox" name="tipo_cliente" id="tc_new" value="0"> Gral </label>
+        </div>
+        <div class="col-6">
+            <div id="search_customer_container" style="border-radius:25px;padding:15px;">
+                <label for="customer_id" id="search_type_title">Buscar Cliente</label>
+                <select class="form-control inpt-search" data-rule-required="true" data-msg-required="has tu busqueda aqui" data-rule-number="true" id="customer_id" name="customer_id"></select>
+            </div>
+        </div>
+    </div>
+
+
+    <hr />
+
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-7 col-12">
+            <label for="customer_name">Nombre:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="customer_name" name="customer_name">
+            <input type="hidden" class="customer_id" name="customer_id">
+            <small class="uc-first customer_id"></small>
+        </div>
+        <div class="col-md-5 col-12">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="email" name="email">
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-4 col-12">
+            <label for="phone_country_id">Tel Pais:</label>
+            <select data-rule-required="true" data-rule-number="true" class="form-control" id="phone_country_id" name="phone_country_id"  disabled></select>
+        </div>
+        <div class="col-md-8 col-12">
+            <label for="phone_number">Telefono:</label>
+            <input type="text" class="form-control" data-rule-required="true" id="phone_number" name="phone_number">
+        </div>
+    </div>
+
+    
+
+    <div class="row mt-2 mb-4">
+        <div class="col-12 text-center">
+            <label>Metodo de Pago:</label>
+            <br />
+            <label id="efectivo_container" style="display:none;"><input type="radio" data-rule-required="true" data-msg-required="se requiere el metodo de pago" class="styled-checkbox" name="metodo_pago" id="metodo_pago_efectivo" value="cash"> Efectivo </label>
+            &emsp;<label><input type="radio" data-rule-required="true" data-msg-required="se requiere el metodo de pago" class="styled-checkbox" name="metodo_pago" id="metodo_pago_tarjeta" value="square_card"> Tarjeta </label>
+            &emsp;<label id="a_credito_container" style="display:none;"><input type="radio" data-rule-required="true" data-msg-required="se requiere el metodo de pago" class="styled-checkbox" name="metodo_pago" id="metodo_pago_credito" value="credit"> A Credito </label>
+        </div>
+    </div>
+
+    <hr />
+
+    <div id="square_card_container" style="display:none;">
+   
+        <div class="row mt-2">
+            <div class="col-4">
+                <label for="card-element">
+                    Pay with Credit or debit card <span class="fa fa-credit-card"></span>
+                </label>
+            </div>
+            <div class="col-6 text-center text-md-right text-md-end">
+                <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with ssl certificate </span>
+            </div>
+        </div>
+
+        <div id="card-container"></div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-6">
+            <label for="total_amount2">Total:</label>
+            <input type="text" class="form-control" id="total_amount2" readonly>
+        </div>
+        <div class="col-6 text-right">
+            <input type="hidden" name="test">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn_submit" id="card-button"><span class="fa fa-check"></span> Pagar </button>
+        </div>
+    </div>
+
+
+</form>
+<div id="payment-status-container"></div>
+
+
+
+
+
+
+   
+    
+
+

@@ -1,0 +1,226 @@
+<?php
+use App\Users\UsersSucursales;
+use App\Users\UsersSucursalesPermisos;
+
+
+// Función para generar URL desde model_name
+function generateMenuUrl($model_name) {
+    if (empty($model_name)) {
+        return '#';
+    }
+    
+    // Convertir puntos a diagonales
+    $path = str_replace('.', '/', $model_name);
+    
+    // Construir URL completa
+    return '/admin/' . $path . '/index';
+}
+
+
+// Get user permissions and menus
+$user_sucursal = UsersSucursales::GetSucursalPermisos($user_info['account_id'], $user_info['id'], $user_info['sucursal_id']);
+//dd($user_sucursal);
+//dd($user_info);
+
+$arr_menus = [];
+
+// Si es admin o el user es tipo admin, no straemos los menus
+if ( (isset($user_info['is_admin']) && $user_info['is_admin']) || (isset($user_sucursal['tipos_permisos']) && $user_sucursal['tipos_permisos'] === TIPO_PERMISO_ID_TODOS) ) {
+    //echo "es admin"; exit;
+    $arr_menus = UsersSucursalesPermisos::GetAdminMenus($user_info['account_id']);
+} else {
+    //echo "es normal"; exit;
+    $arr_menus = UsersSucursalesPermisos::GetUserMenus($user_info['account_id'], $user_info['sucursal_id'], $user_info['id']);
+
+}
+//dd($arr_menus);
+?>
+
+
+<!-- Sidebar for Desktop / Offcanvas for Mobile -->
+<div class="sidebar-container d-lg-block d-none" id="sidebar-desktop">
+    <!-- Contenido del sidebar sin header de offcanvas -->
+    <div class="sidebar-body">
+        
+        
+        <!-- User Panel -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <?php if (isset($user_info['image_url']) && $user_info['image_url']) { ?>
+                        <img src="<?=$user_info['image_url'];?>" class="rounded-circle" width="40" height="40" alt="User">
+                    <?php } else { ?>
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div>
+                    <div class="fw-bold"><?= $user_info['nombre'] ;?></div>
+                    <?php if ($user_info['is_admin']) { ?>
+                        <small class="badge bg-primary">Admin</small>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="p-2">
+            <?php
+            // Render menus
+            foreach($arr_menus as $menu) {
+                //dd($menu);
+                if ( $menu['todos'] || $menu['leer'] ) {
+                    
+                    // Verificar si tiene is_menu_expandible Y children para mostrar submenu
+                    if (isset($menu['is_menu_expandible']) && $menu['is_menu_expandible'] && is_array($menu['children'])) {
+                        // Menu with submenu
+                        $isOpen = $App::isMenuOpen($menu['clave']) ? 'show' : '';
+                        ?>
+                        <div class="mb-1">
+                            <button class="btn btn-light w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#menu-<?=$menu['clave'];?>" data-key="<?=$menu['clave'];?>">
+                                <span>
+                                    <i class="fas <?=$menu['fa_icon'];?> me-2"></i>
+                                    <?=$menu['nombre'];?>
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isOpen;?>" id="menu-<?=$menu['clave'];?>">
+                                <div class="ms-4 mt-1">
+                                    <?php
+                                    foreach($menu['children'] as $sub_menu) {
+                                        if ( $sub_menu['todos'] || $sub_menu['leer'] ) {
+                                            $isActive = $App::isMenuActive($sub_menu['clave']) ? 'active' : '';
+                                            ?>
+                                            <a href="<?=generateMenuUrl($sub_menu['model_name']);?>" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$isActive;?>" data-key="<?=$sub_menu['clave'];?>">
+                                                <i class="fas <?=$sub_menu['fa_icon'];?> me-2"></i>
+                                                <?=$sub_menu['nombre'];?>
+                                            </a>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    } else {
+                        // Single menu item (sin submenu o is_menu_expandible = false)
+                        $isActive = $App::isMenuActive($menu['clave']) ? 'btn-primary' : 'btn-light';
+                        ?>
+                        <div class="mb-1">
+                            <a href="<?=generateMenuUrl($menu['model_name']);?>" class="btn <?=$isActive;?> w-100 text-start" data-key="<?=$menu['clave'];?>">
+                                <i class="fas <?=$menu['fa_icon'];?> me-2"></i>
+                                <?=$menu['nombre'];?>
+                            </a>
+                        </div>
+                        <?php
+                    }
+                }
+            }
+            ?>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Mobile Offcanvas -->
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="sidebar-mobile" style="width: 280px;">
+    
+
+<div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title">Menú</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+
+
+    
+    <div class="offcanvas-body p-0">
+        
+    
+        
+        <!-- User Panel -->
+        <div class="p-3 border-bottom bg-light">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <?php if (isset($user_info['image_url']) && $user_info['image_url']) { ?>
+                        <img src="<?=$user_info['image_url'];?>" class="rounded-circle" width="40" height="40" alt="User">
+                    <?php } else { ?>
+                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div>
+                    <div class="fw-bold"><?= $user_info['nombre'] ;?></div>
+                    <?php if ($user_info['is_admin']) { ?>
+                        <small class="badge bg-primary">Admin</small>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="p-2">
+            <?php
+
+            // Render menus
+            foreach($arr_menus as $menu) {
+                if ( $menu['todos'] || $menu['leer'] ) {
+                    if ( is_array($menu['children']) ) {
+                        // Menu with submenu
+                        $isOpen = $App::isMenuOpen($menu['clave']) ? 'show' : '';
+                        ?>
+                        <div class="mb-1">
+                            <button class="btn btn-light w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#menu-<?=$menu['clave'];?>">
+                                <span>
+                                    <i class="fas <?=$menu['fa_icon'];?> me-2"></i>
+                                    <?=$menu['nombre'];?>
+                                </span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapse <?=$isOpen;?>" id="menu-<?=$menu['clave'];?>">
+                                <div class="ms-4 mt-1">
+                                    <?php
+                                    foreach($menu['children'] as $sub_menu) {
+                                        if ( $sub_menu['todos'] || $sub_menu['leer'] ) {
+                                            $isActive = $App::isMenuActive($sub_menu['clave']) ? 'active' : '';
+                                            ?>
+                                            <a href="<?=$sub_menu['url'];?>" class="btn btn-sm btn-outline-secondary w-100 text-start mb-1 <?=$isActive;?>" >
+                                                <i class="fas <?=$sub_menu['fa_icon'];?> me-2"></i>
+                                                <?=$sub_menu['nombre'];?>
+                                            </a>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    } else {
+                        // Single menu item
+                        $isActive = $App::isMenuActive($menu['clave']) ? 'btn-primary' : 'btn-light';
+                        ?>
+                        <div class="mb-1">
+                            <a href="<?=$menu['url'];?>" class="btn <?=$isActive;?> w-100 text-start" >
+                                <i class="fas <?=$menu['fa_icon'];?> me-2"></i>
+                                <?=$menu['nombre'];?>
+                            </a>
+                        </div>
+                        <?php
+                    }
+                }
+            }
+            ?>
+        </div>
+
+        
+    </div>
+</div>
+
+
+
