@@ -44,7 +44,7 @@ EOF;
 ///
 $App::$footer_section_scripts = <<<EOF
     <script src="/adm/js/sections-handler.js?v=$js_files_version"></script>
-    <script src="/app/departments/index.js?v=$js_files_version"></script>
+    <script src="/app/settings/departments/index.js?v=$js_files_version"></script>
 EOF;
 
 
@@ -62,8 +62,10 @@ $App::setSectionInfo("Departments", "departments", "settings");
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header mt-5">
+
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
